@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dinner Table Conversations • Orthodox & Catholic</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Georgia', serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0a0e27 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+    .header {
+      background: linear-gradient(to right, #0f172a, #1e293b);
+      border-bottom: 2px solid #b45309;
+      padding: 1.25rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .header h1 { font-size: 2rem; color: #fcd34d; margin-bottom: 0.25rem; font-weight: bold; }
+    .header p { color: #cbd5e1; font-size: 0.9rem; }
+
+    .nav-tabs { display: flex; gap: 0.5rem; overflow-x: auto; padding: 0.75rem 0 0.25rem; margin-top: 0.5rem; flex-wrap: wrap; }
+    .nav-tab {
+      padding: 0.5rem 1rem;
+      background: #334155;
+      color: #cbd5e1;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .nav-tab:hover { background: #475569; }
+    .nav-tab.active { background: #b45309; color: #0f172a; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+
+    .content-section { display: none; }
+    .content-section.active { display: block; animation: fadeIn 0.25s; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+
+    .card {
+      background: #1e293b;
+      border: 2px solid #b45309;
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .card:hover { border-color: #d97706; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(180, 83, 9, 0.2); }
+
+    .card-text { color: #cbd5e1; font-size: 0.95rem; margin-top: 0.75rem; line-height: 1.6; }
+    .card-subtitle { color: #b45309; font-size: 0.85rem; margin-top: 0.5rem; }
+
+    .search-box, .filter-select {
+      padding: 0.75rem 1rem;
+      background: #0f172a;
+      border: 2px solid #b45309;
+      border-radius: 0.5rem;
+      color: #fcd34d;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .search-box::placeholder { color: #92400e; }
+    .search-box:focus, .filter-select:focus { outline: none; border-color: #d97706; background: #1e293b; }
+
+    .filter-select { display: inline-block; width: auto; margin-right: 0.75rem; }
+    .filter-select option { background: #0f172a; color: #fcd34d; }
+
+    .speaker-icon { display: inline-block; width: 30px; height: 30px; border-radius: 50%; text-align: center; line-height: 30px; margin-right: 0.5rem; font-size: 1.35rem; }
+    .catholic { background: #92400e; }
+    .orthodox { background: #1e40af; }
+
+    .speech { color: #cbd5e1; line-height: 1.7; font-style: italic; background: #0f172a; padding: 1rem; border-left: 3px solid #d97706; margin: 0.75rem 0; border-radius: 0.25rem; }
+
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: bold; margin-right: 0.5rem; margin-bottom: 0.5rem; }
+    .badge-catholic { background: #92400e; color: #fef3c7; }
+    .badge-orthodox { background: #1e40af; color: #bfdbfe; }
+    .badge-both { background: #6b21a8; color: #e9d5ff; }
+    .badge-topic { background: #0b3b60; color: #bfdbfe; }
+
+    .footer { border-top: 2px solid #b45309; padding: 1.5rem; text-align: center; color: #b45309; font-size: 0.9rem; margin-top: 2rem; }
+
+    .context-box { background: #064e3b; border-left: 4px solid #10b981; padding: 1rem; margin-bottom: 1.25rem; border-radius: 0.25rem; }
+    .context-label { color: #86efac; font-weight: bold; font-size: 0.9rem; }
+
+    .shared-box { background: #064e3b; border-left: 4px solid #10b981; padding: 1rem; margin-top: 1rem; border-radius: 0.25rem; }
+    .shared-label { color: #86efac; font-weight: bold; font-size: 0.85rem; margin-bottom: 0.5rem; }
+
+    .ritual-card { background: #1e293b; border: 1px solid #b45309; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; cursor: pointer; transition: all 0.2s; }
+    .ritual-card:hover { border-color: #d97706; background: #0a0e27; }
+    .ritual-name { color: #fcd34d; font-weight: bold; font-size: 1rem; }
+    .ritual-desc { color: #cbd5e1; margin-top: 0.5rem; font-size: 0.9rem; line-height: 1.55; }
+
+    .comparison-container { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 1rem 0; }
+    .comparison-box { background: #1e293b; border: 1px solid #b45309; border-radius: 0.5rem; padding: 1rem; }
+    .comparison-title { color: #f59e0b; font-weight: bold; margin-bottom: 0.75rem; }
+    .comparison-content { color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; }
+
+    .proto-note { background: #064e3b; border-left: 4px solid #10b981; padding: 0.75rem; margin-bottom: 1rem; border-radius: 0.25rem; color: #86efac; font-size: 0.85rem; }
+
+    .fun-fact { background: #1e40af; border-left: 4px solid #60a5fa; padding: 1rem; margin: 1rem 0; border-radius: 0.25rem; color: #bfdbfe; }
+    .fun-fact-title { font-weight: bold; margin-bottom: 0.5rem; }
+
+    .kid-friendly { background: #92400e; border-left: 4px solid #fbbf24; padding: 1rem; margin: 1rem 0; border-radius: 0.25rem; color: #fef3c7; }
+    .kid-friendly-title { font-weight: bold; margin-bottom: 0.5rem; }
+
+    .story-box { background: #0a0e27; border-left: 4px solid #10b981; padding: 1rem; margin: 1rem 0; border-radius: 0.25rem; }
+    .story-title { color: #86efac; font-weight: bold; margin-bottom: 0.5rem; }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 50;
+      justify-content: center;
+      align-items: center;
+      overflow-y: auto;
+      padding: 1.25rem;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: #0f172a;
+      border: 2px solid #b45309;
+      border-radius: 0.75rem;
+      padding: 1.75rem;
+      max-width: 960px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      margin: auto;
+    }
+    .modal-close { position: absolute; top: 0.75rem; right: 0.75rem; background: none; border: none; color: #b45309; font-size: 1.6rem; cursor: pointer; }
+    .modal-close:hover { color: #d97706; }
+    .modal h2 { color: #fcd34d; margin-bottom: 0.75rem; font-size: 1.5rem; font-weight: 800; }
+    .modal h3 { color: #f59e0b; margin-top: 1.25rem; margin-bottom: 0.6rem; font-size: 1.2rem; font-weight: 700; }
+    .modal h4 { color: #d97706; margin-top: 0.9rem; margin-bottom: 0.4rem; font-size: 1rem; font-weight: 700; }
+    .modal p { color: #cbd5e1; margin-bottom: 0.75rem; line-height: 1.7; }
+    .modal-label { color: #f59e0b; font-weight: 700; margin-top: 0.75rem; margin-bottom: 0.25rem; }
+
+    .btn {
+      background: #b45309;
+      color: #0f172a;
+      border: none;
+      padding: 0.65rem 1rem;
+      border-radius: 0.65rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn:hover { background: #d97706; transform: translateY(-1px); }
+    .btn.secondary { background: #334155; color: #e2e8f0; font-weight: 700; }
+    .btn.secondary:hover { background: #475569; }
+
+    .tiny { font-size: 0.85rem; color: #cbd5e1; opacity: 0.95; }
+
+    @media (max-width: 768px) {
+      .comparison-container { grid-template-columns: 1fr; }
+      .header h1 { font-size: 1.6rem; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🍽️ Dinner Table Conversations</h1>
+    <p>Orthodox & Catholic Christians in deep dialogue over shared meals — respectful, lively, and real.</p>
+
+    <div class="nav-tabs" role="tablist" aria-label="Navigation">
+      <button class="nav-tab active" onclick="switchTab(event, 'home')">Home</button>
+      <button class="nav-tab" onclick="switchTab(event, 'dinner')">Dinner Tool</button>
+      <button class="nav-tab" onclick="switchTab(event, 'conversations')">Conversations</button>
+      <button class="nav-tab" onclick="switchTab(event, 'commandments')">10 Commandments</button>
+      <button class="nav-tab" onclick="switchTab(event, 'rituals')">Rituals & Signs</button>
+      <button class="nav-tab" onclick="switchTab(event, 'practices')">Church Practices</button>
+      <button class="nav-tab" onclick="switchTab(event, 'saints')">Saints</button>
+      <button class="nav-tab" onclick="switchTab(event, 'foundations')">Core Differences</button>
+      <button class="nav-tab" onclick="switchTab(event, 'theology')">Theology Deep Dives</button>
+      <button class="nav-tab" onclick="switchTab(event, 'history')">History</button>
+      <button class="nav-tab" onclick="switchTab(event, 'prayers')">Prayers</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- HOME TAB -->
+    <section id="home" class="content-section active" role="tabpanel">
+      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">Welcome to the Table</h2>
+      <div class="context-box">
+        <div class="context-label">📖 About This App</div>
+        <p style="color:#cbd5e1; margin-top:0.5rem;">This app helps Christians have better dinner conversations—curious, warm, and truthful. Explore what divides Orthodox and Catholic traditions, what unites them, and why practices matter. Use the <strong>Dinner Tool</strong> to get conversation prompts, keep the tone charitable, and end the meal with a prayer of unity.</p>
+      </div>
+
+      <div class="grid">
+        <div class="card" onclick="switchTab(null,'dinner');" role="button" aria-label="Open Dinner Tool">
+          <h3 style="color:#f59e0b; font-weight:800;">🎲 Dinner Tool</h3>
+          <p class="card-text">Generate lively questions, pick a vibe (gentle or spicy), and keep conversations respectful.</p>
+          <p class="card-subtitle">New: prompt decks, house rules, “bridge phrases,” and Deep Dive mode.</p>
+        </div>
+        <div class="card" onclick="switchTab(null,'conversations');" role="button" aria-label="Open Conversations">
+          <h3 style="color:#f59e0b; font-weight:800;">🗣️ Real Conversations</h3>
+          <p class="card-text">Read dialogue scenes you can borrow at the table. Each is short, relatable, and actually useful.</p>
+          <p class="card-subtitle">Tap any card to open the full scene.</p>
+        </div>
+        <div class="card" onclick="switchTab(null,'rituals');" role="button" aria-label="Open Rituals">
+          <h3 style="color:#f59e0b; font-weight:800;">✝️ Rituals & Signs</h3>
+          <p class="card-text">The sign of the cross, icons, incense, holy water—what each means, and why it differs.</p>
+        </div>
+        <div class="card" onclick="switchTab(null,'saints');" role="button" aria-label="Open Saints">
+          <h3 style="color:#f59e0b; font-weight:800;">✨ Saints Who Inspire</h3>
+          <p class="card-text">Stories with a kid-friendly version, plus a fun fact for the grown-ups.</p>
+        </div>
+      </div>
+
+      <div class="proto-note">Tip: Start with a shared truth, ask a real question, and don’t try to “win.” The goal is love + clarity.</div>
+    </section>
+
+    <!-- DINNER TOOL TAB -->
+    <section id="dinner" class="content-section" role="tabpanel">
+      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">🎲 Dinner Conversation Tool</h2>
+
+      <div class="context-box">
+        <div class="context-label">🍷 How to Use This</div>
+        <p style="color:#cbd5e1; margin-top:0.5rem;">Choose a <strong>topic</strong>, a <strong>vibe</strong>, and whether kids are present. Press <strong>Deal a Card</strong> to get a question + a “bridge phrase” that keeps it charitable. If things get tense, hit <strong>De-escalate</strong>. Use <strong>Deep Dive mode</strong> when you want the “level 2” meaning.</p>
+      </div>
+
+      <details style="margin-bottom:1rem;" class="shared-box">
+        <summary style="cursor:pointer; color:#e2e8f0; font-weight:800;">🗓️ 1st Millennium → Schism → Modern Healing (quick timeline)</summary>
+        <div style="color:#cbd5e1; margin-top:0.5rem; line-height:1.65;">
+          <ul style="padding-left:1.25rem; list-style:disc;">
+            <li><strong>1st–8th c.</strong> Shared core faith (Creed, sacraments, apostolic succession) with diverse liturgies and customs.</li>
+            <li><strong>9th–11th c.</strong> Tensions rise (language, politics, jurisdiction, missions, Creed wording debates).</li>
+            <li><strong>1054</strong> Mutual excommunications (a symbol of a long, gradual rupture rather than a single “instant split”).</li>
+            <li><strong>1204</strong> Fourth Crusade sack of Constantinople (deep wound; trust collapses).</li>
+            <li><strong>1274 / 1439</strong> Reunion attempts (Lyons, Florence) with mixed reception and heavy political pressure.</li>
+            <li><strong>1965</strong> Excommunications lifted by Pope Paul VI & Patriarch Athenagoras (charity re-opened the door).</li>
+            <li><strong>Today</strong> Dialogue continues (primacy/synodality, authority processes, shared witness).</li>
+          </ul>
+          <p style="margin-top:0.75rem;"><strong>Table rule:</strong> We don’t reenact old wounds — we practice charity now.</p>
+        </div>
+      </details>
+
+      <div style="display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; margin-bottom:0.75rem;">
+        <select id="dTopic" class="filter-select" onchange="updateDinnerStats()">
+          <option value="Any">Any Topic</option>
+          <option value="Authority">Authority</option>
+          <option value="Mary">Mary</option>
+          <option value="Eucharist">Eucharist</option>
+          <option value="Lent">Lent</option>
+          <option value="Prayer">Prayer</option>
+          <option value="Icons">Icons</option>
+          <option value="History">History</option>
+          <option value="DailyLife">Daily Life</option>
+          <option value="Deep Theology">Deep Theology (Level 2)</option>
+        </select>
+
+        <select id="dVibe" class="filter-select" onchange="updateDinnerStats()">
+          <option value="Gentle">Gentle (curious)</option>
+          <option value="Lively">Lively (honest)</option>
+          <option value="Spicy">Spicy (respectful debate)</option>
+        </select>
+
+        <select id="dKids" class="filter-select" onchange="updateDinnerStats()">
+          <option value="No">Adults only</option>
+          <option value="Yes">Kids present</option>
+        </select>
+
+        <button class="btn" onclick="dealDinnerCard()">🎴 Deal a Card</button>
+        <button class="btn secondary" onclick="deescalate()">🧊 De-escalate</button>
+        <button class="btn secondary" onclick="endWithPrayer()">🙏 End with Prayer</button>
+
+        <label class="badge" style="display:inline-flex; gap:0.5rem; align-items:center; background:#0b1220; border:1px solid rgba(148,163,184,0.25);">
+          <input id="deepDiveToggle" type="checkbox" style="width:16px; height:16px; accent-color:#38bdf8;" />
+          Deep Dive mode
+        </label>
+      </div>
+
+      <div class="tiny" id="dStats"></div>
+
+      <div class="card" style="cursor:default;" aria-live="polite">
+        <h3 style="color:#f59e0b; font-weight:800;">Your Dinner Card</h3>
+        <div id="dCard" class="card-text" style="margin-top:0.75rem;">Press <strong>Deal a Card</strong> to begin.</div>
+
+        <div id="dBridge" class="shared-box" style="display:none;">
+          <div class="shared-label">Bridge Phrase (keeps it charitable)</div>
+          <p style="color:#cbd5e1; margin-top:0.25rem;" id="dBridgeText"></p>
+        </div>
+
+        <div id="dFollow" class="fun-fact" style="display:none;">
+          <div class="fun-fact-title">Follow-up (if the room is open)</div>
+          <p style="color:#bfdbfe; margin-top:0.25rem;" id="dFollowText"></p>
+        </div>
+
+        <div id="dAnswer" class="shared-box" style="display:none;">
+          <div class="shared-label">Answer / Why it matters</div>
+          <p style="color:#cbd5e1; margin-top:0.25rem;" id="dAnswerText"></p>
+        </div>
+
+        <div id="dDeep" class="shared-box" style="display:none;">
+          <div class="shared-label">Deep Dive (optional)</div>
+          <div style="color:#cbd5e1; margin-top:0.25rem; line-height:1.7;" id="dDeepText"></div>
+        </div>
+
+        <div style="margin-top:0.75rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <button class="btn secondary" id="showAnswerBtn" onclick="toggleAnswer(true)" style="display:none;">✅ Show Answer</button>
+          <button class="btn secondary" id="hideAnswerBtn" onclick="toggleAnswer(false)" style="display:none;">🙈 Hide Answer</button>
+        </div>
+      </div>
+
+      <div class="grid" style="margin-top:1.25rem;">
+        <div class="card" style="cursor:default;">
+          <h3 style="color:#f59e0b; font-weight:800;">House Rules</h3>
+          <ul class="card-text" style="margin-top:0.75rem; list-style:disc; padding-left:1.25rem;">
+            <li>Assume goodwill. Ask before you argue.</li>
+            <li>Speak in “I” statements. No labels.</li>
+            <li>Steelman the other side: repeat it fairly first.</li>
+            <li>One claim at a time. Don’t stack 12 issues.</li>
+            <li>End with what you share: Jesus is Lord.</li>
+          </ul>
+        </div>
+        <div class="card" style="cursor:default;">
+          <h3 style="color:#f59e0b; font-weight:800;">Quick Rescues</h3>
+          <div class="card-text" style="margin-top:0.75rem;">
+            <p><strong>When it gets hot:</strong> “I think we’re both protecting something sacred. Can we slow down?”</p>
+            <p style="margin-top:0.5rem;"><strong>When someone feels attacked:</strong> “That came out sharper than I meant. Let me restate it.”</p>
+            <p style="margin-top:0.5rem;"><strong>When stuck:</strong> “What do we both agree is true about Christ here?”</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONVERSATIONS TAB -->
+    <section id="conversations" class="content-section" role="tabpanel">
+      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">Dinner Table Conversations</h2>
+      <input type="text" id="convSearch" class="search-box" placeholder="Search conversations by title, topic, or keyword..." onkeyup="renderConversations()">
+      <div style="display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; margin-bottom:0.75rem;">
+        <select id="convTopic" class="filter-select" onchange="renderConversations()">
+          <option value="All">All Topics</option>
+          <option value="Sign of the Cross">Sign of the Cross</option>
+          <option value="Holy Water Blessing">Holy Water</option>
+          <option value="Religious Art">Icons/Statues</option>
+          <option value="Mass Obligation">Attendance</option>
+          <option value="Saints and Nature">Saints & Nature</option>
+          <option value="Filioque">Filioque</option>
+          <option value="Purgatory">Purgatory</option>
+          <option value="Eucharist">Eucharist</option>
+          <option value="Divorce">Marriage/Divorce</option>
+        </select>
+        <span class="tiny" id="convCount"></span>
+      </div>
+      <div id="conversationsGrid" class="grid"></div>
+    </section>
+
+    <!-- COMMANDMENTS TAB -->
+    <section id="commandments" class="content-section" role="tabpanel">
+      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">The Ten Commandments</h2>
+      <div class="context-box">
+        <div class="context-label">📜 Mount Sinai & Freedom</div>
+        <p style="color:#cbd5e1; margin-top:0.5rem;">These commandments weren’t random rules. They were a covenant—how to live free after slavery. Christians receive them as the enduring moral law, fulfilled in Christ.</p>
+      </div>
+      <div id="commandmentsGrid"></div>
+    </section>
+
+    <!-- RITUALS TAB -->
+    <section id="rituals" class="content-section" role="tabpanel">
+      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">Rituals & Signs</h2>
+      <div class="proto-note">Visible gestures reveal deep theology. Every object and movement teaches something.</div>
+      <div id="ritualsGrid"></div>
+    </section>
+
+    <!-- PRACTICES TAB -->
+    <section id="practices" class="content-section" role="tabpanel">
+      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">Church Practices</h2>
+      <p style="color:#cbd5e1; margin-bottom:1rem;">Practices aren’t arbitrary. They express what each church believes worship does to the human person.</p>
+      <div id="practicesGrid" class="grid"></div>
+    </section>
+
+    <!-- SAINTS TAB -->
+    <section id="saints" class="content-section" role="tabpanel">
+      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">Saints</h2>
+      <div class="proto-note">Saints are real humans who struggled, repented, and grew into holiness. Their stories are fuel for the rest of us.</div>
+
+      <div style="display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center;">
+        <label style="color:#fcd34d; font-weight:700;">Filter:</label>
+        <select id="tradFilter" class="filter-select" onchange="renderSaints()">
+          <option value="All">All Traditions</option>
+          <option value="Both">Both Orthodox & Catholic</option>
+          <option value="Catholic">Catholic Saints</option>
+          <option value="Orthodox">Orthodox Saints</option>
+        </select>
+        <input type="text" id="saintSearch" class="search-box" style="margin-bottom:0; flex:1; min-width:260px;" placeholder="Search saints by name, role, patronage (what they help with), story…" onkeyup="renderSaints()">
+      </div>
+      <div class="tiny" id="saintsCount" style="margin-top:0.75rem;"></div>
+      <div id="saintsGrid" class="grid" style="margin-top:0.75rem;"></div>
+    </section>
+
+    <!-- FOUNDATIONS TAB -->
+    <section id="foundations" class="content-section" role="tabpanel">
+      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">Core Differences</h2>
+      <p style="color:#cbd5e1; margin-bottom:1rem;">Strip away politics. These are the theological/ecclesial differences shaping everything else.</p>
+      <div id="foundationsGrid" class="grid"></div>
+    </section>
+
+    <!-- THEOLOGY TAB -->
+    <section id="theology" class="content-section" role="tabpanel">
+      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">Theology Deep Dives</h2>
+      <p style="color:#cbd5e1; margin-bottom:1rem;">Big questions. Clear summaries. Shared truths highlighted.</p>
+      <div id="theologyGrid" class="grid"></div>
+    </section>
+
+    <!-- HISTORY TAB -->
+    <section id="history" class="content-section" role="tabpanel">
+      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">History Moments</h2>
+      <div id="historyGrid" class="grid"></div>
+    </section>
+
+    <!-- PRAYERS TAB -->
+    <section id="prayers" class="content-section" role="tabpanel">
+      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">Prayers We Share</h2>
+      <div id="prayersGrid" class="grid"></div>
+    </section>
+  </div>
+
+  <div class="footer">Dinner Table Conversations • Ecumenical Learning Through Honest Dialogue • 2026</div>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal-overlay" onclick="closeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script>
+    "use strict";
+
+    // ============================
+    // DATA
+    // ============================
+
+    // NOTE: A DOM element with id="saints" can sometimes create a global named `saints` in some environments.
+    // We explicitly define `saints` as data (array) and expose handlers to `window` so inline onclick works reliably.
+
+    // IMPORTANT: No unescaped raw newlines inside string literals.
+    const saintsPacked = [[1,"Saint Aelred of Rievaulx","Both","Mystic • Medieval","January 12","Friendship, Spiritual companionship, Loneliness, Community, Monks, Those seeking deep relationships","Aelred was a Cistercian monk known for his writings on friendship. In 'On Spiritual Friendship,' he wrote that friendship is one of the greatest goods—a path to encountering Christ.","Aelred followed Jesus as a mystic. Aelred was a Cistercian monk known for his writings on friendship.","Integrated spiritual theology with relational depth."],[2,"Saint Alphonsa of the Immaculate Conception","Catholic","Healer • Modern","July 28","Pneumonia, Chest infections, Respiratory illness, Indian Catholics","Alphonsa was an Indian nun of the Syro-Malabar Church. She suffered from respiratory illnesses. Despite chronic pneumonia, she dedicated herself to religious life.","Alphonsa followed Jesus as a healer. Alphonsa was an Indian nun of the Syro-Malabar Church.","First female saint of Indian origin canonized by the Church."],[3,"Saint Alponsus Liguori","Catholic","Teacher • Medieval","August 1","Moral theology, Bishops, Confessors, Scrupulous people, Moral decision-making, Teachers, Compassion in confession","Alponsus was a bishop and theologian who developed compassionate approaches to moral theology and confession. He rejected harsh scrupulosity. He founded the Redemptorists. He became a Doctor of the Church.","Alponsus followed Jesus as a teacher. Alponsus was a bishop and theologian who developed compassionate approaches to moral theology and confession.","Revolutionized moral theology through emphasis on pastoral compassion."],[4,"Saint Ambrose of Milan","Catholic","Teacher • Early","December 7","Bishops, Learning, Bees, Beekeepers, Against poisoning","Ambrose was elected Bishop of Milan while still unbaptized. He became one of the greatest theologians of the early Church. He defended orthodoxy, challenged emperors, and converted Saint Augustine. He is one of the four Latin Doctors of the Church.","Ambrose followed Jesus as a teacher. Ambrose was elected Bishop of Milan while still unbaptized.","One of the four Latin Doctors of the Church. Defended orthodoxy and challenged secular authority."],[5,"Saint Andrew the Apostle","Both","Apostle • Early","November 30","Single women, Fishermen, Scotland, Against persecution, Missionaries, Women seeking husbands","Andrew was one of Jesus' first apostles. His most famous act was bringing his brother Peter to Jesus. In Catholic tradition, he became the patron saint of single women seeking marriage.","Andrew followed Jesus as a apostle. Andrew was one of Jesus' first apostles.","Shows the power of bringing others into relationship with Christ."],[6,"Saint Angela Merici","Catholic","Teacher • Medieval","January 27","Teachers, Educators, Parents, Girls, Youth, Women religious","Angela founded the Ursulines to educate young girls. She emphasized spiritual formation. Her teaching transformed education for women.","Angela followed Jesus as a teacher. Angela founded the Ursulines to educate young girls.","Pioneered formal education for girls within Christian communities."],[7,"Saint Anthony the Great","Both","Monk • Early","January 17","Monks, Hermits, Skin diseases, Butchers, Gravediggers","Anthony was an Egyptian hermit called the father of monasticism. He sold everything and went into the desert. His spiritual struggles became legendary. His life inspired countless monastics.","Anthony followed Jesus as a monk. Anthony was an Egyptian hermit called the father of monasticism.","Father of monasticism; his life shaped Christian ascetic tradition."],[8,"Saint Athanasius","Both","Teacher • Early","May 2","Theologians, Defenders of the Trinity","Athanasius defended the divinity of Christ against Arianism. He was exiled multiple times but stayed faithful. He wrote 'On the Incarnation' and helped secure the Nicene faith.","Athanasius followed Jesus as a teacher. Athanasius defended the divinity of Christ against Arianism.","Key defender of Nicene orthodoxy; major influence on Trinitarian doctrine."],[9,"Saint Augustine of Hippo","Catholic","Teacher • Early","August 28","Theologians, Philosophers, Augustine orders","Augustine lived a restless life until converting through the prayers of his mother Monica and the witness of Ambrose. His writings shaped Western Christianity. His 'Confessions' remain a classic.","Augustine followed Jesus as a teacher. Augustine lived a restless life until converting through the prayers of his mother Monica and the witness of Ambrose.","One of the most influential theologians in Western Christian history."],[10,"Saint Basil the Great","Both","Teacher • Early","January 2","Hospitals, Social justice, Monasticism","Basil was a Cappadocian Father who defended the Trinity and reformed monastic life. He founded hospitals and cared for the poor. His liturgy is used in Orthodoxy.","Basil followed Jesus as a teacher. Basil was a Cappadocian Father who defended the Trinity and reformed monastic life.","Helped define Trinitarian theology and pioneered Christian social care."],[11,"Saint Benedict of Nursia","Both","Monk • Early","July 11","Europe, Students, Monks","Benedict founded Western monasticism through his Rule. He emphasized stability, prayer, and work. His communities preserved learning through the Middle Ages.","Benedict followed Jesus as a monk. Benedict founded Western monasticism through his Rule.","His Rule became the backbone of Western monastic life and culture."],[12,"Saint Bonaventure","Catholic","Mystic • Medieval","July 15","Theologians, Scholars","Bonaventure was a Franciscan theologian and Doctor of the Church. He united intellectual rigor and mysticism. His writings shaped medieval spirituality.","Bonaventure followed Jesus as a mystic. Bonaventure was a Franciscan theologian and Doctor of the Church.","Known as the 'Seraphic Doctor' for his mystical theology."],[13,"Saint Cecilia","Both","Martyr • Early","November 22","Musicians, Singers, Poets, Composers, Instrument makers, Orchestras, Choirs","Cecilia was a noble Christian woman who took a vow of virginity. Her pagan husband Valerian was converted by her faith. She was arrested and executed. Legend says she heard heavenly music on her wedding night.","Cecilia followed Jesus as a martyr. Cecilia was a noble Christian woman who took a vow of virginity.","Represents virgin martyrs and the sanctity of the body in Christian faith."],[14,"Saint Catherine of Siena","Catholic","Mystic • Medieval","April 29","Italy, Nurses, Fire prevention","Catherine was a Dominican tertiary who had visions and deep mystical experiences. She advised popes and helped bring the papacy back from Avignon to Rome. She is a Doctor of the Church.","Catherine followed Jesus as a mystic. Catherine was a Dominican tertiary who had visions and deep mystical experiences.","Influenced papal history; one of the great female Doctors of the Church."],[15,"Saint Cyril of Alexandria","Both","Teacher • Early","June 27","Theologians, Defenders of Mary as Theotokos","Cyril defended the title Theotokos at the Council of Ephesus and protected Christological orthodoxy. His theology shaped how Christians confess Christ as fully God and fully man.","Cyril followed Jesus as a teacher. Cyril defended the title Theotokos at the Council of Ephesus and protected Christological orthodoxy.","Key figure in the Council of Ephesus and Christological doctrine."],[16,"Saint Dominic","Catholic","Missionary • Medieval","August 8","Preachers, Astronomers, Against false witness","Dominic founded the Dominican Order dedicated to preaching and teaching. He emphasized truth, prayer, and compassionate evangelization.","Dominic followed Jesus as a missionary. Dominic founded the Dominican Order dedicated to preaching and teaching.","Founder of one of the Church’s major teaching orders."],[17,"Saint Ephrem the Syrian","Both","Teacher • Early","June 9","Poets, Theologians, Spiritual songwriters","Ephrem wrote hymns and poems defending orthodox faith. His poetic theology shaped Eastern Christianity. He is a Doctor of the Church.","Ephrem followed Jesus as a teacher. Ephrem wrote hymns and poems defending orthodox faith.","A major theological poet; called the 'Harp of the Spirit.'"],[18,"Saint Francis of Assisi","Catholic","Missionary • Medieval","October 4","Animals, Peace, Environment","Francis renounced wealth, embraced poverty, and preached Christ’s love to all creation. He is known for joy, simplicity, and radical imitation of Christ.","Francis followed Jesus as a missionary. Francis renounced wealth, embraced poverty, and preached Christ’s love to all creation.","Founder of the Franciscans; iconic witness to poverty and peace."],[19,"Saint Gregory the Great","Catholic","Teacher • Early","September 3","Popes, Musicians, Scholars","Gregory was a pope who reformed liturgy, cared for the poor, and strengthened missionary work. Gregorian chant bears his name.","Gregory followed Jesus as a teacher. Gregory was a pope who reformed liturgy, cared for the poor, and strengthened missionary work.","His leadership shaped Western worship and pastoral practice."],[20,"Saint Gregory of Nyssa","Both","Teacher • Early","March 9","Mystics, Theologians","Gregory of Nyssa was a Cappadocian Father known for mystical theology and deep reflections on the Trinity and spiritual growth.","Gregory followed Jesus as a teacher. Gregory of Nyssa was a Cappadocian Father known for mystical theology and deep reflections on the Trinity and spiritual growth.","Major contributor to Trinitarian theology and mystical tradition."],[21,"Saint Ignatius of Antioch","Both","Martyr • Early","October 17","Bishops, Theologians","Ignatius was bishop of Antioch and wrote letters on the way to martyrdom in Rome. He emphasized unity with the bishop and the Eucharist as central to the Church.","Ignatius followed Jesus as a martyr. Ignatius was bishop of Antioch and wrote letters on the way to martyrdom in Rome.","Early witness to Eucharistic realism and church order."],[22,"Saint Irenaeus","Both","Teacher • Early","June 28","Theologians, Against heresy","Irenaeus fought Gnosticism and emphasized the unity of Scripture and apostolic tradition. He wrote 'Against Heresies' and taught that Christ recapitulates humanity.","Irenaeus followed Jesus as a teacher. Irenaeus fought Gnosticism and emphasized the unity of Scripture and apostolic tradition.","Key early theologian linking apostles to later Church."],[23,"Saint John Chrysostom","Both","Teacher • Early","November 13","Preachers, Rhetoricians","John 'Golden Mouth' preached powerfully about repentance, mercy, and caring for the poor. His liturgy is central in Orthodox worship.","John followed Jesus as a teacher. John 'Golden Mouth' preached powerfully about repentance, mercy, and caring for the poor.","His Divine Liturgy is the most commonly celebrated in Orthodoxy."],[24,"Saint John Paul II","Catholic","Teacher • Modern","October 22","Youth, Families, Human dignity","John Paul II emphasized human dignity, forgiveness, and prayer. He supported ecumenical dialogue and encouraged youth to holiness.","John followed Jesus as a teacher. John Paul II emphasized human dignity, forgiveness, and prayer.","Popularized World Youth Day; significant ecumenical outreach."],[25,"Saint Justin Martyr","Both","Martyr • Early","June 1","Philosophers, Apologists","Justin was a philosopher who converted to Christianity and defended the faith to Roman authorities. He described early Christian worship and died as a martyr.","Justin followed Jesus as a martyr. Justin was a philosopher who converted to Christianity and defended the faith to Roman authorities.","One of the earliest apologists describing the Mass/Liturgy."],[26,"Saint Macrina the Younger","Both","Teacher • Early","July 19","Women, Monastics","Macrina was a sister of Basil the Great and Gregory of Nyssa. She shaped monastic communities and influenced theological thought through her holiness.","Macrina followed Jesus as a teacher. Macrina was a sister of Basil the Great and Gregory of Nyssa.","Influenced Cappadocian Fathers; model of female monastic leadership."],[27,"Saint Monica","Both","Mystic • Early","August 27","Mothers, Mothers of difficult children, Widows, Patience, Perseverance in prayer, Difficult children, Suffering mothers, Pray for wayward children","Monica was Augustine's mother. She prayed constantly for his conversion for 12 years. She pursued him across lands, never giving up faith. Her prayers were answered and Augustine became a greatest theologian and saint.","Monica followed Jesus as a mystic. Monica was Augustine's mother.","Shows the power of mother's persevering prayer. Demonstrates grace of conversion."],[28,"Saint Nicholas of Myra","Both","Bishop • Early","December 6","Children, Sailors, Gift-givers","Nicholas was known for secret generosity to the poor and courageous faith under persecution. He inspired the later Santa tradition.","Nicholas followed Jesus as a bishop. Nicholas was known for secret generosity to the poor and courageous faith under persecution.","Widely venerated across East and West; source of Santa legends."],[29,"Saint Paul","Both","Apostle • Early","June 29","Missionaries, Tentmakers, Conversion, Courage, Writers","Paul persecuted Christians until Christ confronted him on the road to Damascus. He became the great missionary apostle and wrote many New Testament letters.","Paul followed Jesus as a apostle. Paul persecuted Christians until Christ confronted him on the road to Damascus.","His letters shaped Christian theology and mission."],[30,"Saint Peter","Both","Apostle • Early","June 29","Fishermen, Popes, Rome","Peter was a fisherman named Simon. Jesus renamed him “Rock” and entrusted him with strengthening the brethren. Peter denied Jesus three times, repented, and became a bold preacher. Tradition holds he was martyred in Rome.","Peter messed up—but he said sorry and Jesus still loved him. God helps us start over.","Peter and Paul are celebrated together on June 29 in many traditions."],[31,"Saint Polycarp of Smyrna","Both","Martyr • Early","February 23","Hearing, Ear diseases, Healing, Protection against heresy, Courage, Strength, Suffering","Polycarp was a student of Saint John the Apostle who became bishop of Smyrna. At age 86, he was arrested during Roman persecution. He refused to curse Christ. They tried burning him but fire wouldn't consume him, so he was executed by sword.","Polycarp followed Jesus as a martyr. Polycarp was a student of Saint John the Apostle who became bishop of Smyrna.","One of the earliest documented martyrdoms and links to apostolic tradition."],[32,"Saint Teresa of Ávila","Catholic","Mystic • Medieval","October 15","Spiritual directors, Writers, Mystics","Teresa reformed the Carmelite order and wrote classics of mystical prayer. She emphasized interior prayer and friendship with Christ.","Teresa followed Jesus as a mystic. Teresa reformed the Carmelite order and wrote classics of mystical prayer.","Doctor of the Church; major figure in Christian mysticism."],[33,"Saint Thérèse of Lisieux","Catholic","Mystic • Modern","October 1","Missionaries, Spiritual depth, Childhood spirituality, Ordinary holiness, Depression, Finding meaning in small things","Thérèse wanted to be a missionary but got tuberculosis and entered a Carmelite convent. She did ordinary things with great love—the 'Little Way.' She died at 24 and was canonized in 1925.","Thérèse followed Jesus as a mystic. Thérèse wanted to be a missionary but got tuberculosis and entered a Carmelite convent.","Revolutionized understanding of holiness through ordinary life and small acts."],[34,"Saint Valentine","Both","Martyr • Early","February 14","Love, Affection, Young people, Engaged couples, Marriage, Lovers","Saint Valentine's historical identity is unclear. His feast day became associated with love, affection, and courtship. Medieval traditions made him the patron of lovers.","Valentine followed Jesus as a martyr. Saint Valentine's historical identity is unclear.","Shows how uncertain historical figures can embody spiritual truths."],[35,"Saint Vincent de Paul","Catholic","Missionary • Medieval","September 27","Charity, Hospitals, The poor, Those seeking charity work, Hospitals, Charitable organizations, Hospices, Sick, Those facing poverty","Vincent was a French priest dedicated to serving the poor. He founded the Vincentians and Daughters of Charity. He worked with prisoners, enslaved people, poor children, and the sick. He revolutionized charitable work.","Vincent followed Jesus as a missionary. Vincent was a French priest dedicated to serving the poor.","Revolutionized charitable work and religious service to the poor."],[36,"Saint Walburga","Both","Healer • Medieval","February 25","Women, Healing, Against plague, Strength, Against magic, Leprosy, Skin diseases, Famine, Hunger","Walburga was a nun and missionary. She worked in Germany healing the sick and converting pagans. She became Abbess. After her death, healing oil flowed from her reliquary.","Walburga followed Jesus as a healer. Walburga was a nun and missionary.","Shows healing power continuing after death through saint's intercession."],[37,"Saint Mary, Mother of God (Theotokos)","Both","Mother of Jesus","Aug 15 (Assumption/Dormition)","All Christians","Mary freely said yes to God’s plan. She carried Christ, raised Him, stood at the Cross, and prayed with the early Church. East and West honor her as Theotokos—“God-bearer.”","Mary trusted God even when she didn’t understand everything. Saying “yes” to God is brave.","Orthodox speak of Dormition; Catholics speak of Assumption—both honor her glorification."],[38,"Saint Seraphim of Sarov","Orthodox","Monk, Mystic","January 2","Spiritual direction, joy in Christ","Seraphim lived years in prayer and ascetic struggle. He welcomed visitors with radiant joy, greeting them: “Christ is risen, my joy!” and taught that the goal of life is acquiring the Holy Spirit.","Seraphim called people “my joy.” You can spread joy by being kind and praying.","One of the most beloved Russian saints."],[39,"Saint Maria of Paris","Orthodox","Nun, Martyr of Charity","July 20","Mercy and service","A Russian Orthodox nun who served the poor and sheltered Jews during WWII. She was arrested and died in a concentration camp, remembered for courageous love.","Maria helped people in danger—even when it was risky. Love can be brave.","Honored as a modern saint of active compassion."],[40,"Saint Francis Xavier","Catholic","Missionary • Medieval","December 3","Missionaries, Travelers","Francis Xavier was a Jesuit missionary who traveled to Asia, preaching and baptizing many. He is known for zeal and missionary courage.","Francis followed Jesus as a missionary. Francis Xavier was a Jesuit missionary who traveled to Asia, preaching and baptizing many.","One of the greatest Catholic missionaries; co-founder of the Jesuits."],[41,"Saint Teresa of Calcutta","Catholic","Missionary • Modern","September 5","The poor, The dying, Missionaries, Service, Compassion, Simple living, Humble service, Faithfulness to calling","Mother Teresa founded the Missionaries of Charity. She served the poorest of the poor in Calcutta. She became a global symbol of compassionate service.","Teresa followed Jesus as a missionary. Mother Teresa founded the Missionaries of Charity.","Canonized in 2016; iconic witness to charity."],[42,"Saint Basil the Great (Extended?)","Both","Teacher • Early","January 2","","","",""],[43,"Saint John of Damascus","Both","Teacher • Early","December 4","Theologians, Defenders of icons","John defended icons during the iconoclastic controversy and wrote theological works that shaped Eastern Christianity.","John followed Jesus as a teacher. John defended icons during the iconoclastic controversy and wrote theological works that shaped Eastern Christianity.","Major defender of icons and systematic theologian."],[44,"Saint Maximus the Confessor","Both","Martyr • Early","January 21","Theologians, Defenders of Christ’s two wills","Maximus defended the doctrine that Christ has two wills (divine and human). He suffered exile and mutilation for refusing heresy.","Maximus followed Jesus as a martyr. Maximus defended the doctrine that Christ has two wills (divine and human).","Key defender of dyothelitism; profound mystical theology."],[45,"Saint Mary of Egypt","Both","Penitent • Early","April 1","Penitents, Repentance","Mary lived a sinful life, repented radically, and spent decades in the desert as a hermit. She is a model of repentance.","Mary followed Jesus as a penitent. Mary lived a sinful life, repented radically, and spent decades in the desert as a hermit.","A powerful witness that repentance can transform a life completely."],[46,"Saint Nektarios","Orthodox","Healer • Modern","November 9","Cancer, Healing, Miraculous healings","Nektarios endured slander and hardship, yet remained humble and faithful. He is associated with many healings, especially of cancer.","Nektarios followed Jesus as a healer. Nektarios endured slander and hardship, yet remained humble and faithful.","A modern Orthodox saint known for miracles and humility."],[47,"Saint Paisios of Mount Athos","Orthodox","Healer • Modern","July 12","Serious illness, Spiritual direction","Paisios was a modern Athonite monk beloved for compassion and spiritual counsel. Many report healings and answered prayers through his intercession.","Paisios followed Jesus as a healer. Paisios was a modern Athonite monk beloved for compassion and spiritual counsel.","Modern model of Athonite spirituality; beloved across Orthodoxy."],[48,"Saint Gregory Palamas","Orthodox","Teacher • Medieval","November 14","Theologians, Mystics","Gregory Palamas defended hesychasm and taught about God’s energies and the possibility of real communion with God.","Gregory followed Jesus as a teacher. Gregory Palamas defended hesychasm and taught about God’s energies and the possibility of real communion with God.","Central figure in Orthodox mystical theology."],[49,"Saint Simeon the New Theologian","Orthodox","Mystic • Medieval","March 12","Mystics, Spiritual renewal","Simeon emphasized personal experience of the Holy Spirit and inner transformation. His teachings shaped Orthodox spirituality.","Simeon followed Jesus as a mystic. Simeon emphasized personal experience of the Holy Spirit and inner transformation.","One of the three Orthodox saints titled “Theologian.”"],[50,"Saint John the Apostle","Both","Apostle • Early","December 27","Theologians, Writers","John was one of Jesus’ closest disciples and author of the Gospel of John, three letters, and Revelation. He emphasized love and the divinity of Christ.","John followed Jesus as a apostle. John was one of Jesus’ closest disciples and author of the Gospel of John.","Traditionally considered the only apostle to die a natural death."],[51,"Saint Mary Magdalene","Both","Disciple • Early","July 22","Penitents, Witnesses of resurrection","Mary Magdalene was a disciple who witnessed the Resurrection and was sent to announce it. She is honored as a faithful follower of Christ.","Mary followed Jesus as a disciple. Mary Magdalene was a disciple who witnessed the Resurrection and was sent to announce it.","Called “Apostle to the Apostles” in some traditions."],[52,"Saint George","Both","Martyr • Early","April 23","Soldiers, Courage","George was a Roman soldier and martyr who refused to renounce Christ. He became a symbol of courage in faith.","George followed Jesus as a martyr. George was a Roman soldier and martyr who refused to renounce Christ.","One of the most venerated martyrs across Christendom."],[53,"Saint Demetrius","Both","Martyr • Early","October 26","Soldiers, Protection","Demetrius is a beloved martyr associated with Thessaloniki. He is honored for courage and faithful witness.","Demetrius followed Jesus as a martyr. Demetrius is a beloved martyr associated with Thessaloniki.","Highly venerated in the Orthodox world."],[54,"Saint Catherine of Alexandria","Both","Martyr • Early","November 25","Students, Philosophers","Catherine was a learned Christian who defended the faith and suffered martyrdom. She became patron of students and philosophers.","Catherine followed Jesus as a martyr. Catherine was a learned Christian who defended the faith and suffered martyrdom.","A classic model of wisdom and courage under persecution."],[55,"Saint Lucy","Both","Martyr • Early","December 13","Eye diseases, Blindness","Lucy is a virgin martyr associated with light and courage. She is invoked for eye ailments.","Lucy followed Jesus as a martyr. Lucy is a virgin martyr associated with light and courage.","Feast widely celebrated; symbol of light in darkness."],[56,"Saint Agnes","Both","Martyr • Early","January 21","Young girls, Purity","Agnes was a young virgin martyr who remained faithful to Christ. She is a symbol of purity and courage.","Agnes followed Jesus as a martyr. Agnes was a young virgin martyr who remained faithful to Christ.","Her name is connected with the Latin for lamb (agnus)."],[57,"Saint Joan of Arc","Catholic","Martyr • Medieval","May 30","France, Soldiers","Joan was a young woman who led French forces, claiming guidance from saints. She was tried and executed, later canonized.","Joan followed Jesus as a martyr. Joan was a young woman who led French forces, claiming guidance from saints.","A rare laywoman-soldier saint; symbol of courage."],[58,"Saint Thomas Aquinas","Catholic","Teacher • Medieval","January 28","Students, Scholars","Thomas wrote major theological works, especially the Summa. He united faith and reason.","Thomas followed Jesus as a teacher. Thomas wrote major theological works, especially the Summa.","Doctor of the Church; major figure in Western theology."],[59,"Saint Gregory Nazianzen","Both","Teacher • Early","January 25","Theologians","Gregory Nazianzen defended the Trinity and preached influential theological orations.","Gregory followed Jesus as a teacher. Gregory Nazianzen defended the Trinity and preached influential theological orations.","One of the Cappadocian Fathers and a major Trinitarian theologian."],[60,"Saint Jerome","Catholic","Teacher • Early","September 30","Translators, Scholars","Jerome translated the Bible into Latin (the Vulgate) and wrote biblical commentaries.","Jerome followed Jesus as a teacher. Jerome translated the Bible into Latin (the Vulgate).","His Vulgate shaped Western Christianity for centuries."],[61,"Saint Mark the Evangelist","Both","Evangelist • Early","April 25","Writers, Venice","Mark wrote the Gospel of Mark and worked with Peter. He is connected to Alexandria.","Mark followed Jesus as a evangelist. Mark wrote the Gospel of Mark and worked with Peter.","Traditionally associated with the founding of the Church in Alexandria."],[62,"Saint Luke the Evangelist","Both","Evangelist • Early","October 18","Doctors, Artists","Luke wrote the Gospel of Luke and Acts. Tradition says he was a physician.","Luke followed Jesus as a evangelist. Luke wrote the Gospel of Luke and Acts.","Patron of physicians; associated with early Christian art."],[63,"Saint Matthew the Evangelist","Both","Evangelist • Early","September 21","Accountants, Bankers","Matthew was a tax collector called by Jesus and wrote the Gospel of Matthew.","Matthew followed Jesus as a evangelist. Matthew was a tax collector called by Jesus and wrote the Gospel of Matthew.","Model of conversion and new life."],[64,"Saint James the Greater","Both","Apostle • Early","July 25","Pilgrims, Spain","James was one of the Twelve and became associated with Santiago de Compostela.","James followed Jesus as a apostle. James was one of the Twelve and became associated with Santiago de Compostela.","One of the first apostles martyred."],[65,"Saint James the Less","Both","Apostle • Early","May 3","","James the Less is associated with leadership in Jerusalem and early Christian witness.","James followed Jesus as a apostle. James the Less is associated with leadership in Jerusalem and early Christian witness.","Often linked to the Epistle of James."],[66,"Saint Jude","Both","Apostle • Early","October 28","Hopeless cases","Jude is known as patron of desperate causes.","Jude followed Jesus as a apostle. Jude is known as patron of desperate causes.","A beloved intercessor for difficult situations."],[67,"Saint Bartholomew","Both","Apostle • Early","August 24","","Bartholomew was one of the Twelve.","Bartholomew followed Jesus as a apostle. Bartholomew was one of the Twelve.","One of the Twelve Apostles."],[68,"Saint Philip the Apostle","Both","Apostle • Early","May 3","","Philip was called by Jesus and brought Nathanael to Him.","Philip followed Jesus as a apostle. Philip was called by Jesus and brought Nathanael to Him.","Model of inviting others to Christ."],[69,"Saint Thomas the Apostle","Both","Apostle • Early","July 3","Doubters","Thomas doubted the Resurrection until he saw Christ. Tradition says he preached in India.","Thomas followed Jesus as a apostle. Thomas doubted the Resurrection until he saw Christ.","His story shows faith can grow through honest questions."],[70,"Saint Stephen","Both","Martyr • Early","December 26","Deacons","Stephen was the first Christian martyr, stoned after preaching Christ.","Stephen followed Jesus as a martyr. Stephen was the first Christian martyr, stoned after preaching Christ.","First martyr of the Church."],[71,"Saint Lawrence","Both","Martyr • Early","August 10","Poor, Cooks","Lawrence was a deacon martyred in Rome; he distributed Church goods to the poor.","Lawrence followed Jesus as a martyr. Lawrence was a deacon martyred in Rome; he distributed Church goods to the poor.","Patron of cooks; famous for courageous humor in martyrdom."],[72,"Saint Ignatius of Loyola","Catholic","Mystic • Medieval","July 31","Retreats, Spiritual discernment","Ignatius founded the Jesuits and wrote the Spiritual Exercises.","Ignatius followed Jesus as a mystic. Ignatius founded the Jesuits and wrote the Spiritual Exercises.","Created a structured method for spiritual discernment and retreats."],[73,"Saint Elizabeth of Hungary","Catholic","Healer • Medieval","November 17","The poor, Hospitals","Elizabeth served the poor and founded hospitals, known for charity.","Elizabeth followed Jesus as a healer. Elizabeth served the poor and founded hospitals, known for charity.","A royal saint famous for radical generosity."],[74,"Saint Elizabeth Ann Seton","Catholic","Teacher • Modern","January 4","Catholic schools, Educators","Elizabeth Seton founded the first American religious community for women and Catholic schools.","Elizabeth followed Jesus as a teacher. Elizabeth Seton founded the first American religious community for women and Catholic schools.","A major founder of Catholic education in the U.S."],[75,"Saint Kateri Tekakwitha","Catholic","Missionary • Modern","July 14","Native peoples, Ecology","Kateri was a Mohawk woman who converted to Christianity and lived a life of holiness.","Kateri followed Jesus as a missionary. Kateri was a Mohawk woman who converted to Christianity and lived a life of holiness.","First Native American saint canonized."],[76,"Saint Charbel Makhlouf","Catholic","Healer • Modern","July 24","Healing, Lebanon","Charbel was a Lebanese monk known for miracles and deep prayer.","Charbel followed Jesus as a healer. Charbel was a Lebanese monk known for miracles and deep prayer.","A modern miracle-working saint beloved in the Middle East."],[77,"Saint Padre Pio","Catholic","Healer • Modern","September 23","Confession, Suffering","Padre Pio was a Capuchin priest known for the stigmata and deep ministry of confession.","Pio followed Jesus as a healer. Padre Pio was a Capuchin priest known for the stigmata and deep ministry of confession.","Famous modern saint associated with stigmata and confession."],[78,"Saint Joseph","Both","Guardian • Early","March 19","Fathers, Workers","Joseph protected Mary and Jesus, modeling quiet faithfulness.","Joseph loved Jesus and cared for his family. You can be faithful in small, quiet ways too.","Patron of the universal Church; model of humble work."],[79,"Saint Mary, Mother of God (Theotokos)","Both","Mother of Jesus","August 15","All Christians","Mary freely said yes to God’s plan and carried Jesus. She is honored in East and West.","Mary trusted God and loved Jesus. You can trust God too.","Honored as Theotokos; central to Christology."],[80,"Saint Peter (Extended?)","Both","Apostle","June 29","","","",""],[81,"Saint Paul (Extended?)","Both","Apostle","June 29","","","",""],[82,"Saint Monica (duplicate cleaned)","Both","Mystic","August 27","","","",""],[83,"Saint Thérèse of Lisieux (duplicate cleaned)","Catholic","Mystic","October 1","","","",""],[84,"Saint Polycarp (duplicate cleaned)","Both","Martyr","February 23","","","",""],[85,"Saint John the Baptist","Both","Prophet • Early","June 24","Repentance","John prepared the way for Christ and baptized Him.","John loved God and told people to turn back to Him. You can be brave and tell the truth kindly.","Honored by all Christians as the Forerunner."],[86,"Saint Mary Magdalene","Both","Disciple","July 22","Witnesses","Mary witnessed the Resurrection and announced it.","Mary loved Jesus and shared good news. You can share kindness too.","Often called 'Apostle to the Apostles'."],[87,"Saint Catherine of Siena","Catholic","Mystic","April 29","Italy","Catherine had visions and advised popes.","Catherine prayed a lot and helped people. You can pray and help too.","Doctor of the Church."],[88,"Saint Theresa of Calcutta","Catholic","Missionary","September 5","The poor","Mother Teresa served the poorest.","Teresa loved the poor. You can help someone today.","Nobel Peace Prize winner."],[89,"Saint John of the Cross","Catholic","Mystic","December 14","Mystics","John wrote about the dark night of the soul.","John loved Jesus even in hard times. God stays close.","Doctor of the Church."],[90,"Saint Simeon the New Theologian","Orthodox","Mystic","March 12","Mystics","Simeon taught about experiencing the Holy Spirit.","Simeon prayed deeply and loved God. You can pray too.","One of three Orthodox saints titled “Theologian.”"],[91,"Saint Gregory Palamas","Orthodox","Teacher","November 14","Mystics","Gregory defended prayer of the heart.","Gregory taught that God is near. You can talk to God.","Defended hesychasm."],[92,"Saint Nektarios","Orthodox","Healer","November 9","Healing","Nektarios is known for miracles.","Nektarios prayed and helped people. You can be kind too.","Modern miracle-working saint."],[93,"Saint Paisios of Mount Athos","Orthodox","Healer","July 12","Healing","Paisios gave wise counsel.","Paisios loved people and prayed. You can love people too.","Beloved modern Athonite monk."],[94,"Saint John Paul II","Catholic","Pope","October 22","Youth","John Paul II said “Be not afraid.”","Be brave and love Jesus.","Popularized World Youth Day."],[95,"Saint Francis of Assisi","Catholic","Missionary","October 4","Animals","Francis loved poverty and peace.","Francis loved Jesus and cared for animals.","Founder of the Franciscans."],[96,"Saint Nicholas of Myra","Both","Bishop","December 6","Children","Nicholas gave gifts in secret.","Give quietly to help others.","Inspired Santa legends."],[97,"Saint Augustine of Hippo","Catholic","Teacher","August 28","Theologians","Augustine wrote Confessions.","God can change your heart.","Influential theologian."],[98,"Saint John Chrysostom","Both","Teacher","November 13","Preachers","John preached about mercy.","Be kind and forgive.","His liturgy is widely used."],[99,"Saint Vincent de Paul","Catholic","Missionary","September 27","Charity","Vincent served the poor.","Help someone in need.","Revolutionized charity."],[100,"Saint Walburga","Both","Healer","February 25","Healing","Walburga helped the sick.","Pray and help people.","Healing oil tradition."],[101,"Saint Valentine","Both","Martyr","February 14","Love","Valentine is linked to love.","Love people well.","Feast became associated with courtship."],[102,"Saint Teresa of Ávila","Catholic","Mystic","October 15","Prayer","Teresa wrote about prayer.","Talk to Jesus as a friend.","Doctor of the Church."],[103,"Saint Ephrem the Syrian","Both","Teacher","June 9","Poets","Ephrem wrote hymns.","Sing and pray.","Theological poet."],[104,"Saint Irenaeus","Both","Teacher","June 28","Against heresy","Irenaeus defended true faith.","Stick with Jesus and truth.","Wrote Against Heresies."],[105,"Saint Justin Martyr","Both","Martyr","June 1","Philosophers","Justin defended Christianity.","Ask questions and love truth.","Described early worship."],[106,"Saint Benedict of Nursia","Both","Monk","July 11","Monks","Benedict wrote a monastic rule.","Pray and work.","Shaped Western monasticism."],[107,"Saint Dominic","Catholic","Preacher","August 8","Preachers","Dominic preached truth with love.","Tell the truth kindly.","Founded Dominicans."],[108,"Saint Thomas Aquinas","Catholic","Teacher","January 28","Students","Thomas united faith and reason.","Learn and love God.","Doctor of the Church."],[109,"Saint Joan of Arc","Catholic","Martyr","May 30","France","Joan led with courage.","Be brave for God.","Canonized after retrial."],[110,"Saint Kateri Tekakwitha","Catholic","Missionary","July 14","Native peoples","Kateri lived holy life.","Love Jesus and be faithful.","First Native American saint."],[111,"Saint Charbel Makhlouf","Catholic","Healer","July 24","Healing","Charbel is known for miracles.","Pray and trust God.","Beloved Lebanese saint."],[112,"Saint Padre Pio","Catholic","Healer","September 23","Confession","Padre Pio served many.","Say sorry and start fresh.","Associated with stigmata."],[113,"Saint Joseph","Both","Guardian","March 19","Fathers","Joseph protected Jesus.","Care for family.","Model of humble work."],[114,"Saint Lawrence","Both","Martyr","August 10","Poor","Lawrence served the poor.","Share with others.","Patron of cooks."],[115,"Saint Stephen","Both","Martyr","December 26","Deacons","Stephen was first martyr.","Forgive and be brave.","First Christian martyr."],[116,"Saint Luke the Evangelist","Both","Evangelist","October 18","Doctors","Luke wrote a Gospel.","Tell Jesus’ story.","Patron of doctors."],[117,"Saint Matthew the Evangelist","Both","Evangelist","September 21","Accountants","Matthew was a tax collector.","Jesus calls everyone.","Model of conversion."],[118,"Saint Mark the Evangelist","Both","Evangelist","April 25","Writers","Mark wrote a Gospel.","Share good news.","Linked to Alexandria."],[119,"Saint John the Apostle","Both","Apostle","December 27","Theologians","John wrote about love.","Love like Jesus.","Wrote Gospel and letters."],[120,"Saint Mary of Egypt","Both","Penitent","April 1","Repentance","Mary repented radically.","You can change.","Model of repentance."],[121,"Saint Mary Magdalene","Both","Disciple","July 22","Witnesses","Mary announced Resurrection.","Tell good news.","Apostle to the Apostles."],[122,"Saint George","Both","Martyr","April 23","Soldiers","George was a martyr.","Be brave.","Widely venerated."],[123,"Saint Demetrius","Both","Martyr","October 26","Soldiers","Demetrius is a martyr.","Be faithful.","Beloved in Orthodoxy."],[124,"Saint Catherine of Alexandria","Both","Martyr","November 25","Students","Catherine defended faith.","Be smart and brave.","Patron of students."],[125,"Saint Lucy","Both","Martyr","December 13","Eyes","Lucy is linked to light.","Be a light.","Celebrated widely."],[126,"Saint Agnes","Both","Martyr","January 21","Young girls","Agnes was a young martyr.","Be brave and pure.","Name linked to lamb."],[127,"Saint Jerome","Catholic","Teacher","September 30","Translators","Jerome translated Bible.","Love Scripture.","Vulgate translator."],[128,"Saint Gregory Nazianzen","Both","Teacher","January 25","Theologians","Gregory preached Trinity.","Love God.","Cappadocian Father."],[129,"Saint Gregory of Nyssa","Both","Teacher","March 9","Mystics","Gregory wrote mystical theology.","Grow in God.","Mystical tradition."],[130,"Saint Gregory the Great","Catholic","Teacher","September 3","Popes","Gregory reformed liturgy.","Serve humbly.","Gregorian chant."],[131,"Saint Basil the Great","Both","Teacher","January 2","Hospitals","Basil founded hospitals.","Help the poor.","Social care pioneer."],[132,"Saint Macrina the Younger","Both","Teacher","July 19","Women","Macrina shaped monastic life.","Be faithful.","Influenced Cappadocians."],[133,"Saint Ignatius of Antioch","Both","Martyr","October 17","Bishops","Ignatius wrote letters.","Stay united.","Early witness."],[134,"Saint Cyril of Alexandria","Both","Teacher","June 27","Theologians","Cyril defended Theotokos.","Love Jesus.","Council of Ephesus."],[135,"Saint Athanasius","Both","Teacher","May 2","Theologians","Athanasius defended divinity of Christ.","Stand for truth.","Nicene defender."],[136,"Saint Anthony the Great","Both","Monk","January 17","Hermits","Anthony is father of monasticism.","Pray.","Desert father."],[137,"Saint Maximus the Confessor","Both","Martyr","January 21","Theologians","Maximus defended two wills.","Be faithful.","Suffered for truth."],[138,"Saint John of Damascus","Both","Teacher","December 4","Icons","John defended icons.","Honor Jesus.","Icon defender."],[139,"Saint Gregory Palamas","Orthodox","Teacher","November 14","Mystics","Gregory defended hesychasm.","Pray in heart.","Mystical theology."],[140,"Saint Simeon the New Theologian","Orthodox","Mystic","March 12","Mystics","Simeon taught about Holy Spirit.","Pray.","Orthodox Theologian."],[141,"Saint Nektarios","Orthodox","Healer","November 9","Healing","Nektarios known for miracles.","Pray.","Modern saint."],[142,"Saint Paisios of Mount Athos","Orthodox","Healer","July 12","Healing","Paisios gave counsel.","Be kind.","Modern Athonite."],[143,"Saint Gregory Palamas (dup)","Orthodox","Teacher","November 14","","","",""],[144,"Saint Simeon the New Theologian (dup)","Orthodox","Mystic","March 12","","","",""],[145,"Saint Nektarios (dup)","Orthodox","Healer","November 9","","","",""],[146,"Saint Paisios (dup)","Orthodox","Healer","July 12","","","",""],[147,"Saint Maria of Paris","Orthodox","Nun","July 20","Mercy","Maria served the poor.","Be brave in love.","Modern martyr."],[148,"Saint Seraphim of Sarov","Orthodox","Monk","January 2","Joy","Seraphim greeted people “my joy.”","Be joyful.","Beloved Russian saint."]];
+
+    // Convert packed rows into objects expected by the UI
+    const saints = saintsPacked.map(row => ({
+      id: row[0],
+      name: row[1],
+      tradition: row[2],
+      role: row[3],
+      feast: row[4],
+      patronage: row[5],
+      story: row[6],
+      kidFriendly: row[7],
+      interestingFact: row[8],
+    }));
+
+    const rituals = [
+      {
+        id: 1,
+        name: 'The Sign of the Cross',
+        icon: '✝️',
+        catholic: 'Made left to right (forehead, chest, left shoulder, right shoulder), praying: “In the name of the Father, and of the Son, and of the Holy Spirit.”',
+        orthodox: 'Made right to left (forehead, chest, right shoulder, left shoulder), with three fingers together for the Trinity and two fingers folded for Christ’s two natures.',
+        meaning: 'Both mark the body with Christ’s redemption and confess the Trinity. Orthodoxy often emphasizes the gesture as embodied theology (Trinity + Incarnation).',
+        history: 'The direction differs by custom across East/West. Both are ancient, both meaningful, neither “invalid.”'
+      },
+      {
+        id: 2,
+        name: 'Holy Water: Font vs. Theophany Blessing',
+        icon: '💧',
+        catholic: 'Often at the entrance as a reminder of baptism; used to bless oneself and homes as a sacramental.',
+        orthodox: 'Blessed prominently at Theophany (Christ’s Baptism). Often taken home and used devotionally; some traditions drink it reverently.',
+        meaning: 'Both see creation sanctified by God. Orthodoxy strongly highlights the Spirit sanctifying matter through blessing prayers.',
+        history: 'Different liturgical emphases shaped different common habits.'
+      },
+      {
+        id: 3,
+        name: 'Icons vs. Statues',
+        icon: '🖼️',
+        catholic: 'Icons and statues are both used; statues are common in the West as devotional art.',
+        orthodox: 'Icons are central—kissed, incensed, carried in procession. Statues are rare in liturgical space.',
+        meaning: 'Icons are “windows to heaven,” tied to the Incarnation: because Christ took flesh, He can be depicted. Veneration passes to the person depicted.',
+        history: 'The 8th–9th century icon controversy in the East clarified icon theology and practice.'
+      },
+      {
+        id: 4,
+        name: 'The Altar: Visible vs. Iconostasis',
+        icon: '⛪',
+        catholic: 'The altar is visible; emphasis on gathered participation around the Eucharistic celebration.',
+        orthodox: 'The altar is behind the iconostasis; emphasis on mystery and the Holy of Holies imagery.',
+        meaning: 'Both understand the Eucharist as sacred. The difference is how sacred space is expressed architecturally.',
+        history: 'Eastern temple imagery developed as iconostasis became more elaborate.'
+      },
+      {
+        id: 5,
+        name: 'Incense',
+        icon: '💨',
+        catholic: 'Used especially in solemn Masses: honoring altar, Gospel, gifts, people; prayers rising to heaven.',
+        orthodox: 'Used constantly and comprehensively: altar, icons, clergy, people; worship engages every sense.',
+        meaning: 'Both connect incense to prayer and holiness. Orthodoxy uses it as a structural element of worship.',
+        history: 'Both draw from temple worship patterns and early Christian practice.'
+      },
+      {
+        id: 6,
+        name: 'Ash Wednesday vs. Forgiveness Sunday',
+        icon: '🥣',
+        catholic: 'Ashes mark repentance and mortality at the beginning of Lent.',
+        orthodox: 'Lent begins with Forgiveness Sunday: asking each other’s forgiveness before fasting.',
+        meaning: 'Catholic: repentance marked publicly. Orthodox: repentance begins relationally—reconciliation.',
+        history: 'Different devotional developments in West/East.'
+      },
+      {
+        id: 7,
+        name: 'Prayer Rope vs. Rosary',
+        icon: '🧵',
+        catholic: 'Rosary: meditative prayer with decades, typically focused on Gospel mysteries.',
+        orthodox: 'Prayer rope (komboskini): repetitive Jesus Prayer (“Lord Jesus Christ, Son of God, have mercy on me, a sinner.”).',
+        meaning: 'Both train the heart through repetition and contemplation—different forms, similar purpose.',
+        history: 'Both developed from early monastic practices of counted prayer.'
+      },
+      {
+        id: 8,
+        name: 'Leavened vs. Unleavened Bread',
+        icon: '🍞',
+        catholic: 'Latin Rite typically uses unleavened bread in the Eucharist; Eastern Catholic rites often use leavened.',
+        orthodox: 'Uses leavened bread, symbolizing the risen Christ and the living Church.',
+        meaning: 'Both affirm real presence. The bread type becomes a symbol of different theological emphases (Passover vs. Resurrection symbolism).',
+        history: 'Divergent liturgical customs hardened into identity markers over time.'
+      }
+    ];
+
+    const conversations = [
+      {
+        id: 1,
+        title: 'Why Do You Make the Cross Backwards?',
+        topic: 'Sign of the Cross',
+        tags: ['Gesture', 'Trinity', 'Tradition'],
+        speakers: ['Father Dimitri (Orthodox)', 'Mrs. Catherine (Catholic)'],
+        context: 'At a church service, Catherine notices Father Dimitri crosses himself right to left.',
+        exchange: [
+          { speaker: 'Catherine', role: 'Catholic', icon: '✝️', speech: '“Father, I noticed you cross yourself the opposite way from how I do it. I go left to right. Is that… wrong?”' },
+          { speaker: 'Father Dimitri', role: 'Orthodox', icon: '☦️', speech: '“Not wrong at all. Different traditions. We cross right to left—both confess the same Trinity.”' },
+          { speaker: 'Catherine', role: 'Catholic', icon: '✝️', speech: '“Is there a reason, or is it just custom?”' },
+          { speaker: 'Father Dimitri', role: 'Orthodox', icon: '☦️', speech: '“Some say it’s like crossing from Christ’s perspective—His right hand blesses. But the heart matters most.”' },
+          { speaker: 'Catherine', role: 'Catholic', icon: '✝️', speech: '“So if I’m visiting your parish, should I cross your way?”' },
+          { speaker: 'Father Dimitri', role: 'Orthodox', icon: '☦️', speech: '“You may, out of hospitality—but God isn’t grading the direction. Pray with reverence.”' }
+        ]
+      },
+      {
+        id: 2,
+        title: 'Holy Water: Why Do You Take It Home?',
+        topic: 'Holy Water Blessing',
+        tags: ['Sacramentals', 'Theophany', 'Healing'],
+        speakers: ['Father John (Orthodox)', 'Father Michael (Catholic)'],
+        context: 'Two priests visit each other’s churches after a joint prayer service.',
+        exchange: [
+          { speaker: 'Father Michael', role: 'Catholic', icon: '✝️', speech: '“John, I see your people taking home bottles of holy water. We bless holy water too, but it’s less central.”' },
+          { speaker: 'Father John', role: 'Orthodox', icon: '☦️', speech: '“At Theophany we bless water with special prayers. People use it in homes, and some drink it reverently.”' },
+          { speaker: 'Father Michael', role: 'Catholic', icon: '✝️', speech: '“We’re careful about superstition. But I wonder if we’ve grown shy about matter being truly blessed.”' },
+          { speaker: 'Father John', role: 'Orthodox', icon: '☦️', speech: '“Exactly—Incarnation means God works through created things. Not magic—grace.”' }
+        ]
+      },
+      {
+        id: 3,
+        title: 'Icons vs. Statues: Are We Worshiping Images?',
+        topic: 'Religious Art',
+        tags: ['Icons', 'Veneration', 'Idolatry'],
+        speakers: ['Sister Mary (Catholic)', 'Sister Thekla (Orthodox)'],
+        context: 'Two sisters walk through each other’s churches.',
+        exchange: [
+          { speaker: 'Sister Mary', role: 'Catholic', icon: '✝️', speech: '“We have statues everywhere. You have icons everywhere. Do you worry people worship images?”' },
+          { speaker: 'Sister Thekla', role: 'Orthodox', icon: '☦️', speech: '“We worship God alone. We venerate icons. Honor passes to the person depicted.”' },
+          { speaker: 'Sister Mary', role: 'Catholic', icon: '✝️', speech: '“So kissing an icon is like kissing a photo of someone you love?”' },
+          { speaker: 'Sister Thekla', role: 'Orthodox', icon: '☦️', speech: '“Yes—with the added truth that Christ truly sanctified matter by becoming flesh.”' }
+        ]
+      },
+      {
+        id: 4,
+        title: 'Sunday Worship: Rule or Relationship?',
+        topic: 'Mass Obligation',
+        tags: ['Sunday', 'Discipline', 'Conscience'],
+        speakers: ['Father Dimitri (Orthodox)', 'Mrs. Catherine (Catholic)'],
+        context: 'At Sunday dinner, the family compares how each tradition speaks about obligation.',
+        exchange: [
+          { speaker: 'Catherine', role: 'Catholic', icon: '✝️', speech: '“For Catholics, Sunday Mass is a precept. It’s not optional—unless there’s a serious reason.”' },
+          { speaker: 'Father Dimitri', role: 'Orthodox', icon: '☦️', speech: '“We emphasize the heart: worship as healing. But discipline matters too—just expressed differently.”' },
+          { speaker: 'Catherine', role: 'Catholic', icon: '✝️', speech: '“So we both want faithfulness… we just talk about it with different language.”' },
+          { speaker: 'Father Dimitri', role: 'Orthodox', icon: '☦️', speech: '“Exactly. The question is: does the rule lead you to love Christ more?”' }
+        ]
+      },
+      {
+        id: 5,
+        title: 'Filioque: Why One Word Matters',
+        topic: 'Filioque',
+        tags: ['Creed', 'Trinity', 'History'],
+        speakers: ['Nikos (Orthodox)', 'Anna (Catholic)'],
+        context: 'At dinner, someone notices the Creed wording differs: “proceeds from the Father” vs “from the Father and the Son.”',
+        exchange: [
+          { speaker: 'Anna', role: 'Catholic', icon: '✝️', speech: '“We say the Spirit proceeds from the Father and the Son. Do you think that’s heresy?”' },
+          { speaker: 'Nikos', role: 'Orthodox', icon: '☦️', speech: '“Our concern is twofold: theology and process. The Father is the single source. And the Creed wasn’t meant to be changed unilaterally.”' },
+          { speaker: 'Anna', role: 'Catholic', icon: '✝️', speech: '“Catholics mean ‘through the Son’—not that the Son replaces the Father as source.”' },
+          { speaker: 'Nikos', role: 'Orthodox', icon: '☦️', speech: '“Then we’re closer than people think. But words shape prayer. Let’s be careful.”' }
+        ]
+      },
+      {
+        id: 6,
+        title: 'Purgatory: Healing After Death?',
+        topic: 'Purgatory',
+        tags: ['Afterlife', 'Mercy', 'Prayer for the Dead'],
+        speakers: ['Maria (Catholic)', 'Yannis (Orthodox)'],
+        context: 'Someone asks why Catholics talk about purgatory and Orthodox often don’t use that exact term.',
+        exchange: [
+          { speaker: 'Maria', role: 'Catholic', icon: '✝️', speech: '“Purgatory is God finishing His healing. Not a second chance—purification for those headed to heaven.”' },
+          { speaker: 'Yannis', role: 'Orthodox', icon: '☦️', speech: '“We pray for the departed too. We just resist tight definitions—mystery. But we agree God is merciful.”' },
+          { speaker: 'Maria', role: 'Catholic', icon: '✝️', speech: '“So the shared point is: prayer for the dead matters.”' },
+          { speaker: 'Yannis', role: 'Orthodox', icon: '☦️', speech: '“Yes. And repentance is urgent now.”' }
+        ]
+      },
+      {
+        id: 7,
+        title: 'The Eucharist: How Can It Be Bread and God?',
+        topic: 'Eucharist',
+        tags: ['Real Presence', 'Mystery', 'Worship'],
+        speakers: ['Father Michael (Catholic)', 'Father Alexei (Orthodox)'],
+        context: 'A teen asks: “How can it be real?”',
+        exchange: [
+          { speaker: 'Teen', role: 'Catholic', icon: '✝️', speech: '“So… do you literally believe it becomes Jesus?”' },
+          { speaker: 'Father Michael', role: 'Catholic', icon: '✝️', speech: '“Yes. We say the substance changes—transubstantiation—while appearances remain.”' },
+          { speaker: 'Father Alexei', role: 'Orthodox', icon: '☦️', speech: '“We say: Christ is truly present. And we guard the mystery—because God’s work exceeds our categories.”' },
+          { speaker: 'Teen', role: 'Catholic', icon: '✝️', speech: '“So you agree it’s real. You just explain it differently.”' },
+          { speaker: 'Father Alexei', role: 'Orthodox', icon: '☦️', speech: '“Exactly. Don’t reduce a mystery to a diagram.”' }
+        ]
+      },
+      {
+        id: 8,
+        title: 'Marriage, Divorce, and Mercy',
+        topic: 'Divorce',
+        tags: ['Marriage', 'Pastoral Care', 'Discipline'],
+        speakers: ['Elena (Orthodox)', 'James (Catholic)'],
+        context: 'Someone brings up a painful family divorce and asks why practices differ.',
+        exchange: [
+          { speaker: 'James', role: 'Catholic', icon: '✝️', speech: '“Catholics treat marriage as indissoluble. Annulment means it wasn’t a true sacramental marriage to begin with.”' },
+          { speaker: 'Elena', role: 'Orthodox', icon: '☦️', speech: '“We also honor lifelong marriage, but we can allow remarriage in some cases as a concession—medicine for brokenness.”' },
+          { speaker: 'James', role: 'Catholic', icon: '✝️', speech: '“Different pastoral tools… same desire: to protect love and truth.”' },
+          { speaker: 'Elena', role: 'Orthodox', icon: '☦️', speech: '“And to avoid crushing people already wounded.”' }
+        ]
+      }
+    ];
+
+    const commandments = [
+      {
+        num: '1st',
+        catholic: '“Thou shalt have no other gods before Me.”',
+        origin: 'Given at Mount Sinai as the foundation of covenant freedom.',
+        why: 'Protects the human heart from worshiping created things as ultimate.',
+        deeper: 'Idols aren’t only statues—anything that becomes ultimate: money, approval, control.',
+        kidExplanation: 'If something becomes more important than God and love—like a phone or a game—that thing starts to boss your heart around.'
+      },
+      {
+        num: '2nd',
+        catholic: '“Thou shalt not make idols or bow down to them.”',
+        origin: 'Guardrails for worship—God can’t be reduced to a thing.',
+        why: 'We honor holy images without worshiping them (veneration vs worship).',
+        deeper: 'Honor shown to an image can pass to the one depicted—especially in icon theology.',
+        kidExplanation: 'A picture of grandma isn’t grandma. You love grandma, not the photo. Icons point your love to the real person.'
+      },
+      {
+        num: '3rd',
+        catholic: '“Thou shalt not take the name of the Lord thy God in vain.”',
+        origin: 'Reverence for God’s name in speech and oath.',
+        why: 'Words shape the soul. God’s name isn’t a toy or a curse word.',
+        deeper: 'This includes using God’s name to justify cruelty or lies.',
+        kidExplanation: 'Don’t use God’s name like a swear word. And don’t say “God told me” to boss people.'
+      },
+      {
+        num: '4th',
+        catholic: '“Remember the Sabbath day, to keep it holy.”',
+        origin: 'A weekly rhythm of rest and worship.',
+        why: 'Humans are not machines. Rest is holy: it says God provides.',
+        deeper: 'Sunday worship forms the heart: gratitude, humility, and joy.',
+        kidExplanation: 'One day a week you rest, go to church, and love your family. God made you to breathe.'
+      },
+      {
+        num: '5th',
+        catholic: '“Honor thy father and mother.”',
+        origin: 'Family as the first school of love and authority.',
+        why: 'Protects the vulnerable and builds a stable community.',
+        deeper: 'Honor means dignity and care, even when relationships are complex.',
+        kidExplanation: 'Treat your parents with respect. And when they’re older, help them—like they helped you.'
+      },
+      {
+        num: '6th',
+        catholic: '“Thou shalt not murder.”',
+        origin: 'Life bears God’s image.',
+        why: 'Protects the sacredness of human life.',
+        deeper: 'Christ deepens it: hatred and contempt are seeds of violence.',
+        kidExplanation: 'Don’t hurt people. And don’t let hate grow in your heart.'
+      },
+      {
+        num: '7th',
+        catholic: '“Thou shalt not commit adultery.”',
+        origin: 'Protects marriage as covenant.',
+        why: 'Faithfulness guards trust and dignity.',
+        deeper: 'Love is not just feelings—love is promises kept.',
+        kidExplanation: 'Marriage is a forever promise. Breaking it hurts everyone.'
+      },
+      {
+        num: '8th',
+        catholic: '“Thou shalt not steal.”',
+        origin: 'Protects justice and the fruit of labor.',
+        why: 'Without trust, society collapses.',
+        deeper: 'The opposite of stealing is generosity.',
+        kidExplanation: 'Don’t take what isn’t yours—not toys, not money, not credit.'
+      },
+      {
+        num: '9th',
+        catholic: '“Thou shalt not bear false witness.”',
+        origin: 'Truth-telling undergirds justice.',
+        why: 'Lies dissolve trust.',
+        deeper: 'Gossip and slander are also forms of false witness.',
+        kidExplanation: 'Don’t lie. Don’t spread stories about people. Truth builds trust.'
+      },
+      {
+        num: '10th',
+        catholic: '“Thou shalt not covet.”',
+        origin: 'Targets the heart, not only actions.',
+        why: 'Jealous desire gives birth to many sins.',
+        deeper: 'Gratitude is the medicine for coveting.',
+        kidExplanation: 'Be happy for what you have. Be happy for your friends too.'
+      }
+    ];
+
+    const practices = [
+      {
+        id: 1,
+        title: 'Catholic Sunday Mass Obligation',
+        category: 'Practice',
+        content: 'Catholics treat Sunday worship as a binding precept because Sunday is the day of Resurrection. The precept protects the soul from drift and keeps the community gathered around the Eucharist.'
+      },
+      {
+        id: 2,
+        title: 'Orthodox Divine Liturgy: Heaven on Earth',
+        category: 'Practice',
+        content: 'Orthodox worship is often longer and highly sensory—icons, chant, incense, bowing—because worship is participation in the heavenly liturgy. The goal is transformation, not efficiency.'
+      },
+      {
+        id: 3,
+        title: 'Confession: Booth vs. Icon',
+        category: 'Practice',
+        content: 'Catholics often confess privately with a screen; Orthodox commonly confess before an icon with the priest nearby. Both seek repentance, healing, and absolution. The form highlights different pastoral instincts.'
+      },
+      {
+        id: 4,
+        title: 'Orthodox Fasting: Spiritual Training',
+        category: 'Practice',
+        content: 'Fasting is spiritual training—teaching the body to obey the spirit. It is not punishment; it is medicine. It pairs with prayer and almsgiving.'
+      },
+      {
+        id: 5,
+        title: 'Catholic Stations of the Cross',
+        category: 'Practice',
+        content: 'A devotional walk through Christ’s Passion, especially in Lent. It teaches compassion and repentance by entering the story physically and imaginatively.'
+      },
+      {
+        id: 6,
+        title: 'Orthodox Pascha: The Feast of Feasts',
+        category: 'Practice',
+        content: 'Pascha is celebrated with the proclamation “Christ is risen!” The service begins in darkness and erupts into light—symbolizing Christ’s victory over death.'
+      },
+      {
+        id: 7,
+        title: 'Prayer for the Departed',
+        category: 'Practice',
+        content: 'Both traditions pray for the dead. Catholics connect this to purification; Orthodox emphasize mystery and mercy. Either way, the living and departed remain united in love.'
+      }
+    ];
+
+    const foundations = [
+      {
+        id: 1,
+        title: 'Authority: Pope vs. Councils',
+        icon: '👑',
+        description: 'How binding decisions about faith are made.',
+        deepDive: 'CATHOLIC: The Pope, as successor of Peter, can teach infallibly under specific conditions. This emphasizes visible unity and decisive clarity.\n\nORTHODOX: Councils of bishops discern together. No single bishop has universal jurisdiction. This emphasizes conciliar wisdom and guarding against unilateral change.\n\nDINNER TIP: Ask: “What kind of unity did the early Church practice, and what changed later?”'
+      },
+      {
+        id: 2,
+        title: 'Salvation: Justification vs. Theosis',
+        icon: '✨',
+        description: 'What does it mean to be saved?',
+        deepDive: 'CATHOLIC: Emphasizes justification and sanctification—being made righteous by grace and cooperating with it.\n\nORTHODOX: Emphasizes theosis—union with God, becoming by grace what God is by nature (without becoming God by nature).\n\nDINNER TIP: Ask: “When you picture salvation, do you picture a courtroom, a hospital, or a family?”'
+      },
+      {
+        id: 3,
+        title: 'Original Sin: Guilt vs. Ancestral Sin',
+        icon: '🌿',
+        description: 'How we describe humanity’s fallen condition.',
+        deepDive: 'CATHOLIC: Often frames original sin with inherited deprivation and a need for healing; Western theology sometimes uses legal language.\n\nORTHODOX: Often speaks of ancestral sin—inheritance of corruption and death rather than inherited personal guilt.\n\nDINNER TIP: Ask: “Do you think sin is mainly guilt to be forgiven, or sickness to be healed—or both?”'
+      },
+      {
+        id: 4,
+        title: 'The Holy Spirit: Filioque & the Creed',
+        icon: '🕊️',
+        description: 'Why one phrase in the Creed became a dividing line.',
+        deepDive: 'CATHOLIC: Teaches the Spirit proceeds from the Father and the Son (often explained as “from the Father through the Son”), emphasizing communion between Father and Son.\n\nORTHODOX: Teaches the Spirit proceeds from the Father alone as source, emphasizing the Father as single font of divinity and objecting to unilateral Creed changes.\n\nDINNER TIP: Ask: “Is the bigger issue the theology, or the authority to change the Creed?”'
+      }
+    ];
+
+    const theologyTopics = [
+      {
+        id: 1,
+        title: 'Mary: Immaculate Conception vs. Different Frameworks',
+        question: 'Catholics define Mary’s Immaculate Conception; Orthodox honor Mary deeply but do not frame it the same way. Why?',
+        catholicView: 'Mary was preserved from original sin from conception by Christ’s merits—preparing her uniquely as Theotokos.',
+        orthodoxView: 'Mary is all-holy and uniquely honored, but Orthodoxy uses a different understanding of ancestral sin and avoids late dogmatic definitions; emphasis is on Mary’s free cooperation with grace.',
+        sharedTruth: 'Both honor Mary as Theotokos and the most exalted saint; both affirm her purity and unique role in salvation history.'
+      },
+      {
+        id: 2,
+        title: 'The Eucharist: Transubstantiation vs. Guarded Mystery',
+        question: 'Catholics define transubstantiation; Orthodox affirm the Real Presence but often avoid scholastic definitions. Why?',
+        catholicView: 'A precise term protects the truth that Christ is truly present—substance changes though appearances remain.',
+        orthodoxView: 'Christ is truly present, but the “how” is mystery; the Holy Spirit’s epiclesis is emphasized and excessive definition is avoided.',
+        sharedTruth: 'Both affirm the Eucharist is the central sacrament and truly Christ—Body and Blood, not a mere symbol.'
+      },
+      {
+        id: 3,
+        title: 'Purgatory: Defined State vs. Prayerful Mystery',
+        question: 'Catholics speak clearly about purgatory; Orthodox pray for the departed without the same definitions. What is going on?',
+        catholicView: 'Purgatory is purification for the saved—God finishing His healing work so the soul can enter heaven fully purified.',
+        orthodoxView: 'The departed are in God’s mercy; we pray for them, but we avoid a detailed mapped “system,” leaving much to mystery.',
+        sharedTruth: 'Both pray for the dead and trust God’s mercy and justice; both reject a “second chance” for unrepentant hardening.'
+      },
+      {
+        id: 4,
+        title: 'Authority: Universal Jurisdiction vs. Primacy of Honor',
+        question: 'Did the early Church understand Rome’s primacy as jurisdiction, or honor? And can that change?',
+        catholicView: 'Peter’s ministry continues through the pope with a real authority to safeguard unity and doctrine.',
+        orthodoxView: 'Rome had primacy of honor in the first millennium, but not universal jurisdiction; unity is conciliar.',
+        sharedTruth: 'Both believe bishops succeed the apostles and that unity matters profoundly.'
+      }
+    ];
+
+    const historyMoments = [
+      {
+        id: 1,
+        title: 'One Church, Many Cultures (33–1054)',
+        year: '33–1054',
+        story: 'For centuries, East and West were in communion while developing different languages, liturgies, and customs. Unity existed amid diversity—until political, cultural, and theological tensions accumulated.'
+      },
+      {
+        id: 2,
+        title: 'The Great Schism (1054)',
+        year: '1054',
+        story: 'Mutual excommunications symbolized a deeper rupture already underway. The split unfolded over time through misunderstandings, competing claims, and shifting power.'
+      },
+      {
+        id: 3,
+        title: 'Healing Steps: 1965 Lifting of Excommunications',
+        year: '1965',
+        story: 'Pope Paul VI and Patriarch Athenagoras lifted the 1054 excommunications. It did not restore full communion, but it reopened the door for dialogue and charity.'
+      },
+      {
+        id: 4,
+        title: 'Vatican II and Eastern Christians (1962–1965)',
+        year: '1962–1965',
+        story: 'Vatican II emphasized ecumenical dialogue and affirmed the validity of Eastern sacraments and apostolic succession—an important step in modern relations.'
+      }
+    ];
+
+    const prayers = [
+      {
+        id: 1,
+        title: "The Lord's Prayer",
+        text: 'Our Father, who art in heaven, hallowed be Thy name; Thy kingdom come; Thy will be done on earth as it is in heaven. Give us this day our daily bread; and forgive us our trespasses as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. Amen.'
+      },
+      {
+        id: 2,
+        title: 'Hail Mary',
+        text: 'Hail, Mary, full of grace, the Lord is with thee; blessed art thou amongst women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.'
+      },
+      {
+        id: 3,
+        title: 'Prayer for Church Unity',
+        text: 'Lord Jesus Christ, Thou didst pray that all might be one. Heal our wounds, soften our pride, and make us lovers of truth and charity. Teach us to listen, to repent, and to seek communion without compromise of conscience. Bring us together in Thy love, that the world may believe. Amen.'
+      },
+      {
+        id: 4,
+        title: 'Nicene Creed (Common Core)',
+        text: 'I believe in one God, the Father almighty, maker of heaven and earth... I believe in the Holy Spirit, the Lord, the giver of life, who proceeds from the Father... I believe in one holy catholic and apostolic Church. I acknowledge one baptism for the forgiveness of sins... Amen.'
+      },
+      {
+        id: 5,
+        title: 'Jesus Prayer (Shared in Spirit)',
+        text: 'Lord Jesus Christ, Son of God, have mercy on me, a sinner.'
+      }
+    ];
+
+    const dinnerDeck = [
+      // Authority
+      { topic:'Authority', vibe:'Gentle', kids:'No', q:'When you hear “Church authority,” what do you hope it protects—and what do you fear it can harm?', ans:'A healthy view of authority protects the Gospel, unity, and pastoral care—without crushing conscience or becoming control. Both traditions agree authority is meant to serve holiness, not ego. Ask what safeguards keep leaders humble and faithful.', bridge:'I’m not trying to win— I want to understand what you’re protecting.', follow:'Where do you see the Holy Spirit guiding the Church most clearly—councils, bishops, pope, saints, the faithful?' },
+      { topic:'Authority', vibe:'Lively', kids:'No', q:'What would “unity” look like that doesn’t erase legitimate diversity—how would we know it’s real?', ans:'Unity isn’t sameness. In the first centuries, East/West shared core faith (Creed, sacraments, apostolic succession) while keeping different liturgies and customs. Real unity looks like shared Eucharistic communion + shared confession of faith, with room for local expressions.', bridge:'Can we name one thing we both think unity must include?', follow:'If the early Church managed diversity, what practical steps did they use that we could imitate?' },
+      { topic:'Authority', vibe:'Spicy', kids:'No', q:'If you had to steelman the other side: what is the strongest reason for a pope / for councils as supreme authority?', ans:'Steelman version: Pro-pope: a visible center can protect worldwide unity and settle disputes. Pro-council: shared discernment prevents unilateral changes and keeps apostolic balance. The point isn’t “gotcha”—it’s naming the best goods each side is trying to protect.', bridge:'Let me repeat your best argument back to you—tell me if I got it right.', follow:'What would convince you your view needs revision—historically or theologically?' },
+
+      // Mary
+      { topic:'Mary', vibe:'Gentle', kids:'Yes', q:'What do you love most about Mary—and what do you think Mary teaches families today?', ans:'Mary models trust, courage, and steady love. For families: say “yes” to God in small daily ways; keep Christ at the center; stand by others in suffering; pray with hope. Both traditions honor Mary as Theotokos (God-bearer).', bridge:'We both love Mary; let’s start with what she shows us about Jesus.', follow:'How do you explain “Mother of God” to a child without confusing them?' },
+      { topic:'Mary', vibe:'Lively', kids:'No', q:'Do you think Mary’s greatness is mainly “God did it for her,” or “she cooperated perfectly”? Or both?', ans:'Both. Grace comes first—God initiates. Mary’s “Let it be to me” shows real human freedom cooperating with grace. Catholics may emphasize unique prevenient grace; Orthodox emphasize Mary’s free synergy and holiness within a different sin framework.', bridge:'I’m curious about emphasis, not trying to judge.', follow:'What Marian feast day feels most meaningful to you, and why?' },
+      { topic:'Mary', vibe:'Spicy', kids:'No', q:'Is the disagreement about the Immaculate Conception really about Mary—or about different understandings of original/ancestral sin?', ans:'Often it’s the framework. Catholics define original sin in a way that leads to the Immaculate Conception as fitting preparation. Orthodox often speak of ancestral sin (corruption/death) and are cautious about later dogmatic definitions—while still calling Mary all-holy and uniquely graced. Shared core: Mary is Theotokos and supremely holy.', bridge:'Could we separate the “Mary question” from the “sin framework” question for a minute?', follow:'If you re-framed the other side’s view in the most charitable way, how would you say it?' },
+
+      // Eucharist
+      { topic:'Eucharist', vibe:'Gentle', kids:'Yes', q:'When you receive Communion, what do you quietly ask Jesus for in your heart?', ans:'A “good answer” is personal: forgiveness, strength, peace, healing, love for family, freedom from sin, deeper faith. The point is to connect doctrine to devotion: Communion is encounter, not just a concept.', bridge:'Let’s speak from experience before definitions.', follow:'What is one thing you wish kids understood about Communion?' },
+      { topic:'Eucharist', vibe:'Lively', kids:'No', q:'Do you think explaining the Eucharist helps faith—or can it make people too confident they “get” it?', ans:'Both risks exist. Clear language can protect truth (Christ is truly present). But over-confidence can flatten mystery. A healthy middle: use definitions to guard the “what” while staying humble about the “how.”', bridge:'We can honor mystery and still seek clarity.', follow:'What role does the Holy Spirit play in the Eucharist in your tradition’s prayers?' },
+      { topic:'Eucharist', vibe:'Spicy', kids:'No', q:'If both of us believe in the Real Presence, why do people still use it as a dividing line—what is beneath that?', ans:'Often it is not the Real Presence itself, but authority/discipline and communion boundaries (who may receive, under what conditions), plus different liturgical language and pastoral practice. The beneath layer is identity and trust: “Who defines doctrine? Who belongs?”', bridge:'I’m not asking to argue— I’m asking what the symbol is carrying emotionally.', follow:'What would mutual reverence look like in a mixed family situation (weddings, funerals, visits)?' },
+
+      // Lent
+      { topic:'Lent', vibe:'Gentle', kids:'Yes', q:'What is one Lenten practice that actually makes you kinder—not just “more strict”?', ans:'Best answers focus on fruit: less gossip, more patience, giving money/time to others, sincere apology, prayer for enemies, family service. If fasting makes you harsh, you’re missing the point—fasting should make room for love.', bridge:'Let’s focus on fruit: love, humility, patience.', follow:'If kids are present, how do you teach fasting without shame?' },
+      { topic:'Lent', vibe:'Lively', kids:'No', q:'Do you prefer a “visible” start to Lent (ashes) or a “relational” start (forgiveness)? Why?', ans:'Ashes emphasize mortality and repentance; Forgiveness Sunday emphasizes reconciliation and humility. Both are biblical: repent and be reconciled. The why reveals a person’s spiritual doorway—some need a wake-up; others need relational healing first.', bridge:'Both are about repentance—different doorways.', follow:'What is your best story of reconciliation during Lent?' },
+      { topic:'Lent', vibe:'Spicy', kids:'No', q:'Is strict fasting spiritually helpful for most people—or can it become pride? Where is the healthy line?', ans:'Fasting is medicine, not a medal. Helpful when paired with prayer + almsgiving + humility; harmful when it becomes comparison or self-righteousness. The healthy line: your fasting should increase love and repentance; if it increases ego or judgment, simplify and seek counsel.', bridge:'Let’s be honest without accusing: pride is a human problem, not a tradition problem.', follow:'How do you know your fasting is becoming love, not self-righteousness?' },
+
+      // Prayer
+      { topic:'Prayer', vibe:'Gentle', kids:'Yes', q:'If you could teach kids one mini-prayer for the whole day, what would it be?', ans:'Simple and repeatable is best: “Jesus, help me love.” or “Lord, have mercy.” or “Thank you, God.” The goal is a prayer that trains attention and kindness all day—especially when emotions spike.', bridge:'No debate—just share what works in real life.', follow:'Would you teach a child the Jesus Prayer, the Our Father, or both?' },
+      { topic:'Prayer', vibe:'Lively', kids:'No', q:'When you ask saints to pray for you, what do you believe is happening—how would you explain it to a Protestant friend?', ans:'Think “family asking family.” Christians believe the saints are alive in Christ and part of the communion of saints. Asking their prayers doesn’t replace Jesus—it’s like asking a godly friend to pray, with Jesus as the only Savior and mediator in the ultimate sense.', bridge:'I’m trying to understand the inner logic.', follow:'What is the best metaphor: “family asking family,” “cloud of witnesses,” or something else?' },
+      { topic:'Prayer', vibe:'Spicy', kids:'No', q:'Why do some Christians feel saint-intercession threatens Jesus’ role—what misunderstanding is driving that fear?', ans:'Often the fear is confusion between worship and veneration, or thinking prayer-to-saints is bypassing Christ. A calm answer: all grace comes from God; we ask saints to intercede in Christ, not as independent powers.', bridge:'Let’s identify the fear first, then respond calmly.', follow:'What is the strongest biblical or historical argument you have heard on each side?' },
+
+      // Icons
+      { topic:'Icons', vibe:'Gentle', kids:'Yes', q:'Do you have a favorite holy image at home? What makes it comforting?', ans:'Holy images help attention: they remind you who God is and who you’re becoming. Comfort often comes from a face of Christ, the Theotokos, or a saint who “gets your life.” The key is relationship—images point beyond themselves.', bridge:'We’re talking about love, not magic.', follow:'How do you teach kids the difference between honoring an image and worshiping it?' },
+      { topic:'Icons', vibe:'Lively', kids:'No', q:'Do you think beauty can evangelize? How has art or music helped your faith?', ans:'Yes—beauty can soften resistance and open the heart to God. In both traditions, sacred art and music are “theology in color and sound.” A good answer includes a concrete example.', bridge:'Beauty is a shared language.', follow:'What is your favorite hymn/chant and why?' },
+      { topic:'Icons', vibe:'Spicy', kids:'No', q:'Is the real icon debate about images—or about the Incarnation and whether matter can carry grace?', ans:'At the core, it is Incarnation theology: if the Word became flesh, matter can be sanctified and depicted without idolatry—worship goes to God alone, honor can be shown to images as pointers.', bridge:'Can we shift from objects to Incarnation theology?', follow:'If Christ took flesh, what does that imply about the spiritual meaning of the material world?' },
+
+      // History
+      { topic:'History', vibe:'Gentle', kids:'No', q:'What is one historical event you wish Christians knew better before arguing online?', ans:'Common answers: the early ecumenical councils, the gradual nature of the East–West split, the icon controversy, political pressures, and the 1965 lifting of excommunications. The point: history is complex—humility beats hot takes.', bridge:'Let’s replace internet heat with historical humility.', follow:'Which do you think mattered more: politics, language, or theology?' },
+      { topic:'History', vibe:'Lively', kids:'No', q:'If the first millennium was one Church, what would it take to return to that kind of communion?', ans:'Likely: patient dialogue, mutual repentance, clarity on primacy/conciliarity, agreement on Creed wording and authority processes, and practical steps of shared witness. It is not “one side submits”—it is healing trust while guarding conscience.', bridge:'We can dream responsibly without pretending it is easy.', follow:'What would need to change on each side—realistically?' },
+      { topic:'History', vibe:'Spicy', kids:'No', q:'If a tradition admits, “We handled this badly,” does that weaken it—or strengthen its credibility?', ans:'It usually strengthens credibility. Repentance is a Christian superpower: truth-telling builds trust and makes unity possible. The key is distinguishing doctrine from failures of leaders and culture.', bridge:'Repentance is always strength.', follow:'What is one grievance you think the other side should hear without defensiveness?' },
+
+      // Daily life
+      { topic:'DailyLife', vibe:'Gentle', kids:'Yes', q:'What is one habit that helps you forgive faster at home?', ans:'Practical habits: pause and breathe before speaking, pray “Lord have mercy,” name your own fault first, apologize quickly, and do one small act of service. Forgiveness is not pretending— it is choosing love while seeking healing.', bridge:'We’re building a Christian household more than winning a debate.', follow:'What do you do when you are too tired to pray?' },
+      { topic:'DailyLife', vibe:'Lively', kids:'No', q:'How do you talk to family members who are “done with church” but still believe in God?', ans:'Lead with listening and respect. Share your story without lecturing. Invite gently, serve consistently, and avoid shaming. Many return through beauty, friendship, and authentic repentance more than arguments.', bridge:'Let’s be compassionate and practical.', follow:'What has worked: invitations, listening, service, silence, sharing your story?' },
+      { topic:'DailyLife', vibe:'Spicy', kids:'No', q:'Do you think most Christian conflict is really about theology—or about pride and identity?', ans:'Often it is both: real theological differences exist, but pride/tribal identity turns differences into contempt. Truth without love becomes weapon; love without truth becomes vague.', bridge:'We can critique ourselves first.', follow:'What would humility look like in the next 10 minutes at this table?' },
+
+      // Deep Theology (Level 2)
+      { topic:'Deep Theology', vibe:'Gentle', kids:'No', q:'When people argue about the Filioque, what do you think they’re trying to protect about God?', ans:'Usually: protecting the Father as the single source (Orthodox emphasis) and/or protecting the Son’s full divinity and intimacy with the Spirit (Western emphasis). Many fights are as much about authority/process as theology.', bridge:'Let’s name the good each side is guarding before we critique anything.', follow:'If we say “the Spirit proceeds from the Father, and is manifested/sent through the Son,” does that lower the temperature?', deep:'<div><strong>Deep dive:</strong> Two layers often get mixed: (1) language (Greek/Latin nuance) and (2) legitimacy of changing Creed wording without a council. A safe table move is to ask: “What authority process would make additions legitimate?”</div>' },
+      { topic:'Deep Theology', vibe:'Lively', kids:'No', q:'What kind of primacy could exist that serves unity without becoming domination?', ans:'A primacy that is pastoral, bounded, accountable, and exercised in communion with other bishops. The debate is often scope + safeguards, not whether any primacy exists at all.', bridge:'Can we talk safeguards before power?', follow:'What accountability would you require for a global first among equals?', deep:'<div><strong>Deep dive:</strong> A productive framing is “primacy and synodality together.” Ask: “What would first‑millennium patterns look like today with modern global realities?”</div>' },
+      { topic:'Deep Theology', vibe:'Spicy', kids:'No', q:'If a council is crucial, how does the Church recognize a council as truly ecumenical—who decides?', ans:'Many Christians look for continuity with apostolic faith, broad reception by the Church over time, holiness of witness, and spiritual fruit. The recognition question is about how the Church knows truth, not just what it teaches.', bridge:'Let’s slow down: this is about discernment, not slogans.', follow:'Do you think truth is recognized instantly, or tested over time by the Church’s life?', deep:'<div><strong>Deep dive:</strong> This is an epistemology question: authority, reception, and the Holy Spirit’s guidance. It’s deeper than any single doctrine—and it is a great place to practice humility.</div>' }
+    ];
+
+    const deescalations = [
+      'Let’s pause. I think we’re both trying to honor Christ. Can we slow down and restate gently?'
+    ];
+
+    const unityPrayers = [
+      'Lord Jesus Christ, make us one in truth and love. Heal our pride, deepen our repentance, and teach us to listen. Amen.'
+    ];
+
+    // ============================
+    // Tab switching + rendering
+    // ============================
+
+    function switchTab(event, tab) {
+      document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+
+      const target = document.getElementById(tab);
+      if (target) target.classList.add('active');
+
+      if (event && event.target) {
+        event.target.classList.add('active');
+      } else {
+        const btn = Array.from(document.querySelectorAll('.nav-tab')).find(b => {
+          const txt = b.textContent.trim().toLowerCase();
+          if (tab === 'dinner') return txt.includes('dinner');
+          return txt.includes(tab);
+        });
+        if (btn) btn.classList.add('active');
+      }
+
+      if (tab === 'conversations') renderConversations();
+      if (tab === 'commandments') renderCommandments();
+      if (tab === 'rituals') renderRituals();
+      if (tab === 'practices') renderPractices();
+      if (tab === 'saints') renderSaints();
+      if (tab === 'foundations') renderFoundations();
+      if (tab === 'theology') renderTheology();
+      if (tab === 'history') renderHistory();
+      if (tab === 'prayers') renderPrayers();
+      if (tab === 'dinner') updateDinnerStats();
+    }
+
+    function emptyState(message) {
+      return `<div style="grid-column:1 / -1; color:#cbd5e1; opacity:0.95; background:#0f172a; border:1px solid #334155; padding:1rem; border-radius:0.75rem;">${message}</div>`;
+    }
+
+    function renderConversations() {
+      const grid = document.getElementById('conversationsGrid');
+      const search = (document.getElementById('convSearch')?.value || '').toLowerCase();
+      const topic = document.getElementById('convTopic')?.value || 'All';
+      const filtered = conversations.filter(c => {
+        const matchTopic = topic === 'All' || c.topic === topic;
+        const hay = (c.title + ' ' + c.topic + ' ' + (c.tags||[]).join(' ') + ' ' + c.context).toLowerCase();
+        const matchSearch = !search || hay.includes(search);
+        return matchTopic && matchSearch;
+      });
+      const count = document.getElementById('convCount');
+      if (count) count.textContent = `${filtered.length} conversation${filtered.length===1?'':'s'}`;
+      if (!filtered.length) {
+        grid.innerHTML = emptyState('No conversations match your search. Try a different keyword or topic.');
+        return;
+      }
+      grid.innerHTML = filtered.map(c => `
+        <div class="card" onclick="openModal(event, 'conv-${c.id}')" role="button" aria-label="Open conversation">
+          <h3 style="color:#f59e0b; font-weight:800;">${c.title}</h3>
+          <div style="margin-top:0.5rem;">
+            <span class="badge badge-topic">${c.topic}</span>
+            ${(c.tags||[]).slice(0,3).map(t=>`<span class="badge" style="background:#334155;color:#e2e8f0;">${t}</span>`).join('')}
+          </div>
+          <p class="card-subtitle">${c.speakers.join(' & ')}</p>
+          <p class="card-text">${c.context}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderCommandments() {
+      const container = document.getElementById('commandmentsGrid');
+      container.innerHTML = commandments.map(cmd => `
+        <div class="ritual-card" onclick="openModal(event, 'cmd-${cmd.num}')" role="button" aria-label="Open commandment">
+          <div class="ritual-name">${cmd.num} Commandment</div>
+          <div class="ritual-desc">${cmd.catholic}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderRituals() {
+      const container = document.getElementById('ritualsGrid');
+      container.innerHTML = rituals.map(r => `
+        <div class="ritual-card" onclick="openModal(event, 'rit-${r.id}')" role="button" aria-label="Open ritual">
+          <div class="ritual-name">${r.icon} ${r.name}</div>
+          <div class="ritual-desc"><strong>Catholic:</strong> ${escapeHtml(r.catholic).slice(0, 110)}...</div>
+        </div>
+      `).join('');
+    }
+
+    function renderPractices() {
+      const grid = document.getElementById('practicesGrid');
+      grid.innerHTML = practices.map(p => `
+        <div class="card" onclick="openModal(event, 'prac-${p.id}')" role="button" aria-label="Open practice">
+          <h3 style="color:#f59e0b; font-weight:800;">${p.title}</h3>
+          <p class="card-subtitle">Category: ${p.category}</p>
+          <p class="card-text">${p.content.substring(0, 140)}...</p>
+        </div>
+      `).join('');
+    }
+
+    function renderSaints() {
+      const grid = document.getElementById('saintsGrid');
+      const search = (document.getElementById('saintSearch')?.value || '').toLowerCase();
+      const tradFilter = document.getElementById('tradFilter')?.value || 'All';
+
+      const filtered = saints.filter(s => {
+        const hay = (
+          (s.name || '') + ' ' +
+          (s.role || '') + ' ' +
+          (s.patronage || '') + ' ' +
+          (s.story || '') + ' ' +
+          (s.interestingFact || '')
+        ).toLowerCase();
+        const matchSearch = !search || hay.includes(search);
+        const matchTrad = tradFilter === 'All' || s.tradition === tradFilter;
+        return matchSearch && matchTrad;
+      });
+
+      const count = document.getElementById('saintsCount');
+      if (count) count.textContent = `${filtered.length} saint${filtered.length===1?'':'s'}`;
+
+      if (!filtered.length) {
+        grid.innerHTML = emptyState('No saints match that search/filter. Try “John”, “mother”, or “monk”.');
+        return;
+      }
+
+      grid.innerHTML = filtered.map(s => {
+        const badgeClass = s.tradition === 'Both' ? 'badge-both' : s.tradition === 'Orthodox' ? 'badge-orthodox' : 'badge-catholic';
+        return `
+          <div class="card" onclick="openModal(event, 'saint-${s.id}')" role="button" aria-label="Open saint">
+            <h3 style="color:#f59e0b; font-weight:800;">${s.name}</h3>
+            <span class="badge ${badgeClass}">${s.tradition}</span>
+            <p class="card-subtitle"><strong>Helps with:</strong> ${(((s.patronage || '').split(',').map(x=>x.trim()).filter(Boolean).slice(0,4).join(', ')) || '—')}${((s.patronage||'').split(',').map(x=>x.trim()).filter(Boolean).length > 4) ? '…' : ''}</p>
+            <p class="card-subtitle">Role: ${s.role || '—'}</p>
+            <p class="card-subtitle">Feast: ${s.feast || '—'}</p>
+            <p class="card-text">${(s.story || '').substring(0, 130)}...</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderFoundations() {
+      const grid = document.getElementById('foundationsGrid');
+      grid.innerHTML = foundations.map(f => `
+        <div class="card" onclick="openModal(event, 'found-${f.id}')" role="button" aria-label="Open foundation">
+          <h3 style="color:#f59e0b; font-weight:800;">${f.icon} ${f.title}</h3>
+          <p class="card-text">${f.description}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderTheology() {
+      const grid = document.getElementById('theologyGrid');
+      grid.innerHTML = theologyTopics.map(t => `
+        <div class="card" onclick="openModal(event, 'theo-${t.id}')" role="button" aria-label="Open theology">
+          <h3 style="color:#f59e0b; font-weight:800;">${t.title}</h3>
+          <p class="card-text">${t.question.substring(0, 150)}...</p>
+        </div>
+      `).join('');
+    }
+
+    function renderHistory() {
+      const grid = document.getElementById('historyGrid');
+      grid.innerHTML = historyMoments.map(h => `
+        <div class="card" onclick="openModal(event, 'hist-${h.id}')" role="button" aria-label="Open history">
+          <h3 style="color:#f59e0b; font-weight:800;">${h.title}</h3>
+          <p class="card-subtitle">${h.year}</p>
+          <p class="card-text">${h.story.substring(0, 150)}...</p>
+        </div>
+      `).join('');
+    }
+
+    function renderPrayers() {
+      const grid = document.getElementById('prayersGrid');
+      grid.innerHTML = prayers.map(p => `
+        <div class="card" onclick="openModal(event, 'prayer-${p.id}')" role="button" aria-label="Open prayer">
+          <h3 style="color:#f59e0b; font-weight:800;">${p.title}</h3>
+          <p class="card-text">${p.text.substring(0, 120)}...</p>
+        </div>
+      `).join('');
+    }
+
+    function openModal(event, id) {
+      if (event) event.stopPropagation();
+      const modal = document.getElementById('modal');
+      const content = document.getElementById('modalContent');
+
+      if (id.startsWith('conv-')) {
+        const convId = parseInt(id.split('-')[1], 10);
+        const conv = conversations.find(c => c.id === convId);
+        let html = `<h2>${conv.title}</h2>`;
+        html += `<div class="context-box"><div class="context-label">Setting</div><p style="color:#cbd5e1; margin-top:0.5rem;">${conv.context}</p></div>`;
+        html += `<div style="margin-bottom:0.75rem;">`;
+        html += `<span class="badge badge-topic">${conv.topic}</span>`;
+        html += (conv.tags||[]).map(t=>`<span class="badge" style="background:#334155;color:#e2e8f0;">${t}</span>`).join('');
+        html += `</div>`;
+        html += conv.exchange.map(ex => {
+          const iconClass = ex.role === 'Orthodox' ? 'orthodox' : 'catholic';
+          return `
+            <div style="margin-bottom:1.25rem;">
+              <div style="display:flex; align-items:center; margin-bottom:0.5rem;">
+                <span class="speaker-icon ${iconClass}">${ex.icon}</span>
+                <div>
+                  <div style="color:#fcd34d; font-weight:800;">${ex.speaker}</div>
+                  <div style="color:#b45309; font-size:0.85rem;">${ex.role}</div>
+                </div>
+              </div>
+              <div class="speech">${ex.speech}</div>
+            </div>
+          `;
+        }).join('');
+        html += `<div class="shared-box"><div class="shared-label">Dinner Tip</div><p style="color:#cbd5e1; margin-top:0.25rem;">Try: “What do you mean by that word?” and “What are you protecting?”</p></div>`;
+        content.innerHTML = html;
+      }
+
+      else if (id.startsWith('cmd-')) {
+        const cmdNum = id.split('-')[1];
+        const cmd = commandments.find(c => c.num === cmdNum);
+        content.innerHTML = `
+          <h2>The ${cmd.num} Commandment</h2>
+          <p style="color:#cbd5e1; margin-top:0.5rem; font-style:italic;">${cmd.catholic}</p>
+          <div class="fun-fact"><div class="fun-fact-title">📜 Origin</div><p style="color:#bfdbfe; margin-top:0.5rem;">${cmd.origin}</p></div>
+          <h3>Why God Gave It</h3><p>${cmd.why}</p>
+          <h3>Deeper Meaning</h3><p>${cmd.deeper}</p>
+          <div class="kid-friendly"><div class="kid-friendly-title">🧒 For Kids</div><p style="color:#fef3c7; margin-top:0.5rem;">${cmd.kidExplanation}</p></div>
+        `;
+      }
+
+      else if (id.startsWith('rit-')) {
+        const ritId = parseInt(id.split('-')[1], 10);
+        const ritual = rituals.find(r => r.id === ritId);
+        content.innerHTML = `
+          <h2>${ritual.icon} ${ritual.name}</h2>
+          <div class="comparison-container">
+            <div class="comparison-box">
+              <div class="comparison-title">✝️ Catholic</div>
+              <div class="comparison-content">${ritual.catholic}</div>
+            </div>
+            <div class="comparison-box">
+              <div class="comparison-title">☦️ Orthodox</div>
+              <div class="comparison-content">${ritual.orthodox}</div>
+            </div>
+          </div>
+          <h3>Spiritual Meaning</h3><p>${ritual.meaning}</p>
+          <h3>Historical Context</h3><p>${ritual.history}</p>
+          <div class="shared-box"><div class="shared-label">Dinner Tip</div><p style="color:#cbd5e1; margin-top:0.25rem;">Ask: “What does this practice teach the heart?” rather than “Which is correct?”</p></div>
+        `;
+      }
+
+      else if (id.startsWith('prac-')) {
+        const pracId = parseInt(id.split('-')[1], 10);
+        const prac = practices.find(p => p.id === pracId);
+        content.innerHTML = `<h2>${prac.title}</h2><p>${prac.content}</p>`;
+      }
+
+      else if (id.startsWith('saint-')) {
+        const saintId = parseInt(id.split('-')[1], 10);
+        const saint = saints.find(s => s.id === saintId);
+        const badgeClass = saint.tradition === 'Both' ? 'badge-both' : saint.tradition === 'Orthodox' ? 'badge-orthodox' : 'badge-catholic';
+        content.innerHTML = `
+          <h2>${saint.name}</h2>
+          <span class="badge ${badgeClass}">${saint.tradition}</span>
+          <p class="modal-label">Helps with (Patronage)</p><p>${saint.patronage || '—'}</p>
+          <p class="modal-label">Role</p><p>${saint.role || '—'}</p>
+          <p class="modal-label">Feast Day</p><p>${saint.feast || '—'}</p>
+          <details class="shared-box" style="margin-top:0.75rem;">
+            <summary style="cursor:pointer; color:#e2e8f0; font-weight:800;">More (extra notes)</summary>
+            <div style="color:#cbd5e1; margin-top:0.5rem; line-height:1.75;">
+              <div><strong>Search tip:</strong> You can search saints by what they help with (e.g., “healing”, “students”, “mothers”, “anxiety”).</div>
+            </div>
+          </details>
+          <div class="story-box"><div class="story-title">📖 The Story</div><p style="color:#cbd5e1; margin-top:0.5rem;">${saint.story || ''}</p></div>
+          <div class="kid-friendly"><div class="kid-friendly-title">🧒 For Kids</div><p style="color:#fef3c7; margin-top:0.5rem;">${saint.kidFriendly || '—'}</p></div>
+          <div class="fun-fact"><div class="fun-fact-title">✨ Interesting Fact</div><p style="color:#bfdbfe; margin-top:0.5rem;">${saint.interestingFact || '—'}</p></div>
+        `;
+      }
+
+      else if (id.startsWith('found-')) {
+        const foundId = parseInt(id.split('-')[1], 10);
+        const found = foundations.find(f => f.id === foundId);
+        content.innerHTML = `
+          <h2>${found.icon} ${found.title}</h2>
+          <p><strong>${found.description}</strong></p>
+          <div style="white-space:pre-wrap; color:#cbd5e1; line-height:1.8; margin-top:1rem;">${found.deepDive}</div>
+        `;
+      }
+
+      else if (id.startsWith('theo-')) {
+        const theoId = parseInt(id.split('-')[1], 10);
+        const theo = theologyTopics.find(t => t.id === theoId);
+        content.innerHTML = `
+          <h2>${theo.title}</h2>
+          <p class="modal-label">The Question</p><p>${theo.question}</p>
+          <h3>Catholic View</h3><p>${theo.catholicView}</p>
+          <h3>Orthodox View</h3><p>${theo.orthodoxView}</p>
+          <div class="shared-box"><div class="shared-label">✝️ What We Share</div><p style="color:#cbd5e1; margin-top:0.25rem;">${theo.sharedTruth}</p></div>
+        `;
+      }
+
+      else if (id.startsWith('hist-')) {
+        const histId = parseInt(id.split('-')[1], 10);
+        const hist = historyMoments.find(h => h.id === histId);
+        content.innerHTML = `
+          <h2>${hist.title}</h2>
+          <p class="modal-label">${hist.year}</p>
+          <div style="background:#0f172a; padding:1rem; border-radius:0.5rem; margin-top:0.75rem; border-left:3px solid #d97706;">
+            <p style="color:#cbd5e1; line-height:1.7;">${hist.story}</p>
+          </div>
+        `;
+      }
+
+      else if (id.startsWith('prayer-')) {
+        const prayerId = parseInt(id.split('-')[1], 10);
+        const prayer = prayers.find(p => p.id === prayerId);
+        content.innerHTML = `
+          <h2>${prayer.title}</h2>
+          <div style="background:#0f172a; padding:1rem; border-radius:0.5rem; margin-top:0.75rem; border-left:3px solid #d97706;">
+            <p style="color:#cbd5e1; line-height:1.85; font-style:italic;">${prayer.text}</p>
+          </div>
+        `;
+      }
+
+      else {
+        content.innerHTML = `<h2>Details</h2><p>Open a card to see details.</p>`;
+      }
+
+      modal.classList.add('active');
+    }
+
+    function closeModal(e) {
+      if (!e || e.target.id === 'modal') {
+        document.getElementById('modal').classList.remove('active');
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // ============================
+    // Dinner tool logic
+    // ============================
+
+    function getDeepDive(card) {
+      const topic = card.topic || 'Any';
+      const common = {
+        Authority: {
+          why: 'Authority questions usually hide a deeper fear: “Will truth be protected without power becoming abuse?”',
+          mis: 'Common misunderstanding: thinking the other side is either “power-hungry” or “anti-unity.” Most people are protecting something sacred.',
+          hist: 'History anchor: 1st-millennium East/West were in communion with real regional diversity. Modern debates often focus on how primacy + synodality should work.',
+          gentle: 'Gentle phrasing: “What safeguards do you think best protect humility and truth?”'
+        }
+      };
+      const d = common[topic] || {
+        why: 'The goal is truth with love — clarity without contempt.',
+        mis: 'Common misunderstanding: assuming disagreement means the other person is not faithful.',
+        hist: 'History anchor: Christians have disagreed since the early centuries; the saints model patience and humility.',
+        gentle: 'Gentle phrasing: “Help me understand what you mean by that word.”'
+      };
+      return `
+        <div><strong>Why this matters:</strong> ${d.why}</div>
+        <div style="margin-top:0.4rem;"><strong>Common misunderstanding:</strong> ${d.mis}</div>
+        <div style="margin-top:0.4rem;"><strong>History anchor:</strong> ${d.hist}</div>
+        <div style="margin-top:0.4rem;"><strong>Try saying it like this:</strong> ${d.gentle}</div>
+      `;
+    }
+
+    function getDinnerPool() {
+      const topic = document.getElementById('dTopic')?.value || 'Any';
+      const vibe = document.getElementById('dVibe')?.value || 'Gentle';
+      return dinnerDeck.filter(card => {
+        const matchTopic = topic === 'Any' || card.topic === topic;
+        const matchVibe = card.vibe === vibe;
+        return matchTopic && matchVibe;
+      });
+    }
+
+    function updateDinnerStats() {
+      const pool = getDinnerPool();
+      const el = document.getElementById('dStats');
+      if (!el) return;
+      const topic = document.getElementById('dTopic')?.value || 'Any';
+      const vibe = document.getElementById('dVibe')?.value || 'Gentle';
+      const kids = document.getElementById('dKids')?.value || 'No';
+      el.textContent = `Deck available: ${pool.length} card${pool.length===1?'':'s'} • Topic: ${topic} • Vibe: ${vibe} • Kids: ${kids==='Yes'?'Yes (mixed deck)':'No'}`;
+    }
+
+    function toggleAnswer(show) {
+      const ansBox = document.getElementById('dAnswer');
+      const showBtn = document.getElementById('showAnswerBtn');
+      const hideBtn = document.getElementById('hideAnswerBtn');
+      const deepBox = document.getElementById('dDeep');
+      const deepToggle = document.getElementById('deepDiveToggle');
+      if (!ansBox || !showBtn || !hideBtn) return;
+      ansBox.style.display = show ? 'block' : 'none';
+      showBtn.style.display = show ? 'none' : 'inline-flex';
+      hideBtn.style.display = show ? 'inline-flex' : 'none';
+      if (deepBox) {
+        const on = !!deepToggle?.checked;
+        deepBox.style.display = (show && on) ? 'block' : 'none';
+      }
+    }
+
+    function dealDinnerCard() {
+      const pool = getDinnerPool();
+      const cardEl = document.getElementById('dCard');
+      const bridgeBox = document.getElementById('dBridge');
+      const bridgeText = document.getElementById('dBridgeText');
+      const followBox = document.getElementById('dFollow');
+      const followText = document.getElementById('dFollowText');
+      const ansBox = document.getElementById('dAnswer');
+      const ansText = document.getElementById('dAnswerText');
+      const deepBox = document.getElementById('dDeep');
+      const deepText = document.getElementById('dDeepText');
+      const deepToggle = document.getElementById('deepDiveToggle');
+      const showBtn = document.getElementById('showAnswerBtn');
+      const hideBtn = document.getElementById('hideAnswerBtn');
+
+      if (!pool.length) {
+        cardEl.innerHTML = 'No cards match your settings. Try switching vibe or selecting Any Topic.';
+        bridgeBox.style.display = 'none';
+        followBox.style.display = 'none';
+        ansBox.style.display = 'none';
+        if (deepBox) deepBox.style.display = 'none';
+        showBtn.style.display = 'none';
+        hideBtn.style.display = 'none';
+        return;
+      }
+
+      const card = pool[Math.floor(Math.random() * pool.length)];
+      cardEl.innerHTML = `<div><span class="badge badge-topic">${card.topic}</span>
+        <span class="badge" style="background:#334155;color:#e2e8f0;">${card.vibe}</span>
+      </div>
+      <div style="margin-top:0.75rem; font-size:1.05rem;"><strong>Question:</strong> ${card.q}</div>`;
+
+      bridgeText.textContent = card.bridge;
+      bridgeBox.style.display = 'block';
+
+      followText.textContent = card.follow;
+      followBox.style.display = 'block';
+
+      ansText.textContent = card.ans || 'Answer: Use charity + curiosity.';
+      if (deepText) deepText.innerHTML = card.deep || getDeepDive(card);
+
+      ansBox.style.display = 'none';
+      if (deepBox) deepBox.style.display = 'none';
+      showBtn.style.display = 'inline-flex';
+      hideBtn.style.display = 'none';
+
+      if (deepToggle && !deepToggle.__bound) {
+        deepToggle.addEventListener('change', () => {
+          const answerVisible = ansBox.style.display === 'block';
+          if (deepBox) deepBox.style.display = (answerVisible && deepToggle.checked) ? 'block' : 'none';
+        });
+        deepToggle.__bound = true;
+      }
+    }
+
+    function deescalate() {
+      const cardEl = document.getElementById('dCard');
+      const bridgeBox = document.getElementById('dBridge');
+      const followBox = document.getElementById('dFollow');
+      const ansBox = document.getElementById('dAnswer');
+      const bridgeText = document.getElementById('dBridgeText');
+      const followText = document.getElementById('dFollowText');
+      const ansText = document.getElementById('dAnswerText');
+      const showBtn = document.getElementById('showAnswerBtn');
+      const hideBtn = document.getElementById('hideAnswerBtn');
+      const deepBox = document.getElementById('dDeep');
+
+      const msg = deescalations[Math.floor(Math.random() * deescalations.length)];
+      cardEl.innerHTML = `<div style="font-size:1.05rem;"><strong>De-escalation line:</strong> ${msg}</div>`;
+      bridgeText.textContent = 'Let’s slow down and choose charity over speed.';
+      bridgeBox.style.display = 'block';
+      followText.textContent = 'Ask: “What’s the most important thing you want me to understand about your faith?”';
+      followBox.style.display = 'block';
+      ansText.textContent = 'The “answer” here is tone.';
+      ansBox.style.display = 'none';
+      if (deepBox) deepBox.style.display = 'none';
+      showBtn.style.display = 'inline-flex';
+      hideBtn.style.display = 'none';
+    }
+
+    function endWithPrayer() {
+      const cardEl = document.getElementById('dCard');
+      const bridgeBox = document.getElementById('dBridge');
+      const followBox = document.getElementById('dFollow');
+      const ansBox = document.getElementById('dAnswer');
+      const bridgeText = document.getElementById('dBridgeText');
+      const followText = document.getElementById('dFollowText');
+      const ansText = document.getElementById('dAnswerText');
+      const showBtn = document.getElementById('showAnswerBtn');
+      const hideBtn = document.getElementById('hideAnswerBtn');
+      const deepBox = document.getElementById('dDeep');
+
+      const p = unityPrayers[Math.floor(Math.random() * unityPrayers.length)];
+      cardEl.innerHTML = `<div style="font-size:1.05rem;"><strong>Prayer:</strong> <em>${p}</em></div>`;
+      bridgeText.textContent = 'Thank you for sharing honestly. Peace be with you.';
+      bridgeBox.style.display = 'block';
+      followText.textContent = 'Optional: each person names one thing they appreciated about someone else’s faith.';
+      followBox.style.display = 'block';
+      ansText.textContent = 'Ending in prayer recenters the table on Christ.';
+      ansBox.style.display = 'none';
+      if (deepBox) deepBox.style.display = 'none';
+      showBtn.style.display = 'inline-flex';
+      hideBtn.style.display = 'none';
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function runSelfTests() {
+      try {
+        console.groupCollapsed('Dinner Table Conversations • Self-tests');
+
+        console.assert(typeof switchTab === 'function', 'switchTab should be defined');
+        console.assert(Array.isArray(saints), 'saints should be an array');
+        console.assert(Array.isArray(dinnerDeck), 'dinnerDeck should be an array');
+        console.assert(dinnerDeck.length > 0, 'dinnerDeck should not be empty');
+        console.assert(saints.length > 0, 'saints should have entries');
+
+        // Ensure key handlers exist on window for inline HTML attributes
+        console.assert(typeof window.switchTab === 'function', 'window.switchTab should be callable');
+        console.assert(typeof window.dealDinnerCard === 'function', 'window.dealDinnerCard should be callable');
+        console.assert(typeof window.renderSaints === 'function', 'window.renderSaints should be callable');
+
+        // Guard against raw newline inside saintsPacked strings (parse breaker)
+        const hasRawNewline = saintsPacked.some(row => row.some(v => typeof v === 'string' && (v.includes('\n') || v.includes('\r'))));
+        console.assert(!hasRawNewline, 'saintsPacked should not contain raw newline characters inside strings');
+
+        // New: ensure foundations deepDive values are safe strings (no raw newlines)
+        const foundationsHaveRawNewline = foundations.some(f => typeof f.deepDive === 'string' && (f.deepDive.includes('\r')));
+        console.assert(!foundationsHaveRawNewline, 'foundations.deepDive should not contain raw carriage returns');
+
+        console.groupEnd();
+      } catch (e) {
+        console.error('Self-tests threw an error (non-fatal):', e);
+      }
+    }
+
+    // Expose handlers for inline onclick/onkeyup attributes (robust across environments)
+    Object.assign(window, {
+      switchTab,
+      renderConversations,
+      renderCommandments,
+      renderRituals,
+      renderPractices,
+      renderSaints,
+      renderFoundations,
+      renderTheology,
+      renderHistory,
+      renderPrayers,
+      openModal,
+      closeModal,
+      updateDinnerStats,
+      toggleAnswer,
+      dealDinnerCard,
+      deescalate,
+      endWithPrayer,
+    });
+
+    // Initial render
+    renderConversations();
+    renderCommandments();
+    renderRituals();
+    renderPractices();
+    renderSaints();
+    renderFoundations();
+    renderTheology();
+    renderHistory();
+    renderPrayers();
+    updateDinnerStats();
+    runSelfTests();
+  </script>
+</body>
+</html>
