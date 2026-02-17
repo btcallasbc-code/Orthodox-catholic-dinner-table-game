@@ -309,7 +309,7 @@
         </select>
 
         <button class="btn" onclick="dealDinnerCard()">🎴 Deal a Card</button>
-        <button class="btn secondary" onclick="rapidFireCulture()">⚡ Rapid Fire (Top 7)</button>
+        <button class="btn secondary" onclick="(window.rapidFireCulture ? window.rapidFireCulture() : alert('Rapid Fire not loaded yet — refresh the page.'))">⚡ Rapid Fire (Top 7)</button>
         <button class="btn secondary" onclick="deescalate()">🧊 De-escalate</button>
         <button class="btn secondary" onclick="endWithPrayer()">🙏 End with Prayer</button>
 
@@ -1707,26 +1707,10 @@ function renderFoundations() {
     }
 
     // Expose handlers for inline onclick/onkeyup attributes (robust across environments)
-    Object.assign(window, {
-      switchTab,
-      renderConversations,
-      renderCommandments,
-      renderRituals,
-      renderPractices,
-      renderSaints,
-      renderCulture,
-      renderFoundations,
-      renderTheology,
-      renderHistory,
-      renderPrayers,
-      openModal,
-      closeModal,
-      updateDinnerStats,
-      toggleAnswer,
-      dealDinnerCard,
-      deescalate,
-      endWithPrayer,
-    });
+    Object.assign(window, {$1});
+
+    // Ensure Rapid Fire is always globally callable (some mobile webviews can be picky)
+    window.rapidFireCulture = rapidFireCulture;
 
     // Initial render
     renderConversations();
