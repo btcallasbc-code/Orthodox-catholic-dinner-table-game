@@ -17,14 +17,30 @@
       background: linear-gradient(to right, #0f172a, #1e293b);
       border-bottom: 2px solid #b45309;
       padding: 1.25rem 1.5rem;
-      position: sticky;
-      top: 0;
+      position: static; /* default: mobile-friendly */
+      top: auto;
       z-index: 40;
+    }
+
+    /* Desktop sticky header only */
+    @media (min-width: 769px) {
+      .header {
+        position: sticky;
+        top: 0;
+      }
     }
     .header h1 { font-size: 2rem; color: #fcd34d; margin-bottom: 0.25rem; font-weight: bold; }
     .header p { color: #cbd5e1; font-size: 0.9rem; }
 
-    .nav-tabs { display: flex; gap: 0.5rem; overflow-x: auto; padding: 0.75rem 0 0.25rem; margin-top: 0.5rem; flex-wrap: wrap; }
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 0.75rem 0 0.5rem;
+      margin-top: 0.5rem;
+      flex-wrap: nowrap; /* prevent menu from taking over screen */
+    }
     .nav-tab {
       padding: 0.5rem 1rem;
       background: #334155;
@@ -170,7 +186,18 @@
     .tiny { font-size: 0.85rem; color: #cbd5e1; opacity: 0.95; }
 
     @media (max-width: 768px) {
+      /* Mobile: keep content readable. The header was too tall + sticky, covering content. */
+      .header { position: static; padding: 0.9rem 1rem; }
+      .header h1 { font-size: 1.35rem; }
+      .header p { display: none; }
+
+      /* Keep nav in a single horizontal row to avoid the menu taking over the screen */
+      .nav-tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
+      .nav-tab { flex: 0 0 auto; }
+
       .comparison-container { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+    }
       .header h1 { font-size: 1.6rem; }
       .grid { grid-template-columns: 1fr; }
     }
@@ -1008,8 +1035,10 @@
 
     function renderConversations() {
       const grid = document.getElementById('conversationsGrid');
-      const search = (document.getElementById('convSearch')?.value || '').toLowerCase();
-      const topic = document.getElementById('convTopic')?.value || 'All';
+      const convSearchEl = document.getElementById('convSearch');
+      const search = ((convSearchEl && convSearchEl.value) ? convSearchEl.value : '').toLowerCase();
+      const convTopicEl = document.getElementById('convTopic');
+      const topic = (convTopicEl && convTopicEl.value) ? convTopicEl.value : 'All';
       const filtered = conversations.filter(c => {
         const matchTopic = topic === 'All' || c.topic === topic;
         const hay = (c.title + ' ' + c.topic + ' ' + (c.tags||[]).join(' ') + ' ' + c.context).toLowerCase();
@@ -1068,8 +1097,10 @@
 
     function renderSaints() {
       const grid = document.getElementById('saintsGrid');
-      const search = (document.getElementById('saintSearch')?.value || '').toLowerCase();
-      const tradFilter = document.getElementById('tradFilter')?.value || 'All';
+      const saintSearchEl = document.getElementById('saintSearch');
+      const search = ((saintSearchEl && saintSearchEl.value) ? saintSearchEl.value : '').toLowerCase();
+      const tradFilterEl = document.getElementById('tradFilter');
+      const tradFilter = (tradFilterEl && tradFilterEl.value) ? tradFilterEl.value : 'All';
 
       const filtered = saints.filter(s => {
         const hay = (
@@ -1334,8 +1365,10 @@
     }
 
     function getDinnerPool() {
-      const topic = document.getElementById('dTopic')?.value || 'Any';
-      const vibe = document.getElementById('dVibe')?.value || 'Gentle';
+      const dTopicEl = document.getElementById('dTopic');
+      const topic = (dTopicEl && dTopicEl.value) ? dTopicEl.value : 'Any';
+      const dVibeEl = document.getElementById('dVibe');
+      const vibe = (dVibeEl && dVibeEl.value) ? dVibeEl.value : 'Gentle';
       return dinnerDeck.filter(card => {
         const matchTopic = topic === 'Any' || card.topic === topic;
         const matchVibe = card.vibe === vibe;
@@ -1349,7 +1382,8 @@
       if (!el) return;
       const topic = document.getElementById('dTopic')?.value || 'Any';
       const vibe = document.getElementById('dVibe')?.value || 'Gentle';
-      const kids = document.getElementById('dKids')?.value || 'No';
+      const dKidsEl = document.getElementById('dKids');
+      const kids = (dKidsEl && dKidsEl.value) ? dKidsEl.value : 'No';
       el.textContent = `Deck available: ${pool.length} card${pool.length===1?'':'s'} • Topic: ${topic} • Vibe: ${vibe} • Kids: ${kids==='Yes'?'Yes (mixed deck)':'No'}`;
     }
 
@@ -1364,7 +1398,7 @@
       showBtn.style.display = show ? 'none' : 'inline-flex';
       hideBtn.style.display = show ? 'inline-flex' : 'none';
       if (deepBox) {
-        const on = !!deepToggle?.checked;
+        const on = !!(deepToggle && deepToggle.checked);
         deepBox.style.display = (show && on) ? 'block' : 'none';
       }
     }
@@ -1475,12 +1509,14 @@
     }
 
     function escapeHtml(str) {
+      // Safari iOS 12 and some embedded webviews don't support String.prototype.replaceAll.
+      // Use global regex replaces for broad compatibility.
       return String(str)
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#039;');
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
     }
 
     function runSelfTests() {
