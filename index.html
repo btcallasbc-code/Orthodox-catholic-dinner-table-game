@@ -216,6 +216,7 @@
       <button class="nav-tab" onclick="switchTab(event, 'rituals')">Rituals & Signs</button>
       <button class="nav-tab" onclick="switchTab(event, 'practices')">Church Practices</button>
       <button class="nav-tab" onclick="switchTab(event, 'saints')">Saints</button>
+      <button class="nav-tab" onclick="switchTab(event, 'culture')">Culture Cues</button>
       <button class="nav-tab" onclick="switchTab(event, 'foundations')">Core Differences</button>
       <button class="nav-tab" onclick="switchTab(event, 'theology')">Theology Deep Dives</button>
       <button class="nav-tab" onclick="switchTab(event, 'history')">History</button>
@@ -292,6 +293,7 @@
           <option value="Icons">Icons</option>
           <option value="History">History</option>
           <option value="DailyLife">Daily Life</option>
+          <option value="Culture">Culture (quick cues)</option>
           <option value="Deep Theology">Deep Theology (Level 2)</option>
         </select>
 
@@ -307,6 +309,7 @@
         </select>
 
         <button class="btn" onclick="dealDinnerCard()">🎴 Deal a Card</button>
+        <button class="btn secondary" onclick="rapidFireCulture()">⚡ Rapid Fire (Top 7)</button>
         <button class="btn secondary" onclick="deescalate()">🧊 De-escalate</button>
         <button class="btn secondary" onclick="endWithPrayer()">🙏 End with Prayer</button>
 
@@ -433,6 +436,20 @@
       </div>
       <div class="tiny" id="saintsCount" style="margin-top:0.75rem;"></div>
       <div id="saintsGrid" class="grid" style="margin-top:0.75rem;"></div>
+    </section>
+
+    <!-- CULTURE TAB -->
+    <section id="culture" class="content-section" role="tabpanel">
+      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">Culture Cues</h2>
+      <div class="context-box">
+        <div class="context-label">🏠 Little things that matter</div>
+        <p style="color:#cbd5e1; margin-top:0.5rem;">These are the “small habits” that signal reverence and belonging: words people use (Mass vs Liturgy), when people cross themselves, how visiting works, coffee hour culture, fasting etiquette, and more. Tap a card to see the <strong>Top 7</strong> (Family Feud style).</p>
+      </div>
+      <div id="cultureGrid" class="grid"></div>
+      <div class="shared-box">
+        <div class="shared-label">Dinner tip</div>
+        <p style="color:#cbd5e1; margin-top:0.25rem;">Ask: “What’s a small habit in your tradition that makes you feel God is near?” Then listen for the story behind it.</p>
+      </div>
     </section>
 
     <!-- FOUNDATIONS TAB -->
@@ -991,6 +1008,127 @@
       'Let’s pause. I think we’re both trying to honor Christ. Can we slow down and restate gently?'
     ];
 
+    // ============================
+    // Culture Cues (Family Feud style)
+    // ============================
+
+    const cultureCards = [
+      {
+        title: 'Mass vs Divine Liturgy',
+        q: 'Top 7 words you’ll hear (and what they usually mean).',
+        top7: [
+          '“Mass” (Catholic, esp. Latin Rite) — the Eucharistic service',
+          '“Divine Liturgy” (Orthodox) — the Eucharistic service (heaven on earth framing)',
+          '“Liturgy” — shorthand for Divine Liturgy in Orthodoxy',
+          '“Vespers” — evening prayer service (Orthodox and some Catholics)',
+          '“Matins/Orthros” — morning prayer service (Orthodox)',
+          '“Confession” — sacramental repentance; form differs by tradition',
+          '“Holy Mysteries” (Orthodox) / “Sacraments” (Catholic) — the Church’s sacred rites'
+        ],
+        quick: 'If you’re visiting a Greek parish, say “Divine Liturgy” and you’ll sound instantly fluent.'
+      },
+      {
+        title: 'Crossing yourself near a church',
+        q: 'Top 7 moments Greeks/Orthodox often make the sign of the Cross.',
+        top7: [
+          'When passing a church (walking or driving)',
+          'Entering the church (often at the door)',
+          'Venerating an icon',
+          'At Trinitarian phrases (Father/Son/Holy Spirit)',
+          'During key Liturgy moments (e.g., Gospel, Great Entrance)',
+          'When the priest blesses or says “Peace be with all”',
+          'When praying for the departed or at a memorial'
+        ],
+        quick: 'It’s usually a reverence reflex, not a rule—follow the room; you won’t be judged.'
+      },
+      {
+        title: 'Standing, kneeling, and “what do I do?”',
+        q: 'Top 7 visitor cues so you feel comfortable in either church.',
+        top7: [
+          'Stand when most people stand; sit when most sit (Orthodox stands more; Catholic has more kneeling)',
+          'If unsure, stay still and attentive—reverence beats perfect choreography',
+          'Follow the person in front of you for simple gestures (standing/bowing)',
+          'Don’t go up for Communion unless you’re sure you should (ask privately later)',
+          'Dress modestly; quiet shoes help (Orthodox services can be longer)',
+          'Phones off; no photos during worship unless invited',
+          'After service, ask a friendly person: “What should visitors know here?”'
+        ],
+        quick: 'Best line: “I’m visiting—what’s the respectful thing to do for Communion?”'
+      },
+      {
+        title: 'Coffee hour and hospitality',
+        q: 'Top 7 culture patterns you’ll notice after service.',
+        top7: [
+          'Orthodox: coffee hour can be a major community anchor (especially ethnic parishes)',
+          'Catholic: donuts/coffee varies by parish; hospitality can be quieter',
+          'Orthodox: expect introductions; people may ask your “background” (often cultural)',
+          'Catholic: often more anonymous—unless it’s a close parish community',
+          'Orthodox: feast days may include big meals; food is part of joy and identity',
+          'Catholic: parish events often revolve around ministries (service groups, school)',
+          'In both: if you show warmth + curiosity, you’ll be welcomed'
+        ],
+        quick: 'If you want community fast, stay 15 minutes after service and talk to one person.'
+      },
+      {
+        title: 'Fasting etiquette (don’t make it weird)',
+        q: 'Top 7 ways to be a good guest when someone is fasting.',
+        top7: [
+          'Don’t interrogate; ask “How are you keeping Lent?” if they invite it',
+          'Avoid food-policing (“Are you allowed to eat that?”)',
+          'Offer simple options (fish/veg) without drama',
+          'In Orthodoxy, fasting can be more structured; in Catholicism, it varies by person/country',
+          'Remember: fasting is meant to grow love, not pride',
+          'If you host: label dishes; let people choose quietly',
+          'If you’re fasting: be joyful and normal—no guilt vibes'
+        ],
+        quick: 'Fasting is medicine, not a medal—hospitality > perfection.'
+      },
+      {
+        title: 'Holy Week “extra services”',
+        q: 'Top 7 Holy Week differences that surprise visitors.',
+        top7: [
+          'Orthodox Holy Week includes many services (Bridegroom Matins, Holy Unction in many parishes, etc.)',
+          'Greek tradition: Holy Unction is often offered on Holy Wednesday',
+          'Orthodox: Pascha begins in darkness and erupts into light (“Christ is risen!”)',
+          'Catholic: Triduum (Holy Thursday, Good Friday, Easter Vigil) is the central arc',
+          'Orthodox: long services are normal; plan time and comfortable shoes',
+          'Catholic: the Easter Vigil is also a powerful “dark to light” moment',
+          'Both: Holy Week is meant to be lived, not only watched'
+        ],
+        quick: 'Ask: “What Holy Week service is most meaningful to you, and why?”'
+      },
+      {
+        title: 'Names for priests and respect language',
+        q: 'Top 7 address norms you’ll hear.',
+        top7: [
+          'Orthodox: “Father + first name” is common (Father Dimitri)',
+          'Greek: you may hear “Pappas” informally in Greek contexts',
+          'Catholic: “Father + last name” is common (Father Smith)',
+          'Orthodox: “Presvytera” (priest’s wife in Greek tradition) may be addressed with honorific',
+          'Catholic: “Sister” for religious sisters; Orthodox: “Mother” for nuns/abbesses',
+          'Both: a simple “Father” is always respectful',
+          'When unsure: follow what the parish uses'
+        ],
+        quick: 'Copy the room—people appreciate respectful effort more than perfect accuracy.'
+      }
+    ];
+
+    // Culture cards as part of the Dinner Tool deck (so "Deal a Card" can use them)
+    const cultureDinnerDeck = (() => {
+      const vibes = ['Gentle', 'Lively', 'Spicy'];
+      const toCard = (c, vibe) => ({
+        topic: 'Culture',
+        vibe,
+        kids: 'No',
+        q: `${c.title} — ${c.q}`,
+        ans: c.quick || 'Quick cue: follow the room; reverence beats perfection.',
+        bridge: 'Curiosity first: “Tell me how you learned that habit.”',
+        follow: 'What’s the story behind it in your family?',
+        deep: `<div><strong>Top 7:</strong><ol style="padding-left:1.25rem; margin-top:0.5rem; line-height:1.7;">${c.top7.map(x=>`<li>${x}</li>`).join('')}</ol></div>`
+      });
+      return vibes.flatMap(v => cultureCards.map(c => toCard(c, v)));
+    })();
+
     const unityPrayers = [
       'Lord Jesus Christ, make us one in truth and love. Heal our pride, deepen our repentance, and teach us to listen. Amen.'
     ];
@@ -1022,6 +1160,7 @@
       if (tab === 'rituals') renderRituals();
       if (tab === 'practices') renderPractices();
       if (tab === 'saints') renderSaints();
+      if (tab === 'culture') renderCulture();
       if (tab === 'foundations') renderFoundations();
       if (tab === 'theology') renderTheology();
       if (tab === 'history') renderHistory();
@@ -1138,7 +1277,26 @@
       }).join('');
     }
 
-    function renderFoundations() {
+    function renderCulture() {
+      const grid = document.getElementById('cultureGrid');
+      if (!grid) return;
+
+      grid.innerHTML = cultureCards.map(c => `
+        <div class="card" style="cursor:default;">
+          <h3 style="color:#f59e0b; font-weight:800;">${c.title}</h3>
+          <p class="card-text" style="margin-top:0.5rem;"><strong>Question:</strong> ${c.q}</p>
+          <details class="shared-box" style="margin-top:0.75rem;">
+            <summary style="cursor:pointer; color:#e2e8f0; font-weight:800;">Reveal Top 7</summary>
+            <ol style="padding-left:1.25rem; margin-top:0.6rem; color:#cbd5e1; line-height:1.7;">
+              ${c.top7.map(x => `<li>${x}</li>`).join('')}
+            </ol>
+            ${c.quick ? `<div class="fun-fact" style="margin-top:0.75rem;"><div class="fun-fact-title">Quick answer</div><p style="color:#bfdbfe; margin-top:0.35rem;">${c.quick}</p></div>` : ''}
+          </details>
+        </div>
+      `).join('');
+    }
+
+function renderFoundations() {
       const grid = document.getElementById('foundationsGrid');
       grid.innerHTML = foundations.map(f => `
         <div class="card" onclick="openModal(event, 'found-${f.id}')" role="button" aria-label="Open foundation">
@@ -1556,6 +1714,7 @@
       renderRituals,
       renderPractices,
       renderSaints,
+      renderCulture,
       renderFoundations,
       renderTheology,
       renderHistory,
@@ -1575,6 +1734,7 @@
     renderRituals();
     renderPractices();
     renderSaints();
+    renderCulture();
     renderFoundations();
     renderTheology();
     renderHistory();
