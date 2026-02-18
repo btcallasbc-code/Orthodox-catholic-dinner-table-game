@@ -72,6 +72,36 @@
       cursor: pointer;
       transition: all 0.2s;
     }
+
+    /* Dinner Tool — Card Deck UX */
+    .deck-wrap{display:flex;gap:1rem;flex-wrap:wrap;align-items:flex-start;}
+    .deck-visual{position:relative;width:170px;height:120px;flex:0 0 auto;}
+    .deck-card{position:absolute;inset:0;border-radius:18px;background:#0f172a;border:1px solid rgba(148,163,184,0.25);box-shadow:0 12px 30px rgba(0,0,0,0.35);}
+    .deck-card.one{transform:rotate(-8deg) translateX(-6px);opacity:0.9;}
+    .deck-card.two{transform:rotate(4deg) translateX(10px) translateY(2px);opacity:0.95;}
+    .deck-card.three{transform:rotate(-1deg) translateY(6px);}
+
+    .game-stage{flex:1;min-width:280px;}
+    .game-card{perspective:1200px;}
+    .flip{position:relative;width:100%;min-height:260px;transform-style:preserve-3d;transition:transform 0.5s ease;}
+    .flip.flipped{transform:rotateY(180deg);}
+    .face{position:absolute;inset:0;background:#0f172a;border:1px solid rgba(148,163,184,0.25);border-radius:18px;padding:1.1rem 1.1rem 1rem;backface-visibility:hidden;box-shadow:0 18px 45px rgba(0,0,0,0.38);}
+    .face.back{transform:rotateY(180deg);overflow:auto;}
+    .face .kicker{color:#f59e0b;font-weight:800;font-size:0.9rem;letter-spacing:0.02em;}
+    .face .q{margin-top:0.5rem;font-size:1.15rem;line-height:1.45;color:#e2e8f0;}
+    .face .meta{margin-top:0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap;}
+    .pill{display:inline-flex;align-items:center;gap:0.35rem;padding:0.2rem 0.6rem;border-radius:999px;background:#111827;border:1px solid rgba(148,163,184,0.22);color:#cbd5e1;font-size:0.78rem;font-weight:700;}
+
+    .game-actions{margin-top:0.85rem;display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;}
+    .hintline{color:#94a3b8;font-size:0.85rem;margin-top:0.5rem;}
+
+    @media (max-width: 768px) {
+      .deck-wrap{gap:0.85rem;}
+      .deck-visual{width:140px;height:104px;}
+      .face{padding:0.95rem;}
+      .face .q{font-size:1.05rem;}
+    }
+
     .card:hover { border-color: #d97706; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(180, 83, 9, 0.2); }
 
     .card-text { color: #cbd5e1; font-size: 0.95rem; margin-top: 0.75rem; line-height: 1.6; }
@@ -319,32 +349,39 @@
       <div class="tiny" id="dStats"></div>
 
       <div class="card" style="cursor:default;" aria-live="polite">
-        <h3 style="color:#f59e0b; font-weight:800;">Your Dinner Card</h3>
-        <div id="dCard" class="card-text" style="margin-top:0.75rem;">Press <strong>Deal a Card</strong> to begin.</div>
+        <h3 style="color:#f59e0b; font-weight:800;">🎴 Dinner Card Deck</h3>
 
-        <div id="dBridge" class="shared-box" style="display:none;">
-          <div class="shared-label">Bridge Phrase (keeps it charitable)</div>
-          <p style="color:#cbd5e1; margin-top:0.25rem;" id="dBridgeText"></p>
-        </div>
+        <div class="deck-wrap" style="margin-top:0.85rem;">
+          <div class="deck-visual" aria-hidden="true">
+            <div class="deck-card one"></div>
+            <div class="deck-card two"></div>
+            <div class="deck-card three"></div>
+          </div>
 
-        <div id="dFollow" class="fun-fact" style="display:none;">
-          <div class="fun-fact-title">Follow-up (if the room is open)</div>
-          <p style="color:#bfdbfe; margin-top:0.25rem;" id="dFollowText"></p>
-        </div>
+          <div class="game-stage">
+            <div class="game-card" id="gameCard">
+              <div class="flip" id="flipCard">
+                <div class="face front">
+                  <div class="kicker" id="frontKicker">Ready</div>
+                  <div class="q" id="frontQ">Tap <strong>Draw</strong> to deal a card.</div>
+                  <div class="meta" id="frontMeta"></div>
+                  <div class="hintline">Swipe left for next • Swipe right for previous • Tap Flip for answer</div>
+                </div>
+                <div class="face back">
+                  <div class="kicker" id="backKicker">Answer</div>
+                  <div id="backBody" style="color:#cbd5e1; line-height:1.7;"></div>
+                </div>
+              </div>
+            </div>
 
-        <div id="dAnswer" class="shared-box" style="display:none;">
-          <div class="shared-label">Answer / Why it matters</div>
-          <p style="color:#cbd5e1; margin-top:0.25rem;" id="dAnswerText"></p>
-        </div>
-
-        <div id="dDeep" class="shared-box" style="display:none;">
-          <div class="shared-label">Deep Dive (optional)</div>
-          <div style="color:#cbd5e1; margin-top:0.25rem; line-height:1.7;" id="dDeepText"></div>
-        </div>
-
-        <div style="margin-top:0.75rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
-          <button class="btn secondary" id="showAnswerBtn" onclick="toggleAnswer(true)" style="display:none;">✅ Show Answer</button>
-          <button class="btn secondary" id="hideAnswerBtn" onclick="toggleAnswer(false)" style="display:none;">🙈 Hide Answer</button>
+            <div class="game-actions">
+              <button class="btn" onclick="drawDinnerCard()">🃏 Draw</button>
+              <button class="btn secondary" onclick="flipDinnerCard()">🔄 Flip</button>
+              <button class="btn secondary" onclick="prevDinnerCard()">⬅️ Back</button>
+              <button class="btn secondary" onclick="nextDinnerCard()">➡️ Next</button>
+              <button class="btn secondary" onclick="(window.rapidFireCulture ? window.rapidFireCulture() : alert('Rapid Fire is still initializing — please refresh once.'))">⚡ Rapid Fire (Top 7)</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1568,46 +1605,109 @@ function renderFoundations() {
     }
 
     function toggleAnswer(show) {
-      const ansBox = document.getElementById('dAnswer');
-      const showBtn = document.getElementById('showAnswerBtn');
-      const hideBtn = document.getElementById('hideAnswerBtn');
-      const deepBox = document.getElementById('dDeep');
-      const deepToggle = document.getElementById('deepDiveToggle');
-      if (!ansBox || !showBtn || !hideBtn) return;
-      ansBox.style.display = show ? 'block' : 'none';
-      showBtn.style.display = show ? 'none' : 'inline-flex';
-      hideBtn.style.display = show ? 'inline-flex' : 'none';
-      if (deepBox) {
-        const on = !!(deepToggle && deepToggle.checked);
-        deepBox.style.display = (show && on) ? 'block' : 'none';
+      // Back-compat: map to flip.
+      if (show) {
+        flipDinnerCard(true);
+      } else {
+        flipDinnerCard(false);
       }
     }
 
-    function dealDinnerCard() {
-      const pool = getDinnerPool();
-      const cardEl = document.getElementById('dCard');
-      const bridgeBox = document.getElementById('dBridge');
-      const bridgeText = document.getElementById('dBridgeText');
-      const followBox = document.getElementById('dFollow');
-      const followText = document.getElementById('dFollowText');
-      const ansBox = document.getElementById('dAnswer');
-      const ansText = document.getElementById('dAnswerText');
-      const deepBox = document.getElementById('dDeep');
-      const deepText = document.getElementById('dDeepText');
-      const deepToggle = document.getElementById('deepDiveToggle');
-      const showBtn = document.getElementById('showAnswerBtn');
-      const hideBtn = document.getElementById('hideAnswerBtn');
+    // ============================
+    // Dinner deck UX state
+    // ============================
+    const dinnerHistory = [];
+    let dinnerIndex = -1;
 
+    function renderDinnerCard(card) {
+      const flip = document.getElementById('flipCard');
+      const frontKicker = document.getElementById('frontKicker');
+      const frontQ = document.getElementById('frontQ');
+      const frontMeta = document.getElementById('frontMeta');
+      const backBody = document.getElementById('backBody');
+
+      if (!card || !flip || !frontKicker || !frontQ || !frontMeta || !backBody) return;
+
+      // Always start on front
+      flip.classList.remove('flipped');
+
+      frontKicker.textContent = `${card.topic} • ${card.vibe}`;
+      frontQ.innerHTML = `<strong>Question:</strong> ${card.q}`;
+
+      const kidsPill = card.kids === 'Yes'
+        ? '<span class="pill">🧒 Kids-friendly</span>'
+        : '<span class="pill" style="border-color:rgba(248,113,113,0.35);">🔞 Adults-only</span>';
+      frontMeta.innerHTML = `
+        <span class="pill">🏷️ ${card.topic}</span>
+        <span class="pill">✨ ${card.vibe}</span>
+        ${kidsPill}
+      `;
+
+      const deepToggle = document.getElementById('deepDiveToggle');
+      const deepOn = !!(deepToggle && deepToggle.checked);
+      const deepHtml = deepOn ? (card.deep || getDeepDive(card)) : '';
+
+      backBody.innerHTML = `
+        <div style="margin-top:0.25rem;"><strong>Answer / Why it matters:</strong> ${escapeHtml(card.ans || '')}</div>
+        <div class="shared-box" style="margin-top:0.85rem;">
+          <div class="shared-label">Bridge Phrase</div>
+          <div style="color:#cbd5e1; margin-top:0.25rem;">${escapeHtml(card.bridge || '')}</div>
+        </div>
+        <div class="fun-fact" style="margin-top:0.85rem;">
+          <div class="fun-fact-title">Follow-up</div>
+          <div style="color:#bfdbfe; margin-top:0.25rem;">${escapeHtml(card.follow || '')}</div>
+        </div>
+        ${deepOn ? `<div class="shared-box" style="margin-top:0.85rem;"><div class="shared-label">Deep Dive</div><div style="color:#cbd5e1; margin-top:0.25rem;">${deepHtml}</div></div>` : ''}
+        ${(!deepOn) ? `<div class="hintline" style="margin-top:0.75rem;">Tip: turn on <strong>Deep Dive mode</strong> to see the “Top 7” and deeper notes.</div>` : ''}
+      `;
+    }
+
+    function drawDinnerCard() {
+      const pool = getDinnerPool();
       if (!pool.length) {
-        cardEl.innerHTML = 'No cards match your settings. Try switching vibe or selecting Any Topic.';
-        bridgeBox.style.display = 'none';
-        followBox.style.display = 'none';
-        ansBox.style.display = 'none';
-        if (deepBox) deepBox.style.display = 'none';
-        showBtn.style.display = 'none';
-        hideBtn.style.display = 'none';
+        const frontQ = document.getElementById('frontQ');
+        if (frontQ) frontQ.textContent = 'No cards match your settings. Try switching vibe or topic.';
         return;
       }
+      const card = pool[Math.floor(Math.random() * pool.length)];
+      // If we went back in history, drop forward stack
+      if (dinnerIndex < dinnerHistory.length - 1) {
+        dinnerHistory.splice(dinnerIndex + 1);
+      }
+      dinnerHistory.push(card);
+      dinnerIndex = dinnerHistory.length - 1;
+      renderDinnerCard(card);
+    }
+
+    function nextDinnerCard() {
+      // If we have forward history, go forward; else draw new.
+      if (dinnerIndex < dinnerHistory.length - 1) {
+        dinnerIndex += 1;
+        renderDinnerCard(dinnerHistory[dinnerIndex]);
+      } else {
+        drawDinnerCard();
+      }
+    }
+
+    function prevDinnerCard() {
+      if (dinnerIndex > 0) {
+        dinnerIndex -= 1;
+        renderDinnerCard(dinnerHistory[dinnerIndex]);
+      }
+    }
+
+    function flipDinnerCard(force) {
+      const flip = document.getElementById('flipCard');
+      if (!flip) return;
+      if (force === true) flip.classList.add('flipped');
+      else if (force === false) flip.classList.remove('flipped');
+      else flip.classList.toggle('flipped');
+    }
+
+    function dealDinnerCard() {
+      // Back-compat: existing "Deal a Card" buttons call this.
+      drawDinnerCard();
+    }
 
       const card = pool[Math.floor(Math.random() * pool.length)];
       cardEl.innerHTML = `<div><span class="badge badge-topic">${card.topic}</span>
@@ -1777,10 +1877,35 @@ function renderFoundations() {
       updateDinnerStats,
       toggleAnswer,
       dealDinnerCard,
+      drawDinnerCard,
+      flipDinnerCard,
+      prevDinnerCard,
+      nextDinnerCard,
       deescalate,
       endWithPrayer,
       rapidFireCulture,
     });
+
+    // Swipe support for mobile (left = next, right = back)
+    (function bindDinnerSwipe(){
+      const el = document.getElementById('gameCard');
+      if (!el) return;
+      let sx = 0, sy = 0;
+      el.addEventListener('touchstart', (e)=>{
+        const t = e.touches && e.touches[0];
+        if (!t) return;
+        sx = t.clientX; sy = t.clientY;
+      }, {passive:true});
+      el.addEventListener('touchend', (e)=>{
+        const t = e.changedTouches && e.changedTouches[0];
+        if (!t) return;
+        const dx = t.clientX - sx;
+        const dy = t.clientY - sy;
+        if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
+        if (dx < 0) nextDinnerCard();
+        else prevDinnerCard();
+      }, {passive:true});
+    })();
 
     // Ensure Rapid Fire is always globally callable (some mobile webviews can be picky)
     window.rapidFireCulture = rapidFireCulture; // alias for inline onclick safety
