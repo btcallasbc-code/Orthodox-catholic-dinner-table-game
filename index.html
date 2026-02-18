@@ -139,9 +139,9 @@
       .game-actions{grid-column:1;flex-direction:row;flex-wrap:wrap;}
       .game-actions .btn{width:auto;}
     }
-    .game-card{perspective:1200px;}
-    .flip{position:relative;width:100%;min-height:260px;transform-style:preserve-3d; -webkit-transform-style: preserve-3d;transition:transform 0.5s ease;}
-    .flip.flipped{$1transform:rotateY(180deg); -webkit-transform: rotateY(180deg);} 
+    .game-card{perspective:1200px;-webkit-perspective:1200px;perspective-origin:50% 50%;-webkit-perspective-origin:50% 50%;}
+    .flip{position:relative;width:100%;min-height:260px;transform-style:preserve-3d;-webkit-transform-style:preserve-3d;transition:transform 0.5s ease;transform:translateZ(0);-webkit-transform:translateZ(0);}
+    .flip.flipped{transform:rotateY(180deg);-webkit-transform:rotateY(180deg);} 
 
     /* Micro-animations */
     @keyframes dealPop { 0%{transform:translateY(10px) scale(0.98); opacity:0.6;} 60%{transform:translateY(-2px) scale(1.01); opacity:1;} 100%{transform:translateY(0) scale(1);} }
@@ -156,14 +156,14 @@
       border:1px solid rgba(148,163,184,0.25);
       border-radius:24px;
       padding:1.1rem 1.1rem 1rem;
-      backface-visibility:hidden; -webkit-backface-visibility:hidden;
+      backface-visibility:hidden;-webkit-backface-visibility:hidden; -webkit-backface-visibility:hidden;-webkit-backface-visibility:hidden;
       box-shadow:0 22px 55px rgba(0,0,0,0.42);
       position:relative;
       overflow:hidden;
     }
     .face::before{content:"";position:absolute;inset:12px;border-radius:18px;border:1px solid rgba(148,163,184,0.16);pointer-events:none;}
     .face::after{content:"";position:absolute;left:-40px;top:-60px;width:220px;height:220px;background:radial-gradient(circle at 30% 30%, rgba(56,189,248,0.14), transparent 60%);pointer-events:none;}
-    .face.back {$1transform:rotateY(180deg); -webkit-transform: rotateY(180deg);overflow:auto;}
+    .face.back{transform:rotateY(180deg) translateZ(1px);-webkit-transform:rotateY(180deg) translateZ(1px);overflow:auto;}
     .face .kicker{color:#f59e0b;font-weight:800;font-size:0.9rem;letter-spacing:0.02em;}
     .face .q{margin-top:0.5rem;font-size:1.15rem;line-height:1.45;color:#e2e8f0;}
     .face .meta{margin-top:0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap;}
@@ -320,7 +320,21 @@
       .btn.secondary{padding:0.55rem 0.75rem;}
     }
 
-  </style>
+  
+    /* iOS/Safari flip robustness */
+    .face.front{transform:translateZ(1px);-webkit-transform:translateZ(1px);} 
+
+    /* Culture card skin */
+    #flipCard[data-topic="Culture"] .face{
+      background:radial-gradient(1100px 420px at 15% 0%, rgba(168,85,247,0.18), transparent 55%),
+                 radial-gradient(900px 360px at 90% 35%, rgba(34,211,238,0.14), transparent 60%),
+                 #0b1020;
+      border-color: rgba(168,85,247,0.45);
+    }
+    #flipCard[data-topic="Culture"] .kicker{color:#c4b5fd;}
+    #flipCard[data-topic="Culture"] .pill{border-color:rgba(196,181,253,0.25);}
+
+$1
 </head>
 <body>
   <div class="header">
@@ -1814,6 +1828,9 @@ function renderFoundations() {
 
       if (!card || !flip || !frontKicker || !frontQ || !frontMeta || !backBody) return;
 
+      // Tag for theming (e.g., Culture cards)
+      try { flip.setAttribute('data-topic', card.topic || ''); } catch(e) {}
+
       // Update counter (Card X / Y)
       if (counter) {
         const total = dinnerHistory.length;
@@ -1972,6 +1989,32 @@ function renderFoundations() {
         alert('No Culture cards loaded yet.');
         return;
       }
+
+      const c = cultureCards[Math.floor(Math.random() * cultureCards.length)];
+      const card = {
+        topic: 'Culture',
+        vibe: 'Top 7',
+        kids: 'No',
+        q: `${c.title} — ${c.q}`,
+        ans: c.quick || 'Quick cue: follow the room; reverence beats perfection.',
+        bridge: 'Curiosity first: “Tell me how you learned that habit.”',
+        follow: 'What’s the story behind it in your family?',
+        deep: `<div><strong>Top 7:</strong><ol style="padding-left:1.25rem; margin-top:0.5rem; line-height:1.7;">${c.top7.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ol></div>`
+      };
+
+      if (dinnerIndex < dinnerHistory.length - 1) {
+        dinnerHistory.splice(dinnerIndex + 1);
+      }
+      dinnerHistory.push(card);
+      dinnerIndex = dinnerHistory.length - 1;
+
+      const game = document.getElementById('gameCard');
+      animateOnce(game, 'deal-animate');
+      renderDinnerCard(card);
+
+      // Auto-flip so Top 7 is instantly visible
+      setTimeout(() => flipDinnerCard(true), 80);
+    }
 
       const c = cultureCards[Math.floor(Math.random() * cultureCards.length)];
       const card = {
