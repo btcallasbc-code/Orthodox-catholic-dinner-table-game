@@ -128,7 +128,17 @@
     .deck-card.two{transform:rotate(4deg) translateX(10px) translateY(2px);opacity:0.95;}
     .deck-card.three{transform:rotate(-1deg) translateY(6px);}
 
-    .game-stage{flex:1;min-width:280px;}
+    .game-stage{flex:1;min-width:280px;display:grid;grid-template-columns:1fr 240px;gap:0.85rem;align-items:start;}
+    .game-card{grid-column:1;}
+    .game-actions{grid-column:2;margin-top:0;flex-direction:column;align-items:stretch;}
+    .game-actions .btn{width:100%;justify-content:center;}
+    .hintline{margin-top:0.35rem;}
+
+    @media (max-width: 768px){
+      .game-stage{grid-template-columns:1fr;}
+      .game-actions{grid-column:1;flex-direction:row;flex-wrap:wrap;}
+      .game-actions .btn{width:auto;}
+    }
     .game-card{perspective:1200px;}
     .flip{position:relative;width:100%;min-height:260px;transform-style:preserve-3d;transition:transform 0.5s ease;}
     .flip.flipped{transform:rotateY(180deg);} 
@@ -464,7 +474,7 @@
               <button class="btn secondary" onclick="flipDinnerCard()">🔄 Flip</button>
               <button class="btn secondary" onclick="prevDinnerCard()">⬅️ Back</button>
               <button class="btn secondary" onclick="nextDinnerCard()">➡️ Next</button>
-              <button class="btn secondary" onclick="(window.rapidFireCulture ? window.rapidFireCulture() : alert('Rapid Fire is still initializing — please refresh once.'))">⚡ Rapid Fire (Top 7)</button>
+              <button class="btn secondary" onclick="(window.rapidFireCulture ? window.rapidFireCulture() : alert('Rapid Fire not loaded — refresh once.'))">⚡ Rapid Fire (Top 7)</button>
             </div>
           </div>
         </div>
@@ -2113,6 +2123,8 @@ function renderFoundations() {
       endWithPrayer,
       rapidFireCulture,
     });
+    // Extra safety for inline onclick
+    window.rapidFireCulture = rapidFireCulture;
 
     // Swipe support for mobile (left = next, right = back)
     (function bindDinnerSwipe(){
