@@ -140,8 +140,8 @@
       .game-actions .btn{width:auto;}
     }
     .game-card{perspective:1200px;}
-    .flip{position:relative;width:100%;min-height:260px;transform-style:preserve-3d;transition:transform 0.5s ease;}
-    .flip.flipped{transform:rotateY(180deg);} 
+    .flip{position:relative;width:100%;min-height:260px;transform-style:preserve-3d; -webkit-transform-style: preserve-3d;transition:transform 0.5s ease;}
+    .flip.flipped{$1transform:rotateY(180deg); -webkit-transform: rotateY(180deg);} 
 
     /* Micro-animations */
     @keyframes dealPop { 0%{transform:translateY(10px) scale(0.98); opacity:0.6;} 60%{transform:translateY(-2px) scale(1.01); opacity:1;} 100%{transform:translateY(0) scale(1);} }
@@ -156,14 +156,14 @@
       border:1px solid rgba(148,163,184,0.25);
       border-radius:24px;
       padding:1.1rem 1.1rem 1rem;
-      backface-visibility:hidden;
+      backface-visibility:hidden; -webkit-backface-visibility:hidden;
       box-shadow:0 22px 55px rgba(0,0,0,0.42);
       position:relative;
       overflow:hidden;
     }
     .face::before{content:"";position:absolute;inset:12px;border-radius:18px;border:1px solid rgba(148,163,184,0.16);pointer-events:none;}
     .face::after{content:"";position:absolute;left:-40px;top:-60px;width:220px;height:220px;background:radial-gradient(circle at 30% 30%, rgba(56,189,248,0.14), transparent 60%);pointer-events:none;}
-    .face.back{transform:rotateY(180deg);overflow:auto;}
+    .face.back {$1transform:rotateY(180deg); -webkit-transform: rotateY(180deg);overflow:auto;}
     .face .kicker{color:#f59e0b;font-weight:800;font-size:0.9rem;letter-spacing:0.02em;}
     .face .q{margin-top:0.5rem;font-size:1.15rem;line-height:1.45;color:#e2e8f0;}
     .face .meta{margin-top:0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap;}
@@ -1968,34 +1968,33 @@ function renderFoundations() {
 
     function rapidFireCulture() {
       playClick(); haptic();
+      if (!Array.isArray(cultureCards) || cultureCards.length === 0) {
+        alert('No Culture cards loaded yet.');
+        return;
+      }
+
       const c = cultureCards[Math.floor(Math.random() * cultureCards.length)];
-      const cardEl = document.getElementById('dCard');
-      const bridgeBox = document.getElementById('dBridge');
-      const followBox = document.getElementById('dFollow');
-      const ansBox = document.getElementById('dAnswer');
-      const deepBox = document.getElementById('dDeep');
-      const showBtn = document.getElementById('showAnswerBtn');
-      const hideBtn = document.getElementById('hideAnswerBtn');
+      const card = {
+        topic: 'Culture',
+        vibe: 'Top 7',
+        kids: 'No',
+        q: `${c.title} — ${c.q}`,
+        ans: c.quick || 'Quick cue: follow the room; reverence beats perfection.',
+        bridge: 'Curiosity first: “Tell me how you learned that habit.”',
+        follow: 'What’s the story behind it in your family?',
+        deep: `<div><strong>Top 7:</strong><ol style="padding-left:1.25rem; margin-top:0.5rem; line-height:1.7;">${c.top7.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ol></div>`
+      };
 
-      cardEl.innerHTML = `
-        <div><span class="badge badge-topic">Culture</span>
-          <span class="badge" style="background:#334155;color:#e2e8f0;">Top 7</span>
-        </div>
-        <div style="margin-top:0.75rem; font-size:1.05rem;"><strong>${c.title}</strong></div>
-        <div style="margin-top:0.35rem;">${c.q}</div>
-        <ol style="padding-left:1.25rem; margin-top:0.75rem; color:#cbd5e1; line-height:1.7;">
-          ${c.top7.map(x => `<li>${x}</li>`).join('')}
-        </ol>
-        ${c.quick ? `<div class="fun-fact" style="margin-top:0.75rem;"><div class="fun-fact-title">Quick answer</div><p style="color:#bfdbfe; margin-top:0.35rem;">${c.quick}</p></div>` : ''}
-      `;
+      // Push into history and render like a dealt card
+      if (dinnerIndex < dinnerHistory.length - 1) {
+        dinnerHistory.splice(dinnerIndex + 1);
+      }
+      dinnerHistory.push(card);
+      dinnerIndex = dinnerHistory.length - 1;
 
-      // Hide other boxes for Rapid Fire (keeps it snappy)
-      if (bridgeBox) bridgeBox.style.display = 'none';
-      if (followBox) followBox.style.display = 'none';
-      if (ansBox) ansBox.style.display = 'none';
-      if (deepBox) deepBox.style.display = 'none';
-      if (showBtn) showBtn.style.display = 'none';
-      if (hideBtn) hideBtn.style.display = 'none';
+      const game = document.getElementById('gameCard');
+      animateOnce(game, 'deal-animate');
+      renderDinnerCard(card);
     }
 
     function escapeHtml(str) {
