@@ -324,6 +324,16 @@
     /* iOS/Safari flip robustness */
     .face.front{transform:translateZ(1px);-webkit-transform:translateZ(1px);} 
 
+    /* Fail-safe: if 3D flip renders blank in some mobile webviews, use a simple swap */
+    @media (max-width: 768px){
+      .flip{transform:none !important;-webkit-transform:none !important;}
+      .flip.flipped{transform:none !important;-webkit-transform:none !important;}
+      .face{position:relative;inset:auto;}
+      .face.back{display:none;}
+      .flip.flipped .face.front{display:none;}
+      .flip.flipped .face.back{display:block;}
+    } 
+
     /* Culture card skin */
     #flipCard[data-topic="Culture"] .face{
       background:radial-gradient(1100px 420px at 15% 0%, rgba(168,85,247,0.18), transparent 55%),
@@ -1921,11 +1931,21 @@ function renderFoundations() {
       playClick(); haptic();
       const game = document.getElementById('gameCard');
       animateOnce(game, 'pulse-animate');
+
       const flip = document.getElementById('flipCard');
       if (!flip) return;
-      if (force === true) flip.classList.add('flipped');
-      else if (force === false) flip.classList.remove('flipped');
-      else flip.classList.toggle('flipped');
+
+      const want = (force === true) ? true : (force === false) ? false : !flip.classList.contains('flipped');
+      if (want) flip.classList.add('flipped');
+      else flip.classList.remove('flipped');
+
+      // Mobile fail-safe: ensure correct face is shown even if 3D is flaky
+      const front = flip.querySelector('.face.front');
+      const back = flip.querySelector('.face.back');
+      if (front && back && window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
+        front.style.display = want ? 'none' : 'block';
+        back.style.display = want ? 'block' : 'none';
+      }
     }
 
     function dealDinnerCard() {
