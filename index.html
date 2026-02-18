@@ -40,7 +40,11 @@
       padding: 0.75rem 0 0.5rem;
       margin-top: 0.5rem;
       flex-wrap: nowrap; /* prevent menu from taking over screen */
+      position: relative;
+      z-index: 1000;
     }
+
+    .nav-tab { position: relative; z-index: 1001; pointer-events: auto; }
     .nav-tab {
       padding: 0.5rem 1rem;
       background: #334155;
@@ -166,6 +170,7 @@
     /* Modal */
     .modal-overlay {
       display: none;
+      pointer-events: none;
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.7);
@@ -175,7 +180,7 @@
       overflow-y: auto;
       padding: 1.25rem;
     }
-    .modal-overlay.active { display: flex; }
+    .modal-overlay.active { display: flex; pointer-events: auto; }
     .modal {
       background: #0f172a;
       border: 2px solid #b45309;
@@ -539,6 +544,30 @@
         // no-op
       }
     };
+
+    // Fallback: if inline onclicks are blocked or a function isn't found, handle nav clicks here.
+    document.addEventListener('click', function(e){
+      const btn = e.target && e.target.closest ? e.target.closest('.nav-tab') : null;
+      if (!btn) return;
+      const label = (btn.textContent || '').trim().toLowerCase();
+      const map = {
+        'home':'home',
+        'dinner tool':'dinner',
+        'conversations':'conversations',
+        '10 commandments':'commandments',
+        'rituals & signs':'rituals',
+        'church practices':'practices',
+        'saints':'saints',
+        'culture cues':'culture',
+        'core differences':'foundations',
+        'theology deep dives':'theology',
+        'history':'history',
+        'prayers':'prayers'
+      };
+      const tab = map[label];
+      if (!tab) return;
+      window.switchTab({target: btn}, tab);
+    }, {passive:true});
 
     // ============================
     // DATA
