@@ -6,13 +6,35 @@
   <title>Dinner Table Conversations • Orthodox & Catholic</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2/dist/tailwind.min.css" rel="stylesheet">
   <style>
+    :root{
+      --gold:#f59e0b;
+      --gold-2:#d97706;
+      --navy:#0f172a;
+      --slate:#1e293b;
+      --slate-2:#111827;
+      --text:#e2e8f0;
+      --muted:#cbd5e1;
+      --border:rgba(180,83,9,0.35);
+      --border-soft:rgba(148,163,184,0.18);
+      --shadow:0 18px 45px rgba(0,0,0,0.34);
+      --shadow-soft:0 10px 25px rgba(0,0,0,0.22);
+      --r:16px;
+      --r2:22px;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Georgia', serif;
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0a0e27 100%);
-      color: #e2e8f0;
+      color: var(--text);
       min-height: 100vh;
     }
+
+    /* Type scale (C2): consistent and premium */
+    .page-title{color:#fcd34d;font-weight:900;letter-spacing:-0.01em;line-height:1.1;
+      font-size:clamp(1.55rem, 2.4vw, 2.05rem); margin:0 0 0.85rem 0;}
+    .section-note{color:var(--muted);font-size:0.98rem;line-height:1.65;}
+
     .header {
       background: linear-gradient(to right, #0f172a, #1e293b);
       border-bottom: 2px solid #b45309;
@@ -60,21 +82,42 @@
     .nav-tab:hover { background: #475569; }
     .nav-tab.active { background: #b45309; color: #0f172a; }
 
-    .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 1.25rem; }
 
     .content-section { display: none; }
     .content-section.active { display: block; animation: fadeIn 0.25s; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.1rem; margin-bottom: 2rem; }
 
     .card {
-      background: #1e293b;
-      border: 2px solid #b45309;
-      border-radius: 0.75rem;
-      padding: 1.25rem;
+      background: linear-gradient(180deg, rgba(30,41,59,0.92), rgba(17,24,39,0.92));
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.05rem 1.1rem;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Make cards feel more “card-like” */
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:10px;
+      border-radius:16px;
+      border:1px solid rgba(148,163,184,0.16);
+      pointer-events:none;
+    }
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:-120px -120px auto auto;
+      width:260px;height:260px;
+      background: radial-gradient(circle at 30% 30%, rgba(245,158,11,0.16), transparent 60%);
+      transform: rotate(12deg);
+      pointer-events:none;
     }
 
     /* Dinner Tool — Card Deck UX */
@@ -88,8 +131,28 @@
     .game-stage{flex:1;min-width:280px;}
     .game-card{perspective:1200px;}
     .flip{position:relative;width:100%;min-height:260px;transform-style:preserve-3d;transition:transform 0.5s ease;}
-    .flip.flipped{transform:rotateY(180deg);}
-    .face{position:absolute;inset:0;background:#0f172a;border:1px solid rgba(148,163,184,0.25);border-radius:18px;padding:1.1rem 1.1rem 1rem;backface-visibility:hidden;box-shadow:0 18px 45px rgba(0,0,0,0.38);}
+    .flip.flipped{transform:rotateY(180deg);} 
+
+    /* Micro-animations */
+    @keyframes dealPop { 0%{transform:translateY(10px) scale(0.98); opacity:0.6;} 60%{transform:translateY(-2px) scale(1.01); opacity:1;} 100%{transform:translateY(0) scale(1);} }
+    .deal-animate { animation: dealPop 260ms ease-out; }
+
+    @keyframes softPulse { 0%{transform:scale(1);} 40%{transform:scale(1.01);} 100%{transform:scale(1);} }
+    .pulse-animate { animation: softPulse 320ms ease-out; }
+    .face{position:absolute;inset:0;
+      background:radial-gradient(1200px 420px at 20% 0%, rgba(59,130,246,0.18), transparent 55%),
+                 radial-gradient(900px 360px at 90% 30%, rgba(245,158,11,0.16), transparent 55%),
+                 #0f172a;
+      border:1px solid rgba(148,163,184,0.25);
+      border-radius:24px;
+      padding:1.1rem 1.1rem 1rem;
+      backface-visibility:hidden;
+      box-shadow:0 22px 55px rgba(0,0,0,0.42);
+      position:relative;
+      overflow:hidden;
+    }
+    .face::before{content:"";position:absolute;inset:12px;border-radius:18px;border:1px solid rgba(148,163,184,0.16);pointer-events:none;}
+    .face::after{content:"";position:absolute;left:-40px;top:-60px;width:220px;height:220px;background:radial-gradient(circle at 30% 30%, rgba(56,189,248,0.14), transparent 60%);pointer-events:none;}
     .face.back{transform:rotateY(180deg);overflow:auto;}
     .face .kicker{color:#f59e0b;font-weight:800;font-size:0.9rem;letter-spacing:0.02em;}
     .face .q{margin-top:0.5rem;font-size:1.15rem;line-height:1.45;color:#e2e8f0;}
@@ -97,6 +160,8 @@
     .pill{display:inline-flex;align-items:center;gap:0.35rem;padding:0.2rem 0.6rem;border-radius:999px;background:#111827;border:1px solid rgba(148,163,184,0.22);color:#cbd5e1;font-size:0.78rem;font-weight:700;}
 
     .game-actions{margin-top:0.85rem;display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;}
+    .game-actions .btn{padding:0.85rem 1.05rem;border-radius:0.9rem;font-size:1rem;}
+    .game-actions .btn.secondary{padding:0.6rem 0.8rem;border-radius:0.75rem;font-size:0.92rem;}
     .hintline{color:#94a3b8;font-size:0.85rem;margin-top:0.5rem;}
 
     @media (max-width: 768px) {
@@ -106,22 +171,25 @@
       .face .q{font-size:1.05rem;}
     }
 
-    .card:hover { border-color: #d97706; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(180, 83, 9, 0.2); }
+    .card:hover { border-color: rgba(245,158,11,0.55); transform: translateY(-2px); box-shadow: 0 18px 45px rgba(0,0,0,0.38); }
 
-    .card-text { color: #cbd5e1; font-size: 0.95rem; margin-top: 0.75rem; line-height: 1.6; }
+    .card-text { color: #cbd5e1; font-size: 0.96rem; margin-top: 0.65rem; line-height: 1.65; }
+    .card-h3{color:var(--gold); font-weight:900; letter-spacing:-0.01em; font-size:1.05rem;}
+    .card-subtitle{color:rgba(245,158,11,0.82); font-size:0.86rem; margin-top:0.45rem;}
     .card-subtitle { color: #b45309; font-size: 0.85rem; margin-top: 0.5rem; }
 
     .search-box, .filter-select {
       padding: 0.75rem 1rem;
       background: #0f172a;
-      border: 2px solid #b45309;
+      border: 1px solid rgba(180,83,9,0.38);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.18);
       border-radius: 0.5rem;
       color: #fcd34d;
       font-size: 1rem;
       margin-bottom: 1rem;
     }
     .search-box::placeholder { color: #92400e; }
-    .search-box:focus, .filter-select:focus { outline: none; border-color: #d97706; background: #1e293b; }
+    .search-box:focus, .filter-select:focus { outline: none; border-color: rgba(245,158,11,0.7); background: #111827; }
 
     .filter-select { display: inline-block; width: auto; margin-right: 0.75rem; }
     .filter-select option { background: #0f172a; color: #fcd34d; }
@@ -146,8 +214,8 @@
     .shared-box { background: #064e3b; border-left: 4px solid #10b981; padding: 1rem; margin-top: 1rem; border-radius: 0.25rem; }
     .shared-label { color: #86efac; font-weight: bold; font-size: 0.85rem; margin-bottom: 0.5rem; }
 
-    .ritual-card { background: #1e293b; border: 1px solid #b45309; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; cursor: pointer; transition: all 0.2s; }
-    .ritual-card:hover { border-color: #d97706; background: #0a0e27; }
+    .ritual-card { background: linear-gradient(180deg, rgba(30,41,59,0.92), rgba(17,24,39,0.92)); border: 1px solid var(--border); border-radius: var(--r); padding: 1rem; margin-bottom: 0.85rem; cursor: pointer; transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; box-shadow: var(--shadow-soft);}
+    .ritual-card:hover { border-color: rgba(245,158,11,0.55); transform: translateY(-1px); box-shadow: 0 18px 45px rgba(0,0,0,0.38);}
     .ritual-name { color: #fcd34d; font-weight: bold; font-size: 1rem; }
     .ritual-desc { color: #cbd5e1; margin-top: 0.5rem; font-size: 0.9rem; line-height: 1.55; }
 
@@ -183,8 +251,8 @@
     .modal-overlay.active { display: flex; pointer-events: auto; }
     .modal {
       background: #0f172a;
-      border: 2px solid #b45309;
-      border-radius: 0.75rem;
+      border: 1px solid rgba(245,158,11,0.5);
+      border-radius: var(--r2);
       padding: 1.75rem;
       max-width: 960px;
       width: 100%;
@@ -195,8 +263,8 @@
     }
     .modal-close { position: absolute; top: 0.75rem; right: 0.75rem; background: none; border: none; color: #b45309; font-size: 1.6rem; cursor: pointer; }
     .modal-close:hover { color: #d97706; }
-    .modal h2 { color: #fcd34d; margin-bottom: 0.75rem; font-size: 1.5rem; font-weight: 800; }
-    .modal h3 { color: #f59e0b; margin-top: 1.25rem; margin-bottom: 0.6rem; font-size: 1.2rem; font-weight: 700; }
+    .modal h2 { color: #fcd34d; margin-bottom: 0.75rem; font-size: 1.55rem; font-weight: 900; }
+    .modal h3 { color: #f59e0b; margin-top: 1.1rem; margin-bottom: 0.6rem; font-size: 1.12rem; font-weight: 800; }
     .modal h4 { color: #d97706; margin-top: 0.9rem; margin-bottom: 0.4rem; font-size: 1rem; font-weight: 700; }
     .modal p { color: #cbd5e1; margin-bottom: 0.75rem; line-height: 1.7; }
     .modal-label { color: #f59e0b; font-weight: 700; margin-top: 0.75rem; margin-bottom: 0.25rem; }
@@ -215,13 +283,15 @@
       gap: 0.5rem;
     }
     .btn:hover { background: #d97706; transform: translateY(-1px); }
-    .btn.secondary { background: #334155; color: #e2e8f0; font-weight: 700; }
+    .btn:active { transform: translateY(0px) scale(0.98); }
+    .btn.secondary:active { transform: translateY(0px) scale(0.985); }
+    .btn.secondary { background: #334155; color: #e2e8f0; font-weight: 700; border:1px solid rgba(148,163,184,0.18);}
     .btn.secondary:hover { background: #475569; }
 
     .tiny { font-size: 0.85rem; color: #cbd5e1; opacity: 0.95; }
 
     @media (max-width: 768px) {
-      /* Mobile: keep content readable. The header was too tall + sticky, covering content. */
+      /* Mobile (C2): compact, consistent spacing */
       .header { position: static; padding: 0.9rem 1rem; }
       .header h1 { font-size: 1.35rem; }
       .header p { display: none; }
@@ -231,8 +301,15 @@
       .nav-tab { flex: 0 0 auto; }
 
       .comparison-container { grid-template-columns: 1fr; }
+      .container { padding: 1rem; }
       .grid { grid-template-columns: 1fr; }
+      .page-title{margin-bottom:0.75rem;}
+      .card{padding:0.95rem;}
+      .search-box,.filter-select{font-size:0.98rem;}
+      .btn{padding:0.7rem 0.9rem;}
+      .btn.secondary{padding:0.55rem 0.75rem;}
     }
+
   </style>
 </head>
 <body>
@@ -259,7 +336,7 @@
   <div class="container">
     <!-- HOME TAB -->
     <section id="home" class="content-section active" role="tabpanel">
-      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">Welcome to the Table</h2>
+      <h2 class="page-title">Welcome to the Table</h2>
       <div class="context-box">
         <div class="context-label">📖 About This App</div>
         <p style="color:#cbd5e1; margin-top:0.5rem;">This app helps Christians have better dinner conversations—curious, warm, and truthful. Explore what divides Orthodox and Catholic traditions, what unites them, and why practices matter. Use the <strong>Dinner Tool</strong> to get conversation prompts, keep the tone charitable, and end the meal with a prayer of unity.</p>
@@ -267,21 +344,21 @@
 
       <div class="grid">
         <div class="card" onclick="switchTab(null,'dinner');" role="button" aria-label="Open Dinner Tool">
-          <h3 style="color:#f59e0b; font-weight:800;">🎲 Dinner Tool</h3>
+          <h3 class="card-h3">🎲 Dinner Tool</h3>
           <p class="card-text">Generate lively questions, pick a vibe (gentle or spicy), and keep conversations respectful.</p>
           <p class="card-subtitle">New: prompt decks, house rules, “bridge phrases,” and Deep Dive mode.</p>
         </div>
         <div class="card" onclick="switchTab(null,'conversations');" role="button" aria-label="Open Conversations">
-          <h3 style="color:#f59e0b; font-weight:800;">🗣️ Real Conversations</h3>
+          <h3 class="card-h3">🗣️ Real Conversations</h3>
           <p class="card-text">Read dialogue scenes you can borrow at the table. Each is short, relatable, and actually useful.</p>
           <p class="card-subtitle">Tap any card to open the full scene.</p>
         </div>
         <div class="card" onclick="switchTab(null,'rituals');" role="button" aria-label="Open Rituals">
-          <h3 style="color:#f59e0b; font-weight:800;">✝️ Rituals & Signs</h3>
+          <h3 class="card-h3">✝️ Rituals & Signs</h3>
           <p class="card-text">The sign of the cross, icons, incense, holy water—what each means, and why it differs.</p>
         </div>
         <div class="card" onclick="switchTab(null,'saints');" role="button" aria-label="Open Saints">
-          <h3 style="color:#f59e0b; font-weight:800;">✨ Saints Who Inspire</h3>
+          <h3 class="card-h3">✨ Saints Who Inspire</h3>
           <p class="card-text">Stories with a kid-friendly version, plus a fun fact for the grown-ups.</p>
         </div>
       </div>
@@ -291,7 +368,7 @@
 
     <!-- DINNER TOOL TAB -->
     <section id="dinner" class="content-section" role="tabpanel">
-      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">🎲 Dinner Conversation Tool</h2>
+      <h2 class="page-title">🎲 Dinner Conversation Tool</h2>
 
       <div class="context-box">
         <div class="context-label">🍷 How to Use This</div>
@@ -340,21 +417,21 @@
           <option value="Yes">Kids present</option>
         </select>
 
-        <button class="btn" onclick="dealDinnerCard()">🎴 Deal a Card</button>
-        <button class="btn secondary" onclick="(window.rapidFireCulture ? window.rapidFireCulture() : alert('Rapid Fire not loaded yet — refresh the page.'))">⚡ Rapid Fire (Top 7)</button>
-        <button class="btn secondary" onclick="deescalate()">🧊 De-escalate</button>
-        <button class="btn secondary" onclick="endWithPrayer()">🙏 End with Prayer</button>
-
         <label class="badge" style="display:inline-flex; gap:0.5rem; align-items:center; background:#0b1220; border:1px solid rgba(148,163,184,0.25);">
           <input id="deepDiveToggle" type="checkbox" style="width:16px; height:16px; accent-color:#38bdf8;" />
           Deep Dive mode
+        </label>
+
+        <label class="badge" style="display:inline-flex; gap:0.5rem; align-items:center; background:#0b1220; border:1px solid rgba(148,163,184,0.25);">
+          <input id="soundToggle" type="checkbox" style="width:16px; height:16px; accent-color:#f59e0b;" />
+          Sound
         </label>
       </div>
 
       <div class="tiny" id="dStats"></div>
 
       <div class="card" style="cursor:default;" aria-live="polite">
-        <h3 style="color:#f59e0b; font-weight:800;">🎴 Dinner Card Deck</h3>
+        <h3 class="card-h3">🎴 Dinner Card Deck</h3>
 
         <div class="deck-wrap" style="margin-top:0.85rem;">
           <div class="deck-visual" aria-hidden="true">
@@ -367,7 +444,10 @@
             <div class="game-card" id="gameCard">
               <div class="flip" id="flipCard">
                 <div class="face front">
-                  <div class="kicker" id="frontKicker">Ready</div>
+                  <div style="display:flex; align-items:center; justify-content:space-between; gap:0.75rem;">
+                    <div class="kicker" id="frontKicker">Ready</div>
+                    <div class="pill" id="cardCounter" title="Card position" style="opacity:0.95;">Card 0 / 0</div>
+                  </div>
                   <div class="q" id="frontQ">Tap <strong>Draw</strong> to deal a card.</div>
                   <div class="meta" id="frontMeta"></div>
                   <div class="hintline">Swipe left for next • Swipe right for previous • Tap Flip for answer</div>
@@ -392,7 +472,7 @@
 
       <div class="grid" style="margin-top:1.25rem;">
         <div class="card" style="cursor:default;">
-          <h3 style="color:#f59e0b; font-weight:800;">House Rules</h3>
+          <h3 class="card-h3">House Rules</h3>
           <ul class="card-text" style="margin-top:0.75rem; list-style:disc; padding-left:1.25rem;">
             <li>Assume goodwill. Ask before you argue.</li>
             <li>Speak in “I” statements. No labels.</li>
@@ -402,7 +482,7 @@
           </ul>
         </div>
         <div class="card" style="cursor:default;">
-          <h3 style="color:#f59e0b; font-weight:800;">Quick Rescues</h3>
+          <h3 class="card-h3">Quick Rescues</h3>
           <div class="card-text" style="margin-top:0.75rem;">
             <p><strong>When it gets hot:</strong> “I think we’re both protecting something sacred. Can we slow down?”</p>
             <p style="margin-top:0.5rem;"><strong>When someone feels attacked:</strong> “That came out sharper than I meant. Let me restate it.”</p>
@@ -414,7 +494,7 @@
 
     <!-- CONVERSATIONS TAB -->
     <section id="conversations" class="content-section" role="tabpanel">
-      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">Dinner Table Conversations</h2>
+      <h2 class="page-title">Dinner Table Conversations</h2>
       <input type="text" id="convSearch" class="search-box" placeholder="Search conversations by title, topic, or keyword..." onkeyup="renderConversations()">
       <div style="display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; margin-bottom:0.75rem;">
         <select id="convTopic" class="filter-select" onchange="renderConversations()">
@@ -430,13 +510,14 @@
           <option value="Divorce">Marriage/Divorce</option>
         </select>
         <span class="tiny" id="convCount"></span>
+        <button class="btn secondary" style="margin-left:auto;" onclick="dealRandomConversation()">🎲 Deal a Conversation</button>
       </div>
       <div id="conversationsGrid" class="grid"></div>
     </section>
 
     <!-- COMMANDMENTS TAB -->
     <section id="commandments" class="content-section" role="tabpanel">
-      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">The Ten Commandments</h2>
+      <h2 class="page-title">The Ten Commandments</h2>
       <div class="context-box">
         <div class="context-label">📜 Mount Sinai & Freedom</div>
         <p style="color:#cbd5e1; margin-top:0.5rem;">These commandments weren’t random rules. They were a covenant—how to live free after slavery. Christians receive them as the enduring moral law, fulfilled in Christ.</p>
@@ -446,21 +527,21 @@
 
     <!-- RITUALS TAB -->
     <section id="rituals" class="content-section" role="tabpanel">
-      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">Rituals & Signs</h2>
+      <h2 class="page-title">Rituals & Signs</h2>
       <div class="proto-note">Visible gestures reveal deep theology. Every object and movement teaches something.</div>
       <div id="ritualsGrid"></div>
     </section>
 
     <!-- PRACTICES TAB -->
     <section id="practices" class="content-section" role="tabpanel">
-      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">Church Practices</h2>
+      <h2 class="page-title">Church Practices</h2>
       <p style="color:#cbd5e1; margin-bottom:1rem;">Practices aren’t arbitrary. They express what each church believes worship does to the human person.</p>
       <div id="practicesGrid" class="grid"></div>
     </section>
 
     <!-- SAINTS TAB -->
     <section id="saints" class="content-section" role="tabpanel">
-      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">Saints</h2>
+      <h2 class="page-title">Saints</h2>
       <div class="proto-note">Saints are real humans who struggled, repented, and grew into holiness. Their stories are fuel for the rest of us.</div>
 
       <div style="display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center;">
@@ -474,12 +555,16 @@
         <input type="text" id="saintSearch" class="search-box" style="margin-bottom:0; flex:1; min-width:260px;" placeholder="Search saints by name, role, patronage (what they help with), story…" onkeyup="renderSaints()">
       </div>
       <div class="tiny" id="saintsCount" style="margin-top:0.75rem;"></div>
+      <div style="margin-top:0.6rem; display:flex; flex-wrap:wrap; gap:0.5rem; align-items:center;">
+        <div id="saintChips" style="display:flex; flex-wrap:wrap; gap:0.5rem;"></div>
+        <button class="btn secondary" style="margin-left:auto;" onclick="randomSaint()">🎲 Random Saint</button>
+      </div>
       <div id="saintsGrid" class="grid" style="margin-top:0.75rem;"></div>
     </section>
 
     <!-- CULTURE TAB -->
     <section id="culture" class="content-section" role="tabpanel">
-      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">Culture Cues</h2>
+      <h2 class="page-title">Culture Cues</h2>
       <div class="context-box">
         <div class="context-label">🏠 Little things that matter</div>
         <p style="color:#cbd5e1; margin-top:0.5rem;">These are the “small habits” that signal reverence and belonging: words people use (Mass vs Liturgy), when people cross themselves, how visiting works, coffee hour culture, fasting etiquette, and more. Tap a card to see the <strong>Top 7</strong> (Family Feud style).</p>
@@ -493,27 +578,31 @@
 
     <!-- FOUNDATIONS TAB -->
     <section id="foundations" class="content-section" role="tabpanel">
-      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">Core Differences</h2>
+      <h2 class="page-title">Core Differences</h2>
       <p style="color:#cbd5e1; margin-bottom:1rem;">Strip away politics. These are the theological/ecclesial differences shaping everything else.</p>
       <div id="foundationsGrid" class="grid"></div>
     </section>
 
     <!-- THEOLOGY TAB -->
     <section id="theology" class="content-section" role="tabpanel">
-      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">Theology Deep Dives</h2>
+      <h2 class="page-title">Theology Deep Dives</h2>
       <p style="color:#cbd5e1; margin-bottom:1rem;">Big questions. Clear summaries. Shared truths highlighted.</p>
       <div id="theologyGrid" class="grid"></div>
     </section>
 
     <!-- HISTORY TAB -->
     <section id="history" class="content-section" role="tabpanel">
-      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">History Moments</h2>
+      <h2 class="page-title">History Moments</h2>
       <div id="historyGrid" class="grid"></div>
     </section>
 
     <!-- PRAYERS TAB -->
     <section id="prayers" class="content-section" role="tabpanel">
-      <h2 style="color:#fcd34d; font-size:1.75rem; margin-bottom:0.75rem; font-weight:800;">Prayers We Share</h2>
+      <h2 class="page-title">Prayers We Share</h2>
+      <div style="display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; margin-bottom:0.75rem;">
+        <button class="btn" onclick="prayNow()">🙏 Pray Now</button>
+        <span class="tiny">(opens a prayer card)</span>
+      </div>
       <div id="prayersGrid" class="grid"></div>
     </section>
   </div>
@@ -1266,6 +1355,41 @@
       return `<div style="grid-column:1 / -1; color:#cbd5e1; opacity:0.95; background:#0f172a; border:1px solid #334155; padding:1rem; border-radius:0.75rem;">${message}</div>`;
     }
 
+    // -----------------
+    // Micro-interactions (C2)
+    // -----------------
+
+    function playClick(){
+      const t = document.getElementById('soundToggle');
+      const on = !!(t && t.checked);
+      if (!on) return;
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return;
+        const ctx = new Ctx();
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = 'sine';
+        o.frequency.value = 520;
+        g.gain.value = 0.05;
+        o.connect(g); g.connect(ctx.destination);
+        o.start();
+        setTimeout(()=>{ o.stop(); if (ctx.close) ctx.close(); }, 55);
+      } catch(e) {}
+    }
+
+    function haptic(){
+      try { if (navigator.vibrate) navigator.vibrate(12); } catch(e) {}
+    }
+
+    function animateOnce(el, cls){
+      if (!el) return;
+      el.classList.remove(cls);
+      void el.offsetWidth;
+      el.classList.add(cls);
+    }
+
+
     function renderConversations() {
       const grid = document.getElementById('conversationsGrid');
       const convSearchEl = document.getElementById('convSearch');
@@ -1286,7 +1410,7 @@
       }
       grid.innerHTML = filtered.map(c => `
         <div class="card" onclick="openModal(event, 'conv-${c.id}')" role="button" aria-label="Open conversation">
-          <h3 style="color:#f59e0b; font-weight:800;">${c.title}</h3>
+          <h3 class="card-h3">${c.title}</h3>
           <div style="margin-top:0.5rem;">
             <span class="badge badge-topic">${c.topic}</span>
             ${(c.tags||[]).slice(0,3).map(t=>`<span class="badge" style="background:#334155;color:#e2e8f0;">${t}</span>`).join('')}
@@ -1321,7 +1445,7 @@
       const grid = document.getElementById('practicesGrid');
       grid.innerHTML = practices.map(p => `
         <div class="card" onclick="openModal(event, 'prac-${p.id}')" role="button" aria-label="Open practice">
-          <h3 style="color:#f59e0b; font-weight:800;">${p.title}</h3>
+          <h3 class="card-h3">${p.title}</h3>
           <p class="card-subtitle">Category: ${p.category}</p>
           <p class="card-text">${p.content.substring(0, 140)}...</p>
         </div>
@@ -1329,6 +1453,14 @@
     }
 
     function renderSaints() {
+      // Render quick chips once (small UX win)
+      const chipWrap = document.getElementById('saintChips');
+      if (chipWrap && !chipWrap.__built) {
+        const chips = ['Cancer','Breast cancer','Anxiety','Sleep','Grief','Mothers','Students','Work','Protection','Healing'];
+        chipWrap.innerHTML = chips.map(t => `<button class="pill" style="cursor:pointer;" onclick="setSaintSearch('${t.replace(/'/g, "\'")}')">${t}</button>`).join('');
+        chipWrap.__built = true;
+      }
+
       const grid = document.getElementById('saintsGrid');
       const saintSearchEl = document.getElementById('saintSearch');
       const search = ((saintSearchEl && saintSearchEl.value) ? saintSearchEl.value : '').toLowerCase();
@@ -1360,7 +1492,7 @@
         const badgeClass = s.tradition === 'Both' ? 'badge-both' : s.tradition === 'Orthodox' ? 'badge-orthodox' : 'badge-catholic';
         return `
           <div class="card" onclick="openModal(event, 'saint-${s.id}')" role="button" aria-label="Open saint">
-            <h3 style="color:#f59e0b; font-weight:800;">${s.name}</h3>
+            <h3 class="card-h3">${s.name}</h3>
             <span class="badge ${badgeClass}">${s.tradition}</span>
             <p class="card-subtitle"><strong>Helps with:</strong> ${(((s.patronage || '').split(',').map(x=>x.trim()).filter(Boolean).slice(0,4).join(', ')) || '—')}${((s.patronage||'').split(',').map(x=>x.trim()).filter(Boolean).length > 4) ? '…' : ''}</p>
             <p class="card-subtitle">Role: ${s.role || '—'}</p>
@@ -1377,7 +1509,7 @@
 
       grid.innerHTML = cultureCards.map(c => `
         <div class="card" style="cursor:default;">
-          <h3 style="color:#f59e0b; font-weight:800;">${c.title}</h3>
+          <h3 class="card-h3">${c.title}</h3>
           <p class="card-text" style="margin-top:0.5rem;"><strong>Question:</strong> ${c.q}</p>
           <details class="shared-box" style="margin-top:0.75rem;">
             <summary style="cursor:pointer; color:#e2e8f0; font-weight:800;">Reveal Top 7</summary>
@@ -1394,7 +1526,7 @@ function renderFoundations() {
       const grid = document.getElementById('foundationsGrid');
       grid.innerHTML = foundations.map(f => `
         <div class="card" onclick="openModal(event, 'found-${f.id}')" role="button" aria-label="Open foundation">
-          <h3 style="color:#f59e0b; font-weight:800;">${f.icon} ${f.title}</h3>
+          <h3 class="card-h3">${f.icon} ${f.title}</h3>
           <p class="card-text">${f.description}</p>
         </div>
       `).join('');
@@ -1404,7 +1536,7 @@ function renderFoundations() {
       const grid = document.getElementById('theologyGrid');
       grid.innerHTML = theologyTopics.map(t => `
         <div class="card" onclick="openModal(event, 'theo-${t.id}')" role="button" aria-label="Open theology">
-          <h3 style="color:#f59e0b; font-weight:800;">${t.title}</h3>
+          <h3 class="card-h3">${t.title}</h3>
           <p class="card-text">${t.question.substring(0, 150)}...</p>
         </div>
       `).join('');
@@ -1414,7 +1546,7 @@ function renderFoundations() {
       const grid = document.getElementById('historyGrid');
       grid.innerHTML = historyMoments.map(h => `
         <div class="card" onclick="openModal(event, 'hist-${h.id}')" role="button" aria-label="Open history">
-          <h3 style="color:#f59e0b; font-weight:800;">${h.title}</h3>
+          <h3 class="card-h3">${h.title}</h3>
           <p class="card-subtitle">${h.year}</p>
           <p class="card-text">${h.story.substring(0, 150)}...</p>
         </div>
@@ -1425,7 +1557,7 @@ function renderFoundations() {
       const grid = document.getElementById('prayersGrid');
       grid.innerHTML = prayers.map(p => `
         <div class="card" onclick="openModal(event, 'prayer-${p.id}')" role="button" aria-label="Open prayer">
-          <h3 style="color:#f59e0b; font-weight:800;">${p.title}</h3>
+          <h3 class="card-h3">${p.title}</h3>
           <p class="card-text">${p.text.substring(0, 120)}...</p>
         </div>
       `).join('');
@@ -1668,8 +1800,16 @@ function renderFoundations() {
       const frontQ = document.getElementById('frontQ');
       const frontMeta = document.getElementById('frontMeta');
       const backBody = document.getElementById('backBody');
+      const counter = document.getElementById('cardCounter');
 
       if (!card || !flip || !frontKicker || !frontQ || !frontMeta || !backBody) return;
+
+      // Update counter (Card X / Y)
+      if (counter) {
+        const total = dinnerHistory.length;
+        const pos = dinnerIndex >= 0 ? (dinnerIndex + 1) : 0;
+        counter.textContent = `Card ${pos} / ${total}`;
+      }
 
       // Always start on front
       flip.classList.remove('flipped');
@@ -1706,10 +1846,15 @@ function renderFoundations() {
     }
 
     function drawDinnerCard() {
+      playClick(); haptic();
+      const game = document.getElementById('gameCard');
+      animateOnce(game, 'deal-animate');
       const pool = getDinnerPool();
       if (!pool.length) {
         const frontQ = document.getElementById('frontQ');
         if (frontQ) frontQ.textContent = 'No cards match your settings. Try switching vibe or topic.';
+        const counter = document.getElementById('cardCounter');
+        if (counter) counter.textContent = 'Card 0 / 0';
         return;
       }
       const card = pool[Math.floor(Math.random() * pool.length)];
@@ -1723,6 +1868,9 @@ function renderFoundations() {
     }
 
     function nextDinnerCard() {
+      playClick();
+      const game = document.getElementById('gameCard');
+      animateOnce(game, 'pulse-animate');
       // If we have forward history, go forward; else draw new.
       if (dinnerIndex < dinnerHistory.length - 1) {
         dinnerIndex += 1;
@@ -1733,6 +1881,9 @@ function renderFoundations() {
     }
 
     function prevDinnerCard() {
+      playClick();
+      const game = document.getElementById('gameCard');
+      animateOnce(game, 'pulse-animate');
       if (dinnerIndex > 0) {
         dinnerIndex -= 1;
         renderDinnerCard(dinnerHistory[dinnerIndex]);
@@ -1740,6 +1891,9 @@ function renderFoundations() {
     }
 
     function flipDinnerCard(force) {
+      playClick(); haptic();
+      const game = document.getElementById('gameCard');
+      animateOnce(game, 'pulse-animate');
       const flip = document.getElementById('flipCard');
       if (!flip) return;
       if (force === true) flip.classList.add('flipped');
@@ -1750,35 +1904,6 @@ function renderFoundations() {
     function dealDinnerCard() {
       // Back-compat: existing "Deal a Card" buttons call this.
       drawDinnerCard();
-    }
-
-      const card = pool[Math.floor(Math.random() * pool.length)];
-      cardEl.innerHTML = `<div><span class="badge badge-topic">${card.topic}</span>
-        <span class="badge" style="background:#334155;color:#e2e8f0;">${card.vibe}</span>
-      </div>
-      <div style="margin-top:0.75rem; font-size:1.05rem;"><strong>Question:</strong> ${card.q}</div>`;
-
-      bridgeText.textContent = card.bridge;
-      bridgeBox.style.display = 'block';
-
-      followText.textContent = card.follow;
-      followBox.style.display = 'block';
-
-      ansText.textContent = card.ans || 'Answer: Use charity + curiosity.';
-      if (deepText) deepText.innerHTML = card.deep || getDeepDive(card);
-
-      ansBox.style.display = 'none';
-      if (deepBox) deepBox.style.display = 'none';
-      showBtn.style.display = 'inline-flex';
-      hideBtn.style.display = 'none';
-
-      if (deepToggle && !deepToggle.__bound) {
-        deepToggle.addEventListener('change', () => {
-          const answerVisible = ansBox.style.display === 'block';
-          if (deepBox) deepBox.style.display = (answerVisible && deepToggle.checked) ? 'block' : 'none';
-        });
-        deepToggle.__bound = true;
-      }
     }
 
     function deescalate() {
@@ -1832,6 +1957,7 @@ function renderFoundations() {
     }
 
     function rapidFireCulture() {
+      playClick(); haptic();
       const c = cultureCards[Math.floor(Math.random() * cultureCards.length)];
       const cardEl = document.getElementById('dCard');
       const bridgeBox = document.getElementById('dBridge');
@@ -1903,6 +2029,61 @@ function renderFoundations() {
     }
 
     // Expose handlers for inline onclick/onkeyup attributes (robust across environments)
+    function setSaintSearch(term){
+      const input = document.getElementById('saintSearch');
+      if (input) input.value = term;
+      renderSaints();
+    }
+
+    function getFilteredSaints(){
+      const input = document.getElementById('saintSearch');
+      const search = ((input && input.value) ? input.value : '').toLowerCase();
+      const tradEl = document.getElementById('tradFilter');
+      const trad = (tradEl && tradEl.value) ? tradEl.value : 'All';
+      return saints.filter(s => {
+        const hay = ((s.name||'')+' '+(s.role||'')+' '+(s.patronage||'')+' '+(s.story||'')+' '+(s.interestingFact||'')).toLowerCase();
+        const matchSearch = !search || hay.includes(search);
+        const matchTrad = trad === 'All' || s.tradition === trad;
+        return matchSearch && matchTrad;
+      });
+    }
+
+    function randomSaint(){
+      playClick(); haptic();
+      const pool = getFilteredSaints();
+      if (!pool.length) return;
+      const s = pool[Math.floor(Math.random()*pool.length)];
+      openModal(null, `saint-${s.id}`);
+    }
+
+    function getFilteredConversations(){
+      const searchEl = document.getElementById('convSearch');
+      const search = ((searchEl && searchEl.value) ? searchEl.value : '').toLowerCase();
+      const topicEl = document.getElementById('convTopic');
+      const topic = (topicEl && topicEl.value) ? topicEl.value : 'All';
+      return conversations.filter(c => {
+        const matchTopic = topic === 'All' || c.topic === topic;
+        const hay = (c.title + ' ' + c.topic + ' ' + (c.tags||[]).join(' ') + ' ' + c.context).toLowerCase();
+        const matchSearch = !search || hay.includes(search);
+        return matchTopic && matchSearch;
+      });
+    }
+
+    function dealRandomConversation(){
+      playClick(); haptic();
+      const pool = getFilteredConversations();
+      if (!pool.length) return;
+      const c = pool[Math.floor(Math.random()*pool.length)];
+      openModal(null, `conv-${c.id}`);
+    }
+
+    function prayNow(){
+      playClick(); haptic();
+      if (!prayers || !prayers.length) return;
+      const p = prayers[Math.floor(Math.random()*prayers.length)];
+      openModal(null, `prayer-${p.id}`);
+    }
+
     Object.assign(window, {
       switchTab,
       renderConversations,
@@ -1910,6 +2091,10 @@ function renderFoundations() {
       renderRituals,
       renderPractices,
       renderSaints,
+      setSaintSearch,
+      randomSaint,
+      dealRandomConversation,
+      prayNow,
       renderCulture,
       renderFoundations,
       renderTheology,
