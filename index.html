@@ -526,6 +526,20 @@
   <script>
     "use strict";
 
+    // Safety: make tabs clickable even if a later script error occurs.
+    // This minimal switchTab does not depend on other functions.
+    window.switchTab = function(event, tab) {
+      try {
+        document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+        const target = document.getElementById(tab);
+        if (target) target.classList.add('active');
+        if (event && event.target) event.target.classList.add('active');
+      } catch (e) {
+        // no-op
+      }
+    };
+
     // ============================
     // DATA
     // ============================
