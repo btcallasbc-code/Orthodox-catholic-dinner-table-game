@@ -3,1559 +3,1415 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cutting Through Complexity • The Brothers Karamazov</title>
-  <meta name="description" content="Ask Betsy — Structured Clarity. A guided reading experience for The Brothers Karamazov." />
+  <title>Dinner Table Conversations • Orthodox & Catholic</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2/dist/tailwind.min.css" rel="stylesheet">
 
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;}
-    body{
-      font-family: Georgia, serif;
-      background: linear-gradient(135deg,#2c1810 0%,#4a2c1f 100%);
-      color:#f5e6d3;
-      line-height:1.75;
-      min-height:100vh;
+    :root{
+      --gold:#f59e0b;
+      --gold-2:#d97706;
+      --navy:#0f172a;
+      --slate:#1e293b;
+      --slate-2:#111827;
+      --text:#e2e8f0;
+      --muted:#cbd5e1;
+      --border:rgba(180,83,9,0.35);
+      --border-soft:rgba(148,163,184,0.18);
+      --shadow:0 18px 45px rgba(0,0,0,0.34);
+      --shadow-soft:0 10px 25px rgba(0,0,0,0.22);
+      --r:16px;
+      --r2:22px;
     }
-    .container{max-width:1200px;margin:0 auto;padding:18px;}
 
-    /* Header (NOT sticky) */
-    header{
-      text-align:center;
-      padding:26px 18px 18px;
-      background:rgba(0,0,0,.32);
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Georgia', serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0a0e27 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* Type scale */
+    .page-title{
+      color:#fcd34d;
+      font-weight:900;
+      letter-spacing:-0.01em;
+      line-height:1.1;
+      font-size:clamp(1.55rem, 2.4vw, 2.05rem);
+      margin:0 0 0.85rem 0;
+    }
+
+    .header {
+      background: linear-gradient(to right, #0f172a, #1e293b);
+      border-bottom: 2px solid #b45309;
+      padding: 1.25rem 1.5rem;
+      position: static;
+      z-index: 40;
+    }
+    @media (min-width: 769px) {
+      .header { position: sticky; top: 0; }
+    }
+    .header h1 { font-size: 2rem; color: #fcd34d; margin-bottom: 0.25rem; font-weight: bold; }
+    .header p { color: #cbd5e1; font-size: 0.9rem; }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 0.75rem 0 0.5rem;
+      margin-top: 0.5rem;
+      flex-wrap: nowrap;
+      position: relative;
+      z-index: 1000;
+    }
+    .nav-tab {
+      padding: 0.5rem 1rem;
+      background: #334155;
+      color: #cbd5e1;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .nav-tab:hover { background: #475569; }
+    .nav-tab.active { background: #b45309; color: #0f172a; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 1.25rem; }
+
+    .content-section { display: none; }
+    .content-section.active { display: block; animation: fadeIn 0.25s; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.1rem; margin-bottom: 2rem; }
+
+    /* Base cards */
+    .card {
+      background: linear-gradient(180deg, rgba(30,41,59,0.92), rgba(17,24,39,0.92));
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.05rem 1.1rem;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:10px;
       border-radius:16px;
-      border:2px solid #8b4513;
-      margin-bottom:14px;
+      border:1px solid rgba(148,163,184,0.16);
+      pointer-events:none;
+      z-index:0;
     }
-    .brand-top{
-      font-size:.95em;
-      color:#c19a6b;
-      font-style:italic;
-      letter-spacing:.2px;
-      margin-bottom:6px;
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:-120px -120px auto auto;
+      width:260px;height:260px;
+      background: radial-gradient(circle at 30% 30%, rgba(245,158,11,0.16), transparent 60%);
+      transform: rotate(12deg);
+      pointer-events:none;
+      z-index:0;
     }
-    h1{
-      font-size:2.15em;
-      color:#c9a227;
-      text-shadow: 2px 2px 4px rgba(0,0,0,.45);
-      line-height:1.15;
-      margin-bottom:4px;
+    .card > *{position:relative; z-index:2;}
+    .card:hover { border-color: rgba(245,158,11,0.55); transform: translateY(-2px); box-shadow: 0 18px 45px rgba(0,0,0,0.38); }
+
+    .card-h3{color:var(--gold); font-weight:900; letter-spacing:-0.01em; font-size:1.05rem;}
+    .card-text { color: #cbd5e1; font-size: 0.96rem; margin-top: 0.65rem; line-height: 1.65; }
+    .card-subtitle{color:rgba(245,158,11,0.82); font-size:0.86rem; margin-top:0.45rem;}
+
+    .search-box, .filter-select {
+      padding: 0.75rem 1rem;
+      background: #0f172a;
+      border: 1px solid rgba(180,83,9,0.38);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+      border-radius: 0.5rem;
+      color: #fcd34d;
+      font-size: 1rem;
+      margin-bottom: 1rem;
     }
-    .subtitle{
-      font-size:1.02em;
-      color:#c19a6b;
-      font-style:italic;
+    .search-box::placeholder { color: #92400e; }
+    .search-box:focus, .filter-select:focus { outline: none; border-color: rgba(245,158,11,0.7); background: #111827; }
+
+    .filter-select { display: inline-block; width: auto; margin-right: 0.75rem; }
+    .filter-select option { background: #0f172a; color: #fcd34d; }
+
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: bold; margin-right: 0.5rem; margin-bottom: 0.5rem; }
+    .badge-catholic { background: #92400e; color: #fef3c7; }
+    .badge-orthodox { background: #1e40af; color: #bfdbfe; }
+    .badge-both { background: #6b21a8; color: #e9d5ff; }
+    .badge-topic { background: #0b3b60; color: #bfdbfe; }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:0.35rem;
+      padding:0.2rem 0.6rem;
+      border-radius:999px;
+      background:#111827;
+      border:1px solid rgba(148,163,184,0.22);
+      color:#cbd5e1;
+      font-size:0.78rem;
+      font-weight:700;
     }
 
-    .intro{
-      max-width:980px;
-      margin:14px auto 10px;
-      text-align:left;
-      background:rgba(74,44,31,.24);
-      border:1px solid rgba(139,69,19,.85);
-      border-radius:14px;
-      padding:14px 14px 12px;
-    }
-    .intro ul{margin-top:10px;padding-left:18px;}
-    .intro li{margin:6px 0;}
-    .intro .note{margin-top:10px;color:#c19a6b;font-style:italic;}
+    .context-box { background: #064e3b; border-left: 4px solid #10b981; padding: 1rem; margin-bottom: 1.25rem; border-radius: 0.25rem; }
+    .context-label { color: #86efac; font-weight: bold; font-size: 0.9rem; }
 
-    .quick-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:nowrap;
-      overflow-x:auto;
-      -webkit-overflow-scrolling:touch;
-      padding:10px 2px 0;
-      justify-content:flex-start;
-      max-width:980px;
-      margin:0 auto;
-    }
-    .quick-btn{
-      flex:0 0 auto;
-      padding:10px 14px;
-      border-radius:12px;
-      border:2px solid #8b4513;
-      background:rgba(139,69,19,.45);
-      color:#f5e6d3;
-      cursor:pointer;
-      font-family:Georgia,serif;
-      font-size:.98em;
-      transition:transform .18s, background .18s;
-      white-space:nowrap;
-    }
-    .quick-btn:hover{background:rgba(139,69,19,.75);transform:translateY(-1px);}
+    .shared-box { background: #064e3b; border-left: 4px solid #10b981; padding: 1rem; margin-top: 1rem; border-radius: 0.25rem; }
+    .shared-label { color: #86efac; font-weight: bold; font-size: 0.85rem; margin-bottom: 0.5rem; }
 
-    /* Sticky menu only */
-    .sticky-nav{
-      position:sticky;
-      top:0;
-      z-index:100;
-      background:rgba(0,0,0,.55);
-      backdrop-filter:blur(10px);
-      border-radius:14px;
-      border:2px solid #8b4513;
-      padding:10px 10px;
-      margin-bottom:16px;
-    }
+    .proto-note { background: #064e3b; border-left: 4px solid #10b981; padding: 0.75rem; margin-bottom: 1rem; border-radius: 0.25rem; color: #86efac; font-size: 0.85rem; }
 
-    .nav-tabs,.book-selector,.chapter-nav{
-      display:flex;
-      gap:10px;
-      flex-wrap:nowrap;
-      overflow-x:auto;
-      -webkit-overflow-scrolling:touch;
-      scrollbar-width:thin;
-      padding-bottom:6px;
-    }
+    .fun-fact { background: #1e40af; border-left: 4px solid #60a5fa; padding: 1rem; margin: 1rem 0; border-radius: 0.25rem; color: #bfdbfe; }
+    .fun-fact-title { font-weight: bold; margin-bottom: 0.5rem; }
 
-    .tab-btn,.book-btn,.chapter-btn{flex:0 0 auto;white-space:nowrap;}
+    .kid-friendly { background: #92400e; border-left: 4px solid #fbbf24; padding: 1rem; margin: 1rem 0; border-radius: 0.25rem; color: #fef3c7; }
+    .kid-friendly-title { font-weight: bold; margin-bottom: 0.5rem; }
 
-    .tab-btn{
-      padding:10px 16px;
-      background:rgba(139,69,19,.5);
-      border:2px solid #8b4513;
-      color:#f5e6d3;
-      cursor:pointer;
-      border-radius:12px;
-      font-size:1em;
-      transition:all .2s;
-      font-family:Georgia,serif;
-    }
-    .tab-btn:hover{background:rgba(139,69,19,.8);transform:translateY(-1px);}
-    .tab-btn.active{
-      background:#8b4513;
-      border-color:#c9a227;
-      box-shadow:0 4px 10px rgba(201,162,39,.18);
-    }
+    .story-box { background: #0a0e27; border-left: 4px solid #10b981; padding: 1rem; margin: 1rem 0; border-radius: 0.25rem; }
+    .story-title { color: #86efac; font-weight: bold; margin-bottom: 0.5rem; }
 
-    .content-section{
-      display:none;
-      background:rgba(0,0,0,.4);
-      padding:26px;
-      border-radius:16px;
-      border:2px solid #8b4513;
-      scroll-margin-top:120px;
+    /* Buttons */
+    .btn {
+      background: #b45309;
+      color: #0f172a;
+      border: none;
+      padding: 0.65rem 1rem;
+      border-radius: 0.65rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
-    .content-section.active{display:block;animation:fadeIn .28s ease;}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);} }
+    .btn:hover { background: #d97706; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0px) scale(0.98); }
+    .btn.secondary { background: #334155; color: #e2e8f0; font-weight: 700; border:1px solid rgba(148,163,184,0.18);}
+    .btn.secondary:hover { background: #475569; }
+    .btn.secondary:active { transform: translateY(0px) scale(0.985); }
 
-    .chapter-title{
-      font-size:1.85em;
-      color:#c9a227;
-      margin-bottom:18px;
-      border-bottom:2px solid #8b4513;
-      padding-bottom:10px;
-      line-height:1.2;
-    }
+    .tiny { font-size: 0.85rem; color: #cbd5e1; opacity: 0.95; }
 
-    .section{
-      margin:22px 0;
-      padding:18px;
-      background:rgba(74,44,31,.28);
-      border-radius:14px;
-      border-left:4px solid #c9a227;
-    }
-    .section-title{
-      font-size:1.22em;
-      color:#c9a227;
-      margin-bottom:12px;
-      line-height:1.25;
-    }
+    /* Dinner Tool deck */
+    .deck-wrap{display:flex;gap:1rem;flex-wrap:wrap;align-items:flex-start;}
+    .deck-visual{position:relative;width:170px;height:120px;flex:0 0 auto;}
+    .deck-card{position:absolute;inset:0;border-radius:18px;background:#0f172a;border:1px solid rgba(148,163,184,0.25);box-shadow:0 12px 30px rgba(0,0,0,0.35);}
+    .deck-card.one{transform:rotate(-8deg) translateX(-6px);opacity:0.9;}
+    .deck-card.two{transform:rotate(4deg) translateX(10px) translateY(2px);opacity:0.95;}
+    .deck-card.three{transform:rotate(-1deg) translateY(6px);}
 
-    .key-idea{
-      background:rgba(201,162,39,.10);
-      padding:14px;
-      margin:10px 0;
-      border-radius:12px;
-      border-left:4px solid #c9a227;
-    }
-
-    .question{
-      margin:14px 0;
-      padding:14px;
-      background:rgba(0,0,0,.30);
-      border-radius:12px;
-      border-left:3px solid #c19a6b;
-    }
-    .question-text{font-size:1.05em;color:#f5e6d3;margin-bottom:6px;}
-    .question-context{font-size:.95em;color:#c19a6b;font-style:italic;}
-
-    .takeaway{
-      background:rgba(139,69,19,.40);
-      padding:18px;
-      border-radius:14px;
-      margin:18px 0;
-      border:2px solid #c9a227;
-      font-style:italic;
-      font-size:1.05em;
-    }
-
-    .character-grid{
+    .game-stage{
+      flex:1;
+      min-width:280px;
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-      gap:18px;
-      margin-top:16px;
+      grid-template-columns: 1fr 240px;
+      gap:0.85rem;
+      align-items:start;
     }
-    .character-card{
-      background:rgba(139,69,19,.28);
-      padding:18px;
-      border-radius:14px;
-      border:2px solid #8b4513;
-      transition:transform .22s,border-color .22s;
+    .game-actions{
+      display:flex;
+      flex-direction:column;
+      gap:0.5rem;
+      align-items:stretch;
     }
-    .character-card:hover{transform:translateY(-2px);border-color:#c9a227;}
-    .character-name{font-size:1.4em;color:#c9a227;margin-bottom:8px;}
-    .character-subtitle{font-style:italic;color:#c19a6b;margin-bottom:10px;}
-    .character-traits{list-style:none;padding-left:0;}
-    .character-traits li{padding:5px 0 5px 20px;position:relative;}
-    .character-traits li:before{content:"→";position:absolute;left:0;color:#c9a227;}
+    .game-actions .btn{width:100%;}
+    .hintline{color:#94a3b8;font-size:0.85rem;margin-top:0.35rem;}
 
-    .book-btn{
-      padding:10px 14px;
-      background:rgba(74,44,31,.58);
-      border:2px solid #6b4423;
-      color:#f5e6d3;
-      cursor:pointer;
-      border-radius:12px;
-      transition:all .18s;
-      font-family:Georgia,serif;
-    }
-    .book-btn:hover{background:rgba(74,44,31,.9);}
-    .book-btn.active{
-      background:#6b4423;
-      border-color:#c9a227;
-      box-shadow:0 4px 10px rgba(201,162,39,.14);
+    @media (max-width: 768px){
+      .header { padding: 0.9rem 1rem; }
+      .header h1 { font-size: 1.35rem; }
+      .header p { display: none; }
+      .container { padding: 1rem; }
+      .grid { grid-template-columns: 1fr; }
+      .game-stage{grid-template-columns:1fr;}
+      .game-actions{flex-direction:row;flex-wrap:wrap;}
+      .game-actions .btn{width:auto;}
+      .deck-visual{width:140px;height:104px;}
     }
 
-    .chapter-btn{
-      padding:8px 12px;
-      background:rgba(74,44,31,.5);
-      border:1px solid #6b4423;
-      color:#f5e6d3;
-      cursor:pointer;
-      border-radius:12px;
-      font-size:.95em;
-      transition:all .16s;
-      font-family:Georgia,serif;
+    /* Reliable “flip” (no 3D): swap animation */
+    .flip{position:relative;width:100%;min-height:270px;}
+    .face{
+      position:absolute; inset:0;
+      border-radius:24px;
+      padding:1.1rem 1.1rem 1rem;
+      background:
+        radial-gradient(1200px 420px at 20% 0%, rgba(59,130,246,0.18), transparent 55%),
+        radial-gradient(900px 360px at 90% 30%, rgba(245,158,11,0.16), transparent 55%),
+        #0f172a;
+      border:1px solid rgba(148,163,184,0.25);
+      box-shadow:0 22px 55px rgba(0,0,0,0.42);
+      overflow:hidden;
     }
-    .chapter-btn:hover{background:rgba(74,44,31,.8);}
-    .chapter-btn.active{background:#6b4423;border-color:#c19a6b;}
+    .face::before{content:"";position:absolute;inset:12px;border-radius:18px;border:1px solid rgba(148,163,184,0.16);pointer-events:none;z-index:0;}
+    .face::after{content:"";position:absolute;left:-40px;top:-60px;width:220px;height:220px;background:radial-gradient(circle at 30% 30%, rgba(56,189,248,0.14), transparent 60%);pointer-events:none;z-index:0;}
+    .face > *{position:relative;z-index:2;}
 
-    .cut-box{
-      margin:10px 0 16px;
-      padding:16px;
-      background:rgba(0,0,0,.26);
-      border-radius:14px;
-      border:2px solid rgba(201,162,39,.75);
-    }
-    .cut-box h4{color:#c9a227;font-size:1.15em;margin-bottom:10px;}
-    .cut-grid{display:grid;grid-template-columns:1fr;gap:10px;}
-    .cut-label{color:#c19a6b;font-style:italic;}
-    .cut-value{color:#f5e6d3;}
+    .face.front{opacity:1; transform:translateX(0); transition:opacity .22s ease, transform .22s ease;}
+    .face.back{opacity:0; transform:translateX(10px); transition:opacity .22s ease, transform .22s ease; pointer-events:none; overflow:auto;}
 
-    .search-wrap{margin:12px 0 18px;}
-    .search-input{
-      width:100%;
-      padding:12px 14px;
-      border-radius:12px;
-      border:2px solid #8b4513;
-      background:rgba(0,0,0,.35);
-      color:#f5e6d3;
-      font-family:Georgia,serif;
-      font-size:1em;
-    }
-    .search-hint{margin-top:10px;color:#c19a6b;font-style:italic;}
+    .flip.flipped .face.front{opacity:0; transform:translateX(-10px); pointer-events:none;}
+    .flip.flipped .face.back{opacity:1; transform:translateX(0); pointer-events:auto;}
 
-    .link-btn{
-      display:inline-block;
-      padding:10px 14px;
-      background:rgba(74,44,31,.6);
-      border:2px solid #8b4513;
-      color:#f5e6d3;
-      text-decoration:none;
-      border-radius:12px;
-      font-size:.95em;
-      transition:all .2s;
-      margin:10px 0;
-    }
-    .link-btn:hover{background:rgba(74,44,31,.9);border-color:#c19a6b;}
+    .face .kicker{color:#f59e0b;font-weight:900;font-size:0.9rem;letter-spacing:0.02em;}
+    .face .q{margin-top:0.55rem;font-size:1.12rem;line-height:1.45;color:#e2e8f0;}
+    .face .meta{margin-top:0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap;}
 
-    .disclaimer{
-      font-size:.92em;
-      font-style:italic;
-      color:#c19a6b;
-      padding:14px;
-      background:rgba(0,0,0,.2);
-      border-radius:12px;
-      margin:14px 0;
-      border-left:3px solid #8b4513;
+    /* Culture card skin */
+    #flipCard[data-topic="Culture"] .face{
+      background:
+        radial-gradient(1100px 420px at 15% 0%, rgba(168,85,247,0.18), transparent 55%),
+        radial-gradient(900px 360px at 90% 35%, rgba(34,211,238,0.14), transparent 60%),
+        #0b1020;
+      border-color: rgba(168,85,247,0.45);
     }
+    #flipCard[data-topic="Culture"] .kicker{color:#c4b5fd;}
+    #flipCard[data-topic="Culture"] .pill{border-color:rgba(196,181,253,0.25);}
 
-    .footer{
-      margin-top:22px;
-      padding:18px;
-      border-radius:14px;
-      background:rgba(0,0,0,.22);
-      border:1px solid rgba(139,69,19,.85);
-    }
-    .footer h3{color:#c9a227;margin-bottom:10px;}
-    .footer p{margin:8px 0;color:#f5e6d3;}
-    .footer .small{color:#c19a6b;font-style:italic;}
+    /* Micro-animations */
+    @keyframes dealPop { 0%{transform:translateY(10px) scale(0.98); opacity:0.6;} 60%{transform:translateY(-2px) scale(1.01); opacity:1;} 100%{transform:translateY(0) scale(1);} }
+    .deal-animate { animation: dealPop 260ms ease-out; }
+    @keyframes softPulse { 0%{transform:scale(1);} 40%{transform:scale(1.01);} 100%{transform:scale(1);} }
+    .pulse-animate { animation: softPulse 320ms ease-out; }
 
-    .tab-btn:focus-visible,.book-btn:focus-visible,.chapter-btn:focus-visible,.link-btn:focus-visible,.search-input:focus-visible,.quick-btn:focus-visible{
-      outline:3px solid rgba(201,162,39,.85);
-      outline-offset:2px;
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 50;
+      justify-content: center;
+      align-items: center;
+      overflow-y: auto;
+      padding: 1.25rem;
     }
+    .modal-overlay.active { display: flex; pointer-events: auto; }
+    .modal {
+      background: #0f172a;
+      border: 1px solid rgba(245,158,11,0.5);
+      border-radius: var(--r2);
+      padding: 1.75rem;
+      max-width: 960px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      margin: auto;
+      box-shadow: var(--shadow);
+    }
+    .modal-close { position: absolute; top: 0.75rem; right: 0.75rem; background: none; border: none; color: #b45309; font-size: 1.6rem; cursor: pointer; }
+    .modal-close:hover { color: #d97706; }
+    .modal h2 { color: #fcd34d; margin-bottom: 0.75rem; font-size: 1.55rem; font-weight: 900; }
+    .modal h3 { color: #f59e0b; margin-top: 1.1rem; margin-bottom: 0.6rem; font-size: 1.12rem; font-weight: 800; }
+    .modal p { color: #cbd5e1; margin-bottom: 0.75rem; line-height: 1.7; }
 
-    @media (prefers-reduced-motion: reduce){
-      .content-section.active{animation:none;}
-      *{scroll-behavior:auto!important;}
-    }
-    @media(max-width:768px){
-      h1{font-size:1.55em;}
-      .content-section{padding:20px;}
-      .character-grid{grid-template-columns:1fr;}
-    }
   </style>
 </head>
 
 <body>
+  <div class="header">
+    <h1>🍽️ Dinner Table Conversations</h1>
+    <p>Orthodox & Catholic Christians in deep dialogue over shared meals — respectful, lively, and real.</p>
+
+    <div class="nav-tabs" role="tablist" aria-label="Navigation">
+      <button class="nav-tab active" onclick="switchTab(event, 'home')">Home</button>
+      <button class="nav-tab" onclick="switchTab(event, 'dinner')">Dinner Tool</button>
+      <button class="nav-tab" onclick="switchTab(event, 'conversations')">Conversations</button>
+      <button class="nav-tab" onclick="switchTab(event, 'commandments')">10 Commandments</button>
+      <button class="nav-tab" onclick="switchTab(event, 'rituals')">Rituals & Signs</button>
+      <button class="nav-tab" onclick="switchTab(event, 'practices')">Church Practices</button>
+      <button class="nav-tab" onclick="switchTab(event, 'saints')">Saints</button>
+      <button class="nav-tab" onclick="switchTab(event, 'culture')">Culture Cues</button>
+      <button class="nav-tab" onclick="switchTab(event, 'foundations')">Core Differences</button>
+      <button class="nav-tab" onclick="switchTab(event, 'theology')">Theology Deep Dives</button>
+      <button class="nav-tab" onclick="switchTab(event, 'history')">History</button>
+      <button class="nav-tab" onclick="switchTab(event, 'prayers')">Prayers</button>
+    </div>
+  </div>
+
   <div class="container">
 
-    <header>
-      <div class="brand-top">Ask Betsy • Structured Clarity</div>
-      <h1>Cutting Through Complexity</h1>
-      <div class="subtitle">A guided reading experience • The Brothers Karamazov</div>
-
-      <div class="intro">
-        <p><strong>Difficult books feel overwhelming</strong> when readers don’t know what to look for.</p>
-        <p style="margin-top:8px;">This guide gives you structure:</p>
-        <ul>
-          <li>Identify the central tension</li>
-          <li>Clarify the competing worldviews</li>
-          <li>Surface the moral question</li>
-          <li>Separate signal from noise</li>
-          <li>Apply it personally</li>
-        </ul>
-        <p class="note">Not about mastering Dostoevsky — about staying clear inside complexity.</p>
+    <!-- HOME -->
+    <section id="home" class="content-section active" role="tabpanel">
+      <h2 class="page-title">Welcome to the Table</h2>
+      <div class="context-box">
+        <div class="context-label">📖 About This App</div>
+        <p style="color:#cbd5e1; margin-top:0.5rem;">
+          This app helps Christians have better dinner conversations—curious, warm, and truthful.
+          Explore what divides Orthodox and Catholic traditions, what unites them, and why practices matter.
+        </p>
       </div>
 
-      <div class="quick-actions" aria-label="Start here shortcuts">
-        <button class="quick-btn" data-jump="guide">Start: How to Use</button>
-        <button class="quick-btn" data-jump="characters">Start: Characters</button>
-        <button class="quick-btn" data-jump="chapters">Jump: By Book</button>
-        <button class="quick-btn" data-jump="book-questions">Jump: Discussion</button>
-      </div>
-    </header>
-
-    <div class="sticky-nav">
-      <div class="nav-tabs" role="tablist" aria-label="Main sections">
-        <button class="tab-btn active" data-tab="guide" role="tab" aria-selected="true" tabindex="0">How to Use</button>
-        <button class="tab-btn" data-tab="characters" role="tab" aria-selected="false" tabindex="-1">Characters</button>
-        <button class="tab-btn" data-tab="chapters" role="tab" aria-selected="false" tabindex="-1">By Book</button>
-        <button class="tab-btn" data-tab="book-questions" role="tab" aria-selected="false" tabindex="-1">Discussion</button>
-        <button class="tab-btn" data-tab="hallow" role="tab" aria-selected="false" tabindex="-1">Spiritual Companion</button>
-      </div>
-    </div>
-
-    <!-- GUIDE -->
-    <div id="guide" class="content-section active">
-      <h2 class="chapter-title">How to Use This Guide</h2>
-
-      <div class="section">
-        <h5 class="section-title">Best Use</h5>
-        <div class="key-idea">
-          <strong>Use Book-level questions as your primary discussion frame.</strong><br>
-          They keep the conversation meaningful and prevent meetings from becoming recap sessions.
+      <div class="grid">
+        <div class="card" onclick="switchTab(null,'dinner');">
+          <h3 class="card-h3">🎲 Dinner Tool</h3>
+          <p class="card-text">Draw a card, flip for the answer, and keep it kind with bridge phrases.</p>
+          <p class="card-subtitle">Deck + flip • Rapid Fire Culture • Deep Dive mode</p>
         </div>
-        <div class="key-idea">
-          <strong>Use Chapter-level questions selectively.</strong><br>
-          Pick 1–2 per meeting to anchor the conversation (Book I is built out for this).
+        <div class="card" onclick="switchTab(null,'conversations');">
+          <h3 class="card-h3">🗣️ Real Conversations</h3>
+          <p class="card-text">Dialogue scenes you can borrow at the table.</p>
+          <p class="card-subtitle">Tap a card to open the full scene.</p>
         </div>
-        <div class="key-idea">
-          <strong>You do not need to cover every question.</strong><br>
-          Choose what sharpens clarity for your group.
+        <div class="card" onclick="switchTab(null,'culture');">
+          <h3 class="card-h3">⚡ Culture Cues</h3>
+          <p class="card-text">Family Feud “Top 7” habits that matter (Mass vs Liturgy, crossing, coffee hour…).</p>
+        </div>
+        <div class="card" onclick="switchTab(null,'saints');">
+          <h3 class="card-h3">✨ Saints — Helps With…</h3>
+          <p class="card-text">Search saints by what they help with (patronage), plus story + notes.</p>
         </div>
       </div>
 
-      <div class="section">
-        <h5 class="section-title">Why Book-Level Questions Work Best</h5>
-        <ul style="padding-left:20px; margin-top:10px;">
-          <li style="margin-bottom:8px;">Dostoevsky builds ideas in waves, not neatly per chapter</li>
-          <li style="margin-bottom:8px;">Chapters often set up tension that doesn’t pay off until later</li>
-          <li style="margin-bottom:8px;">Book-level questions help fast and slow readers participate equally</li>
-          <li style="margin-bottom:8px;">Prevents the meeting from becoming a recap session</li>
-        </ul>
+      <div class="proto-note">Tip: Aim for truth + love. “Help me understand” beats “Let me prove you wrong.”</div>
+    </section>
+
+    <!-- DINNER -->
+    <section id="dinner" class="content-section" role="tabpanel">
+      <h2 class="page-title">🎲 Dinner Conversation Tool</h2>
+
+      <div class="context-box">
+        <div class="context-label">🍷 How to Use This</div>
+        <p style="color:#cbd5e1; margin-top:0.5rem;">
+          Choose a <strong>topic</strong> + <strong>vibe</strong>. Tap <strong>Draw</strong> to deal a card.
+          Tap <strong>Flip</strong> to reveal answer + bridge + follow-up. Turn on <strong>Deep Dive</strong> for extra notes.
+        </p>
       </div>
 
-      <div class="takeaway">
-        <strong>Start here:</strong><br>
-        Begin with <strong>Characters</strong>, then jump into <strong>Book I</strong>.
-      </div>
-    </div>
+      <div style="display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; margin-bottom:0.75rem;">
+        <select id="dTopic" class="filter-select" onchange="updateDinnerStats()">
+          <option value="Any">Any Topic</option>
+          <option value="Authority">Authority</option>
+          <option value="Mary">Mary</option>
+          <option value="Eucharist">Eucharist</option>
+          <option value="Lent">Lent</option>
+          <option value="Prayer">Prayer</option>
+          <option value="Icons">Icons</option>
+          <option value="History">History</option>
+          <option value="DailyLife">Daily Life</option>
+          <option value="Culture">Culture (quick cues)</option>
+          <option value="Deep Theology">Deep Theology (Level 2)</option>
+        </select>
 
-    <!-- CHARACTERS -->
-    <div id="characters" class="content-section">
-      <h2 class="chapter-title">The Main Characters</h2>
+        <select id="dVibe" class="filter-select" onchange="updateDinnerStats()">
+          <option value="Gentle">Gentle (curious)</option>
+          <option value="Lively">Lively (honest)</option>
+          <option value="Spicy">Spicy (respectful debate)</option>
+        </select>
 
-      <div class="search-wrap">
-        <input id="characterSearch" class="search-input" type="search" placeholder="Search characters (e.g., Ivan, Alyosha, father, faith, reason…)" />
-        <div class="search-hint">Tip: try “represents”, “faith”, “reason”.</div>
-      </div>
+        <select id="dKids" class="filter-select" onchange="updateDinnerStats()">
+          <option value="No">Adults only</option>
+          <option value="Yes">Kids present</option>
+        </select>
 
-      <div class="character-grid" id="characterGrid">
-        <div class="character-card">
-          <h3 class="character-name">Fyodor Pavlovich Karamazov</h3>
-          <p class="character-subtitle">The Father</p>
-          <ul class="character-traits">
-            <li>Crude, selfish, manipulative landowner</li>
-            <li>Obsessed with money, pleasure, and power</li>
-            <li>Emotionally absent as a parent, yet strangely magnetic</li>
-            <li>Represents moral decay, irresponsibility, and ego</li>
-          </ul>
-          <p style="margin-top:12px;color:#c19a6b;font-style:italic;">
-            Dostoevsky makes him unpleasant on purpose. He is the problem the novel circles around.
-          </p>
-        </div>
+        <label class="badge" style="display:inline-flex; gap:0.5rem; align-items:center; background:#0b1220; border:1px solid rgba(148,163,184,0.25);">
+          <input id="deepDiveToggle" type="checkbox" style="width:16px; height:16px; accent-color:#38bdf8;" />
+          Deep Dive
+        </label>
 
-        <div class="character-card">
-          <h3 class="character-name">Dmitri (Mitya) Karamazov</h3>
-          <p class="character-subtitle">The Eldest Son</p>
-          <ul class="character-traits">
-            <li>Passionate, impulsive, emotionally explosive</li>
-            <li>Lives in extremes: love/hate, generosity/cruelty</li>
-            <li>Constantly fighting with his father over money and a woman</li>
-            <li>Represents the body, desire, honor, and raw emotion</li>
-          </ul>
-        </div>
-
-        <div class="character-card">
-          <h3 class="character-name">Ivan Karamazov</h3>
-          <p class="character-subtitle">The Middle Son</p>
-          <ul class="character-traits">
-            <li>Brilliant, intellectual, detached</li>
-            <li>Preoccupied with philosophy, morality, and the problem of evil</li>
-            <li>Cool on the surface; deeply conflicted underneath</li>
-            <li>Represents the mind, reason, skepticism, and moral doubt</li>
-          </ul>
-        </div>
-
-        <div class="character-card">
-          <h3 class="character-name">Alyosha (Alexei) Karamazov</h3>
-          <p class="character-subtitle">The Youngest Son</p>
-          <ul class="character-traits">
-            <li>Gentle, compassionate, spiritually inclined</li>
-            <li>A novice monk-in-training</li>
-            <li>Serves as the moral and emotional center of the novel</li>
-            <li>Represents the soul, faith, love, and humility</li>
-          </ul>
-          <p style="margin-top:12px;color:#c19a6b;font-style:italic;">
-            Alyosha is not naïve—he sees the darkness but chooses love anyway.
-          </p>
-        </div>
-
-        <div class="character-card">
-          <h3 class="character-name">Adelaida Ivanovna</h3>
-          <p class="character-subtitle">The First Wife</p>
-          <ul class="character-traits">
-            <li>Dmitri's mother</li>
-            <li>A passionate, impulsive woman who eloped with Fyodor</li>
-            <li>Died young; her estate becomes a source of dispute</li>
-          </ul>
-        </div>
-
-        <div class="character-card">
-          <h3 class="character-name">Sofia Ivanovna</h3>
-          <p class="character-subtitle">The Second Wife</p>
-          <ul class="character-traits">
-            <li>Ivan and Alyosha's mother</li>
-            <li>Gentle, devout, mentally fragile</li>
-            <li>Also dies young</li>
-            <li>Alyosha inherits her spiritual nature</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- BY BOOK -->
-    <div id="chapters" class="content-section">
-      <h2 class="chapter-title">Navigate by Book</h2>
-
-      <div class="book-selector">
-        <button class="book-btn active" data-book="1">Book I</button>
-        <button class="book-btn" data-book="2">Book II</button>
-        <button class="book-btn" data-book="3">Book III</button>
-        <button class="book-btn" data-book="4">Book IV</button>
-        <button class="book-btn" data-book="5">Book V</button>
-        <button class="book-btn" data-book="6">Book VI</button>
-        <button class="book-btn" data-book="7">Book VII</button>
-        <button class="book-btn" data-book="8">Book VIII</button>
-        <button class="book-btn" data-book="9">Book IX</button>
-        <button class="book-btn" data-book="10">Book X</button>
-        <button class="book-btn" data-book="11">Book XI</button>
-        <button class="book-btn" data-book="12">Book XII</button>
+        <label class="badge" style="display:inline-flex; gap:0.5rem; align-items:center; background:#0b1220; border:1px solid rgba(148,163,184,0.25);">
+          <input id="soundToggle" type="checkbox" style="width:16px; height:16px; accent-color:#f59e0b;" />
+          Sound
+        </label>
       </div>
 
-      <!-- BOOK I -->
-      <div id="book-1" class="book-content" style="display:block;">
-        <h3 style="font-size:1.55em;color:#c9a227;margin-bottom:10px;">Book I: The History of a Family</h3>
+      <div class="tiny" id="dStats"></div>
 
-        <div class="cut-box">
-          <h4>Cut Through the Noise</h4>
-          <div class="cut-grid">
-            <div><span class="cut-label">Core Conflict:</span> <span class="cut-value">A broken fatherhood creates a broken moral inheritance.</span></div>
-            <div><span class="cut-label">Competing Forces:</span> <span class="cut-value">Ego / appetite vs responsibility / love.</span></div>
-            <div><span class="cut-label">Central Question:</span> <span class="cut-value">What do children owe a father who never acted like one?</span></div>
-          </div>
-        </div>
+      <div class="card" style="cursor:default;" aria-live="polite">
+        <h3 class="card-h3">🎴 Dinner Card Deck</h3>
 
-        <div class="chapter-nav">
-          <button class="chapter-btn active" data-chapter="1">Chapter 1</button>
-          <button class="chapter-btn" data-chapter="2">Chapter 2</button>
-          <button class="chapter-btn" data-chapter="3">Chapter 3</button>
-          <button class="chapter-btn" data-chapter="4">Chapter 4</button>
-          <button class="chapter-btn" data-chapter="5">Chapter 5</button>
-        </div>
-
-        <div id="chapter-1-1" class="chapter-content" style="display:block;">
-          <h4 class="chapter-title">Chapter 1: "Fyodor Pavlovich Karamazov"</h4>
-
-          <div class="section">
-            <h5 class="section-title">What Happens (Plain English)</h5>
-            <p>Dostoevsky introduces the Karamazov family, starting with the father. We learn:</p>
-            <ul style="margin-top:10px;padding-left:20px;">
-              <li>Fyodor Pavlovich is twice married, both marriages disastrous</li>
-              <li>He abandons his children after each wife dies</li>
-              <li>The sons grow up largely without him, raised by others</li>
-              <li>He later reconnects with them—but selfishly and strategically</li>
-            </ul>
-            <p style="margin-top:12px;font-style:italic;color:#c19a6b;">This chapter is not plot-heavy. It's moral groundwork.</p>
+        <div class="deck-wrap" style="margin-top:0.85rem;">
+          <div class="deck-visual" aria-hidden="true">
+            <div class="deck-card one"></div>
+            <div class="deck-card two"></div>
+            <div class="deck-card three"></div>
           </div>
 
-          <div class="section">
-            <h5 class="section-title">Why This Chapter Matters</h5>
-            <p style="margin-bottom:10px;">This is a character indictment, not just an introduction.</p>
-            <div class="key-idea"><strong>1. Showing how moral neglect creates generational damage</strong></div>
-            <div class="key-idea"><strong>2. Establishing the father as a spiritual vacuum</strong></div>
-            <div class="key-idea"><strong>3. Setting up the central tension:</strong><br>What do children owe a father who never acted like one?</div>
-            <p style="margin-top:10px;">Everything that happens later—conflict, guilt, rage, even crime—flows from this broken foundation.</p>
-          </div>
+          <div class="game-stage">
+            <div class="game-card" id="gameCard">
+              <div class="flip" id="flipCard" data-topic="">
+                <div class="face front">
+                  <div style="display:flex; align-items:center; justify-content:space-between; gap:0.75rem;">
+                    <div class="kicker" id="frontKicker">Ready</div>
+                    <div class="pill" id="cardCounter" style="opacity:0.95;">Card 0 / 0</div>
+                  </div>
+                  <div class="q" id="frontQ">Tap <strong>Draw</strong> to deal a card.</div>
+                  <div class="meta" id="frontMeta"></div>
+                  <div class="hintline">Swipe left for next • Swipe right for previous • Tap Flip for answer</div>
+                </div>
 
-          <div class="section">
-            <h5 class="section-title">Key Ideas for Discussion</h5>
-            <div class="key-idea"><strong>Fatherhood as moral responsibility</strong><br>Fyodor Pavlovich doesn't just fail materially—he fails ethically.</div>
-            <div class="key-idea"><strong>Absence as violence</strong><br>No overt abuse is described, but neglect becomes just as destructive.</div>
-            <div class="key-idea">
-              <strong>The sons as responses to the same wound</strong><br>
-              • Dmitri responds with chaos<br>
-              • Ivan responds with intellect<br>
-              • Alyosha responds with faith<br>
-              <em>Same origin. Radically different outcomes.</em>
+                <div class="face back">
+                  <div class="kicker" id="backKicker">Answer</div>
+                  <div id="backBody" style="color:#cbd5e1; line-height:1.7;"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-actions">
+              <button class="btn" onclick="drawDinnerCard()">🃏 Draw</button>
+              <button class="btn secondary" onclick="flipDinnerCard()">🔄 Flip</button>
+              <button class="btn secondary" onclick="prevDinnerCard()">⬅️ Back</button>
+              <button class="btn secondary" onclick="nextDinnerCard()">➡️ Next</button>
+              <button class="btn secondary" onclick="rapidFireCulture()">⚡ Rapid Fire (Top 7)</button>
+              <button class="btn secondary" onclick="deescalate()">🧊 De-escalate</button>
+              <button class="btn secondary" onclick="endWithPrayer()">🙏 End with Prayer</button>
             </div>
           </div>
-
-          <div class="section">
-            <h5 class="section-title">Quiet Signals (Dostoevsky Foreshadowing)</h5>
-            <ul style="padding-left:20px;">
-              <li>The tone is almost mocking—that's intentional</li>
-              <li>The father's irresponsibility is treated as comic, but the consequences will not be</li>
-              <li>We're being warned: this man's moral emptiness will matter later</li>
-            </ul>
-          </div>
-
-          <div class="takeaway">
-            <strong>One Sentence Takeaway:</strong><br>
-            This chapter argues that a man who lives only for himself may still shape the fate—and suffering—of others more than anyone else.
-          </div>
-
-          <div class="section">
-            <h5 class="section-title">Chapter-Specific Discussion Questions</h5>
-            <div class="question"><p class="question-text">Why does Dostoevsky introduce the father first instead of the sons?</p></div>
-            <div class="question"><p class="question-text">Does the almost comic tone make Fyodor Pavlovich more or less disturbing?</p></div>
-          </div>
-        </div>
-
-        <div id="chapter-1-2" class="chapter-content" style="display:none;">
-          <h4 class="chapter-title">Chapter 2: "He Gets Rid of His Eldest Son"</h4>
-          <div class="section">
-            <h5 class="section-title">What Happens</h5>
-            <p>After Adelaida's death, Fyodor completely abandons three-year-old Dmitri. The boy is taken in by a servant, then passed between relatives who use him as a pawn in disputes over his mother's estate. Dmitri grows up knowing he's owed something but never receiving it—creating a lifelong obsession with money and justice.</p>
-          </div>
-          <div class="section">
-            <h5 class="section-title">Why This Matters</h5>
-            <p>This chapter establishes Dmitri's fundamental wound: abandonment plus financial betrayal. He's not just angry—he's been taught that the world owes him, yet constantly withholds.</p>
-          </div>
-          <div class="section">
-            <h5 class="section-title">Key Themes</h5>
-            <div class="key-idea"><strong>Inheritance as metaphor</strong><br>Money becomes a symbol of love, recognition, and justice denied</div>
-            <div class="key-idea"><strong>Pattern of abandonment</strong><br>Dmitri is passed from person to person—no stable attachment</div>
-            <div class="key-idea"><strong>Formation of character through neglect</strong><br>His impulsiveness isn't just temperament—it's survival strategy</div>
-          </div>
-          <div class="takeaway"><strong>One Sentence Takeaway:</strong><br>When a child learns early that love and justice are conditional and unreliable, chaos becomes a reasonable response.</div>
-          <div class="section">
-            <h5 class="section-title">Chapter-Specific Discussion Questions</h5>
-            <div class="question"><p class="question-text">Is Dmitri's obsession with money about greed—or justice?</p></div>
-            <div class="question"><p class="question-text">At what point does Dmitri become responsible for his own chaos?</p></div>
-          </div>
-        </div>
-
-        <div id="chapter-1-3" class="chapter-content" style="display:none;">
-          <h4 class="chapter-title">Chapter 3: "The Second Marriage and the Second Family"</h4>
-          <div class="section">
-            <h5 class="section-title">What Happens</h5>
-            <p>Fyodor marries Sofia Ivanovna, a gentle, religious, and mentally fragile young woman. She bears him two sons—Ivan and Alyosha—before dying, possibly by suicide. Again, Fyodor abandons his children.</p>
-          </div>
-          <div class="section">
-            <h5 class="section-title">Why This Matters</h5>
-            <p>This chapter introduces contrast between the brothers’ mothers—and thus inherited natures—while all three share the same paternal abandonment.</p>
-          </div>
-          <div class="section">
-            <h5 class="section-title">Key Themes</h5>
-            <div class="key-idea"><strong>Maternal influence vs paternal absence</strong><br>The mothers shape the sons’ souls; the father shapes their wounds</div>
-            <div class="key-idea"><strong>Sofia as Alyosha’s origin</strong><br>Her gentle faith becomes his inheritance</div>
-            <div class="key-idea"><strong>Surrogate parents</strong><br>Kind strangers save these boys from complete moral ruin</div>
-          </div>
-          <div class="takeaway"><strong>One Sentence Takeaway:</strong><br>The same father can produce wildly different sons—because mothers matter, and so does who steps in when parents fail.</div>
-          <div class="section">
-            <h5 class="section-title">Chapter-Specific Discussion Questions</h5>
-            <div class="question"><p class="question-text">Why are Ivan and Alyosha introduced so differently from Dmitri?</p></div>
-            <div class="question"><p class="question-text">Is Ivan emotionally absent by nature—or by defense?</p></div>
-          </div>
-        </div>
-
-        <div id="chapter-1-4" class="chapter-content" style="display:none;">
-          <h4 class="chapter-title">Chapter 4: "The Third Son, Alyosha"</h4>
-          <div class="section">
-            <h5 class="section-title">What Happens</h5>
-            <p>Dostoevsky focuses on Alyosha, describing him as naturally good, loved by everyone, yet not naive. At 19, he becomes a novice at the local monastery under Elder Zosima.</p>
-          </div>
-          <div class="section">
-            <h5 class="section-title">Why This Matters</h5>
-            <p>Alyosha is the moral center—he actively chooses love, even knowing the world’s darkness.</p>
-          </div>
-          <div class="section">
-            <h5 class="section-title">Key Themes</h5>
-            <div class="key-idea"><strong>Goodness as choice, not innocence</strong><br>Alyosha sees evil but refuses cynicism</div>
-            <div class="key-idea"><strong>Faith as active engagement</strong><br>He moves toward suffering rather than hiding</div>
-            <div class="key-idea"><strong>The “early lover” archetype</strong><br>Dostoevsky says Alyosha loved humanity from childhood</div>
-          </div>
-          <div class="takeaway"><strong>One Sentence Takeaway:</strong><br>Alyosha proves that goodness isn't naivety—it's courage to love despite knowing the cost.</div>
-          <div class="section">
-            <h5 class="section-title">Chapter-Specific Discussion Questions</h5>
-            <div class="question"><p class="question-text">Is Alyosha's goodness believable—or too idealized?</p></div>
-            <div class="question"><p class="question-text">Why does Dostoevsky need a character like Alyosha in this novel?</p></div>
-          </div>
-        </div>
-
-        <div id="chapter-1-5" class="chapter-content" style="display:none;">
-          <h4 class="chapter-title">Chapter 5: "Elders"</h4>
-          <div class="section">
-            <h5 class="section-title">What Happens</h5>
-            <p>Dostoevsky explains the institution of Elders in Russian monasticism. An Elder guides through confession and obedience. Zosima is beloved by some and controversial to others.</p>
-          </div>
-          <div class="section">
-            <h5 class="section-title">Why This Matters</h5>
-            <p>This sets up authority vs freedom, obedience vs autonomy, faith vs reason.</p>
-          </div>
-          <div class="section">
-            <h5 class="section-title">Key Themes</h5>
-            <div class="key-idea"><strong>Spiritual authority contested</strong><br>Some see wisdom; others see manipulation</div>
-            <div class="key-idea"><strong>Obedience as paradoxical freedom</strong><br>Surrendering will to find peace—genuine or not?</div>
-            <div class="key-idea"><strong>Foreshadowing Zosima</strong><br>He will be tested, and so will Alyosha’s faith</div>
-          </div>
-          <div class="takeaway"><strong>One Sentence Takeaway:</strong><br>Can surrendering your will to another person lead to spiritual freedom—or is that just another form of bondage?</div>
-          <div class="section">
-            <h5 class="section-title">Chapter-Specific Discussion Questions</h5>
-            <div class="question"><p class="question-text">Is the Elder system liberating or dangerous?</p></div>
-            <div class="question"><p class="question-text">What does this chapter suggest about the novel's view of authority?</p></div>
-          </div>
         </div>
       </div>
 
-      <!-- BOOK II -->
-      <div id="book-2" class="book-content" style="display:none;">
-        <h3 style="font-size:1.55em;color:#c9a227;margin-bottom:10px;">Book II: An Unfortunate Gathering</h3>
-        <div class="cut-box">
-          <h4>Cut Through the Noise</h4>
-          <div class="cut-grid">
-            <div><span class="cut-label">Core Conflict:</span> <span class="cut-value">Reconciliation fails when people want validation instead of truth.</span></div>
-            <div><span class="cut-label">Central Question:</span> <span class="cut-value">What happens when a “holy setting” can’t change unholy intentions?</span></div>
+      <div class="grid" style="margin-top:1.25rem;">
+        <div class="card" style="cursor:default;">
+          <h3 class="card-h3">House Rules</h3>
+          <ul class="card-text" style="margin-top:0.75rem; list-style:disc; padding-left:1.25rem;">
+            <li>Assume goodwill. Ask before you argue.</li>
+            <li>Speak in “I” statements. No labels.</li>
+            <li>Steelman the other side: repeat it fairly first.</li>
+            <li>One claim at a time. Don’t stack 12 issues.</li>
+            <li>End with what you share: Jesus is Lord.</li>
+          </ul>
+        </div>
+        <div class="card" style="cursor:default;">
+          <h3 class="card-h3">Quick Rescues</h3>
+          <div class="card-text" style="margin-top:0.75rem;">
+            <p><strong>When it gets hot:</strong> “I think we’re both protecting something sacred. Can we slow down?”</p>
+            <p style="margin-top:0.5rem;"><strong>When someone feels attacked:</strong> “That came out sharper than I meant. Let me restate it.”</p>
+            <p style="margin-top:0.5rem;"><strong>When stuck:</strong> “What do we both agree is true about Christ here?”</p>
           </div>
         </div>
-        <div class="section">
-          <h5 class="section-title">Cliff Notes Summary</h5>
-          <p>The Karamazov family attempts a formal reconciliation at a monastery, but the meeting collapses into humiliation and hostility. Instead of healing wounds, the gathering exposes pride, resentment, and unresolved power struggles—especially between Fyodor Pavlovich and Dmitri. Elder Zosima's quiet spiritual authority contrasts sharply with the family's chaos.</p>
-        </div>
-        <div class="section">
-          <h5 class="section-title">Core Themes</h5>
-          <div class="key-idea">Reconciliation vs validation</div>
-          <div class="key-idea">Pride and humiliation</div>
-          <div class="key-idea">Spiritual authority vs chaos</div>
-          <div class="key-idea">Truth-seeking vs power-seeking</div>
-        </div>
-        <div class="section">
-          <h5 class="section-title">Gentle Facilitator Perspective</h5>
-          <p style="margin-bottom:10px;">This book often lands as a reminder that being in the right place doesn't mean having the right intentions. The meeting fails because no one is listening—everyone is defending. Zosima can feel uncomfortable because he represents a moral standard others don't want applied to themselves.</p>
-          <p style="font-style:italic;color:#c19a6b;">Closing reflection: When have you seen good intentions fail because humility was missing?</p>
-        </div>
+      </div>
+    </section>
+
+    <!-- CONVERSATIONS -->
+    <section id="conversations" class="content-section" role="tabpanel">
+      <h2 class="page-title">Dinner Table Conversations</h2>
+      <input type="text" id="convSearch" class="search-box" placeholder="Search conversations by title, topic, or keyword..." onkeyup="renderConversations()">
+      <div style="display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; margin-bottom:0.75rem;">
+        <select id="convTopic" class="filter-select" onchange="renderConversations()">
+          <option value="All">All Topics</option>
+          <option value="Sign of the Cross">Sign of the Cross</option>
+          <option value="Holy Water Blessing">Holy Water</option>
+          <option value="Religious Art">Icons/Statues</option>
+          <option value="Mass Obligation">Attendance</option>
+          <option value="Saints and Nature">Saints & Nature</option>
+          <option value="Filioque">Filioque</option>
+          <option value="Purgatory">Purgatory</option>
+          <option value="Eucharist">Eucharist</option>
+          <option value="Divorce">Marriage/Divorce</option>
+        </select>
+        <span class="tiny" id="convCount"></span>
+        <button class="btn secondary" style="margin-left:auto;" onclick="dealRandomConversation()">🎲 Deal a Conversation</button>
+      </div>
+      <div id="conversationsGrid" class="grid"></div>
+    </section>
+
+    <!-- COMMANDMENTS -->
+    <section id="commandments" class="content-section" role="tabpanel">
+      <h2 class="page-title">The Ten Commandments</h2>
+      <div class="context-box">
+        <div class="context-label">📜 Mount Sinai & Freedom</div>
+        <p style="color:#cbd5e1; margin-top:0.5rem;">These commandments weren’t random rules. They were a covenant—how to live free after slavery.</p>
+      </div>
+      <div id="commandmentsGrid"></div>
+    </section>
+
+    <!-- RITUALS -->
+    <section id="rituals" class="content-section" role="tabpanel">
+      <h2 class="page-title">Rituals & Signs</h2>
+      <div class="proto-note">Visible gestures reveal deep theology. Every object and movement teaches something.</div>
+      <div id="ritualsGrid"></div>
+    </section>
+
+    <!-- PRACTICES -->
+    <section id="practices" class="content-section" role="tabpanel">
+      <h2 class="page-title">Church Practices</h2>
+      <p style="color:#cbd5e1; margin-bottom:1rem;">Practices aren’t arbitrary. They express what each church believes worship does to the human person.</p>
+      <div id="practicesGrid" class="grid"></div>
+    </section>
+
+    <!-- SAINTS -->
+    <section id="saints" class="content-section" role="tabpanel">
+      <h2 class="page-title">Saints</h2>
+      <div class="proto-note">Search by “Helps with…” (patronage). Tap a chip for quick filters.</div>
+
+      <div style="display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center;">
+        <label style="color:#fcd34d; font-weight:700;">Filter:</label>
+        <select id="tradFilter" class="filter-select" onchange="renderSaints()">
+          <option value="All">All Traditions</option>
+          <option value="Both">Both Orthodox & Catholic</option>
+          <option value="Catholic">Catholic Saints</option>
+          <option value="Orthodox">Orthodox Saints</option>
+        </select>
+        <input type="text" id="saintSearch" class="search-box" style="margin-bottom:0; flex:1; min-width:260px;"
+               placeholder="Search saints by name, role, patronage (what they help with), story…" onkeyup="renderSaints()">
       </div>
 
-      <!-- BOOK III -->
-      <div id="book-3" class="book-content" style="display:none;">
-        <h3 style="font-size:1.55em;color:#c9a227;margin-bottom:10px;">Book III: The Sensualists</h3>
-        <div class="cut-box">
-          <h4>Cut Through the Noise</h4>
-          <div class="cut-grid">
-            <div><span class="cut-label">Core Conflict:</span> <span class="cut-value">Desire becomes dangerous when untethered from responsibility.</span></div>
-            <div><span class="cut-label">Central Question:</span> <span class="cut-value">When does longing tip into moral collapse?</span></div>
-          </div>
-        </div>
-        <div class="section">
-          <h5 class="section-title">Cliff Notes Summary</h5>
-          <p>This book plunges into the world of desire, rivalry, and emotional excess. Fyodor Pavlovich and Dmitri become grotesque mirrors of each other as they compete over money and Grushenka. Passion overwhelms restraint, and humiliation fuels cruelty. Dmitri oscillates between generosity and violence, revealing a man torn between conscience and impulse.</p>
-        </div>
-        <div class="section">
-          <h5 class="section-title">Core Themes</h5>
-          <div class="key-idea">Desire, jealousy, rivalry</div>
-          <div class="key-idea">Shame and erotic power</div>
-          <div class="key-idea">Father-son mirroring</div>
-          <div class="key-idea">Passion vs responsibility</div>
-        </div>
-        <div class="section">
-          <h5 class="section-title">Gentle Facilitator Perspective</h5>
-          <p style="margin-bottom:10px;">Desire here isn't just sexual—it's about wanting to be seen, chosen, and validated. Dmitri's swings between generosity and cruelty can feel very human to readers. A useful angle: passion isn't condemned—but unchecked passion is.</p>
-          <p style="font-style:italic;color:#c19a6b;">Closing reflection: Where do you see desire motivating growth—and where does it tip into harm?</p>
-        </div>
+      <div class="tiny" id="saintsCount" style="margin-top:0.75rem;"></div>
+
+      <div style="margin-top:0.6rem; display:flex; flex-wrap:wrap; gap:0.5rem; align-items:center;">
+        <div id="saintChips" style="display:flex; flex-wrap:wrap; gap:0.5rem;"></div>
+        <button class="btn secondary" style="margin-left:auto;" onclick="randomSaint()">🎲 Random Saint</button>
       </div>
 
-      <!-- BOOK IV -->
-      <div id="book-4" class="book-content" style="display:none;">
-        <h3 style="font-size:1.55em;color:#c9a227;margin-bottom:10px;">Book IV: Lacerations</h3>
-        <div class="cut-box">
-          <h4>Cut Through the Noise</h4>
-          <div class="cut-grid">
-            <div><span class="cut-label">Core Conflict:</span> <span class="cut-value">Innocent suffering tests every worldview.</span></div>
-            <div><span class="cut-label">Central Question:</span> <span class="cut-value">What do we do with suffering we cannot fix?</span></div>
-          </div>
-        </div>
-        <div class="section">
-          <h5 class="section-title">Cliff Notes Summary</h5>
-          <p>The focus shifts from adult conflict to the suffering of children and the innocent. Through stories of cruelty, bullying, and quiet endurance, Dostoevsky explores how pain imprints itself early in life. Alyosha acts as a witness rather than a savior, absorbing suffering without judgment.</p>
-        </div>
-        <div class="section">
-          <h5 class="section-title">Core Themes</h5>
-          <div class="key-idea">Innocence and cruelty</div>
-          <div class="key-idea">Childhood suffering</div>
-          <div class="key-idea">Faith tested by pain</div>
-          <div class="key-idea">Witnessing vs fixing</div>
-        </div>
-        <div class="section">
-          <h5 class="section-title">Gentle Facilitator Perspective</h5>
-          <p style="margin-bottom:10px;">Many groups find this book emotionally heavy rather than philosophical. The children's suffering asks readers not to explain pain away, but to sit with it. Alyosha models presence instead of fixing, which can feel quietly radical.</p>
-          <p style="font-style:italic;color:#c19a6b;">Closing reflection: What does this book ask us to do when we cannot fix suffering?</p>
-        </div>
+      <div id="saintsGrid" class="grid" style="margin-top:0.75rem;"></div>
+    </section>
+
+    <!-- CULTURE -->
+    <section id="culture" class="content-section" role="tabpanel">
+      <h2 class="page-title">Culture Cues</h2>
+      <div class="context-box">
+        <div class="context-label">🏠 Little things that matter</div>
+        <p style="color:#cbd5e1; margin-top:0.5rem;">Tap a card to reveal “Top 7” (Family Feud style).</p>
       </div>
+      <div id="cultureGrid" class="grid"></div>
+    </section>
 
-      <!-- BOOK V -->
-      <div id="book-5" class="book-content" style="display:none;">
-        <h3 style="font-size:1.55em;color:#c9a227;margin-bottom:10px;">Book V: Pro and Contra</h3>
-        <div class="cut-box">
-          <h4>Cut Through the Noise</h4>
-          <div class="cut-grid">
-            <div><span class="cut-label">Core Conflict:</span> <span class="cut-value">Can a world with innocent suffering be morally justified?</span></div>
-            <div><span class="cut-label">Central Question:</span> <span class="cut-value">Is justice more important than love?</span></div>
-          </div>
-        </div>
-        <div class="section">
-          <h5 class="section-title">Cliff Notes Summary</h5>
-          <p>This is the philosophical heart of the novel. Ivan articulates a devastating argument against a world ordered by God if innocent children must suffer. His rebellion culminates in The Grand Inquisitor, questioning whether humans want freedom or comforting authority. Alyosha responds not with logic but with love and presence.</p>
-        </div>
-        <div class="section">
-          <h5 class="section-title">Core Themes</h5>
-          <div class="key-idea">Faith vs reason</div>
-          <div class="key-idea">The problem of evil</div>
-          <div class="key-idea">Freedom vs authority</div>
-          <div class="key-idea">Intellectual rebellion</div>
-        </div>
-        <div class="section">
-          <h5 class="section-title">Gentle Facilitator Perspective</h5>
-          <p style="margin-bottom:10px;">Ivan's arguments resonate because they come from compassion, not coldness. You don't have to "pick a side" between Ivan and Alyosha—the novel doesn't force that. A helpful reframe: Ivan asks whether the world is fair; Alyosha asks how to live anyway.</p>
-          <p style="font-style:italic;color:#c19a6b;">Closing reflection: Which question feels more urgent to you right now—fairness or how to live?</p>
-        </div>
+    <!-- FOUNDATIONS -->
+    <section id="foundations" class="content-section" role="tabpanel">
+      <h2 class="page-title">Core Differences</h2>
+      <div id="foundationsGrid" class="grid"></div>
+    </section>
+
+    <!-- THEOLOGY -->
+    <section id="theology" class="content-section" role="tabpanel">
+      <h2 class="page-title">Theology Deep Dives</h2>
+      <div id="theologyGrid" class="grid"></div>
+    </section>
+
+    <!-- HISTORY -->
+    <section id="history" class="content-section" role="tabpanel">
+      <h2 class="page-title">History Moments</h2>
+      <div id="historyGrid" class="grid"></div>
+    </section>
+
+    <!-- PRAYERS -->
+    <section id="prayers" class="content-section" role="tabpanel">
+      <h2 class="page-title">Prayers We Share</h2>
+      <div style="display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; margin-bottom:0.75rem;">
+        <button class="btn" onclick="prayNow()">🙏 Pray Now</button>
+        <span class="tiny">(opens a prayer card)</span>
       </div>
-
-      <!-- BOOK VI -->
-      <div id="book-6" class="book-content" style="display:none;">
-        <h3 style="font-size:1.55em;color:#c9a227;margin-bottom:10px;">Book VI: The Russian Monk</h3>
-        <div class="cut-box">
-          <h4>Cut Through the Noise</h4>
-          <div class="cut-grid">
-            <div><span class="cut-label">Core Conflict:</span> <span class="cut-value">Faith becomes credible when it is lived.</span></div>
-            <div><span class="cut-label">Central Question:</span> <span class="cut-value">What does love in action look like in ordinary moments?</span></div>
-          </div>
-        </div>
-        <div class="section">
-          <h5 class="section-title">Cliff Notes Summary</h5>
-          <p>This book offers a lived vision of faith through the teachings and life of Elder Zosima. Rather than abstract theology, Zosima emphasizes humility, love, responsibility for others, and moral action in everyday life.</p>
-        </div>
-        <div class="section">
-          <h5 class="section-title">Core Themes</h5>
-          <div class="key-idea">Faith lived in action</div>
-          <div class="key-idea">Humility and love</div>
-          <div class="key-idea">Universal responsibility</div>
-          <div class="key-idea">Practical spirituality</div>
-        </div>
-        <div class="section">
-          <h5 class="section-title">Gentle Facilitator Perspective</h5>
-          <p style="margin-bottom:10px;">This book often feels slow, but many readers later realize it's the moral backbone of the novel. Zosima's ideas are simple, but not easy.</p>
-          <p style="font-style:italic;color:#c19a6b;">Closing reflection: What does "taking responsibility for others" mean in everyday life?</p>
-        </div>
-      </div>
-
-      <!-- BOOK VII -->
-      <div id="book-7" class="book-content" style="display:none;">
-        <h3 style="font-size:1.55em;color:#c9a227;margin-bottom:10px;">Book VII: Alyosha</h3>
-        <div class="cut-box">
-          <h4>Cut Through the Noise</h4>
-          <div class="cut-grid">
-            <div><span class="cut-label">Core Conflict:</span> <span class="cut-value">Disillusionment tests the maturity of faith.</span></div>
-            <div><span class="cut-label">Central Question:</span> <span class="cut-value">Can love survive disappointment?</span></div>
-          </div>
-        </div>
-        <div class="section">
-          <h5 class="section-title">Cliff Notes Summary</h5>
-          <p>Alyosha experiences a profound spiritual crisis following Zosima's death, when expectations of holiness collapse into decay and scandal. He ultimately reorients toward compassionate action rather than idealized faith.</p>
-        </div>
-        <div class="section">
-          <h5 class="section-title">Core Themes</h5>
-          <div class="key-idea">Spiritual crisis and doubt</div>
-          <div class="key-idea">Loss and disillusionment</div>
-          <div class="key-idea">Renewal through action</div>
-          <div class="key-idea">Mature faith</div>
-        </div>
-        <div class="section">
-          <h5 class="section-title">Gentle Facilitator Perspective</h5>
-          <p style="margin-bottom:10px;">Alyosha's crisis reassures readers that doubt doesn't cancel belief. His growth comes from choosing compassion after disappointment.</p>
-          <p style="font-style:italic;color:#c19a6b;">Closing reflection: How has disappointment reshaped—not erased—your own beliefs?</p>
-        </div>
-      </div>
-
-      <!-- BOOK VIII -->
-      <div id="book-8" class="book-content" style="display:none;">
-        <h3 style="font-size:1.55em;color:#c9a227;margin-bottom:10px;">Book VIII: Dmitri</h3>
-        <div class="cut-box">
-          <h4>Cut Through the Noise</h4>
-          <div class="cut-grid">
-            <div><span class="cut-label">Core Conflict:</span> <span class="cut-value">Inner guilt appears before legal guilt.</span></div>
-            <div><span class="cut-label">Central Question:</span> <span class="cut-value">Can someone be morally guilty without being legally guilty?</span></div>
-          </div>
-        </div>
-        <div class="section"><h5 class="section-title">Cliff Notes Summary</h5>
-          <p>Dmitri reaches a breaking point as jealousy, debt, and obsession spiral. His internal battle suggests moral responsibility begins before legal guilt.</p>
-        </div>
-        <div class="section"><h5 class="section-title">Core Themes</h5>
-          <div class="key-idea">Guilt and honor</div>
-          <div class="key-idea">Moral vs legal responsibility</div>
-          <div class="key-idea">Chaos and desperation</div>
-          <div class="key-idea">Tragic awareness</div>
-        </div>
-        <div class="section"><h5 class="section-title">Gentle Facilitator Perspective</h5>
-          <p style="margin-bottom:10px;">Many readers see Dmitri as someone trying to be good without knowing how. Guilt appears before crime.</p>
-          <p style="font-style:italic;color:#c19a6b;">Closing reflection: Can someone be morally guilty without being legally guilty?</p>
-        </div>
-      </div>
-
-      <!-- BOOK IX -->
-      <div id="book-9" class="book-content" style="display:none;">
-        <h3 style="font-size:1.55em;color:#c9a227;margin-bottom:10px;">Book IX: The Preliminary Investigation</h3>
-        <div class="cut-box"><h4>Cut Through the Noise</h4>
-          <div class="cut-grid">
-            <div><span class="cut-label">Core Conflict:</span> <span class="cut-value">Institutions often seek coherence over truth.</span></div>
-            <div><span class="cut-label">Central Question:</span> <span class="cut-value">How is truth shaped by narrative, bias, and power?</span></div>
-          </div>
-        </div>
-        <div class="section"><h5 class="section-title">Cliff Notes Summary</h5>
-          <p>The legal machinery begins to turn. Investigators shape a narrative of guilt as much on character and class as on facts.</p>
-        </div>
-        <div class="section"><h5 class="section-title">Core Themes</h5>
-          <div class="key-idea">Justice vs truth</div>
-          <div class="key-idea">Narrative construction</div>
-          <div class="key-idea">Appearance vs reality</div>
-          <div class="key-idea">Institutional bias</div>
-        </div>
-        <div class="section"><h5 class="section-title">Gentle Facilitator Perspective</h5>
-          <p style="margin-bottom:10px;">This book can frustrate readers because it feels unfair—and that's the point. Truth becomes a story shaped by authority and bias.</p>
-          <p style="font-style:italic;color:#c19a6b;">Closing reflection: How do you decide what feels true when evidence conflicts?</p>
-        </div>
-      </div>
-
-      <!-- BOOK X -->
-      <div id="book-10" class="book-content" style="display:none;">
-        <h3 style="font-size:1.55em;color:#c9a227;margin-bottom:10px;">Book X: The Boys</h3>
-        <div class="cut-box"><h4>Cut Through the Noise</h4>
-          <div class="cut-grid">
-            <div><span class="cut-label">Core Conflict:</span> <span class="cut-value">Moral formation happens in community, not ideology.</span></div>
-            <div><span class="cut-label">Central Question:</span> <span class="cut-value">What shapes goodness in the next generation?</span></div>
-          </div>
-        </div>
-        <div class="section"><h5 class="section-title">Cliff Notes Summary</h5>
-          <p>In a tonal shift, the novel returns to children and community. Alyosha mentors boys navigating loyalty, cruelty, and grief.</p>
-        </div>
-        <div class="section"><h5 class="section-title">Core Themes</h5>
-          <div class="key-idea">Moral formation</div>
-          <div class="key-idea">Memory and legacy</div>
-          <div class="key-idea">Community and kindness</div>
-          <div class="key-idea">Generational transmission of values</div>
-        </div>
-        <div class="section"><h5 class="section-title">Gentle Facilitator Perspective</h5>
-          <p style="margin-bottom:10px;">Dostoevsky suggests moral change starts small, not grand. Memory, kindness, and friendship matter more than ideology here.</p>
-          <p style="font-style:italic;color:#c19a6b;">Closing reflection: What small acts feel most morally meaningful to you?</p>
-        </div>
-      </div>
-
-      <!-- BOOK XI -->
-      <div id="book-11" class="book-content" style="display:none;">
-        <h3 style="font-size:1.55em;color:#c9a227;margin-bottom:10px;">Book XI: Brother Ivan Fyodorovich</h3>
-        <div class="cut-box"><h4>Cut Through the Noise</h4>
-          <div class="cut-grid">
-            <div><span class="cut-label">Core Conflict:</span> <span class="cut-value">Ideas have consequences inside a person.</span></div>
-            <div><span class="cut-label">Central Question:</span> <span class="cut-value">Can someone be responsible for ideas alone?</span></div>
-          </div>
-        </div>
-        <div class="section"><h5 class="section-title">Cliff Notes Summary</h5>
-          <p>Ivan’s philosophical rebellion turns inward, manifesting as fragmentation. He encounters the Devil as a projection of divided conscience.</p>
-        </div>
-        <div class="section"><h5 class="section-title">Core Themes</h5>
-          <div class="key-idea">Mental fragmentation</div>
-          <div class="key-idea">Responsibility for ideas</div>
-          <div class="key-idea">The divided self</div>
-          <div class="key-idea">Reason's limits</div>
-        </div>
-        <div class="section"><h5 class="section-title">Gentle Facilitator Perspective</h5>
-          <p style="margin-bottom:10px;">The Devil can be read psychologically, not literally. Ideas don’t stay abstract—they live inside us.</p>
-          <p style="font-style:italic;color:#c19a6b;">Closing reflection: When have your own ideas felt heavier than expected?</p>
-        </div>
-      </div>
-
-      <!-- BOOK XII -->
-      <div id="book-12" class="book-content" style="display:none;">
-        <h3 style="font-size:1.55em;color:#c9a227;margin-bottom:10px;">Book XII: A Judicial Error</h3>
-        <div class="cut-box"><h4>Cut Through the Noise</h4>
-          <div class="cut-grid">
-            <div><span class="cut-label">Core Conflict:</span> <span class="cut-value">Persuasion can outrun truth.</span></div>
-            <div><span class="cut-label">Central Question:</span> <span class="cut-value">What counts as justice when truth is ambiguous?</span></div>
-          </div>
-        </div>
-        <div class="section"><h5 class="section-title">Cliff Notes Summary</h5>
-          <p>The trial concludes with a verdict that feels emotionally satisfying but morally ambiguous. Speeches persuade more than evidence.</p>
-        </div>
-        <div class="section"><h5 class="section-title">Core Themes</h5>
-          <div class="key-idea">Justice vs redemption</div>
-          <div class="key-idea">Truth vs persuasion</div>
-          <div class="key-idea">Moral ambiguity</div>
-          <div class="key-idea">Suffering as spectacle</div>
-        </div>
-        <div class="section"><h5 class="section-title">Gentle Facilitator Perspective</h5>
-          <p style="margin-bottom:10px;">The ending resists closure on purpose. Justice, truth, and redemption don’t align neatly.</p>
-          <p style="font-style:italic;color:#c19a6b;">Closing reflection: What do you carry forward from this novel into your own life?</p>
-        </div>
-        <div class="takeaway" style="margin-top:16px;">
-          <strong>Final Question for the Entire Novel:</strong><br>
-          If you had to choose one brother as the novel's moral center—who would it be, and why?
-        </div>
-      </div>
-    </div>
-
-    <!-- DISCUSSION -->
-    <div id="book-questions" class="content-section">
-      <h2 class="chapter-title">Discussion Questions by Book</h2>
-
-      <div class="search-wrap">
-        <input id="questionSearch" class="search-input" type="search" placeholder="Search questions & anchors (e.g., Grand Inquisitor, Zosima, children, freedom…)" />
-        <div class="search-hint">Filters questions and chapter anchors as you type.</div>
-      </div>
-
-      <!-- BOOK I -->
-      <div class="section">
-        <h3 style="font-size: 1.6em; color: #c9a227; margin-bottom: 20px;">📘 Book I – The History of a Family</h3>
-
-        <h4 class="section-title">End-of-Book Discussion Questions</h4>
-
-        <div class="question">
-          <p class="question-text">1. Is Fyodor Pavlovich morally evil, or morally empty? Why does that distinction matter?</p>
-          <p class="question-context">Possible discussion: Many readers argue he is morally empty rather than actively evil—he lacks inner life, responsibility, or conscience. Dostoevsky suggests emptiness may be more dangerous than malice because it spreads harm without intention.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">2. How does neglect function as a form of violence in this family?</p>
-          <p class="question-context">Possible discussion: Neglect deprives the sons of moral grounding and emotional security. Unlike overt abuse, it leaves no clear villain yet produces lasting damage, shaping resentment, doubt, and instability.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">3. Are the brothers shaped more by character or by upbringing?</p>
-          <p class="question-context">Possible discussion: The novel presents both forces at work. Upbringing sets the conditions, but each brother exercises agency in how he responds—suggesting responsibility exists within constraint.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">4. What does the novel suggest about what children owe their parents—or don't?</p>
-          <p class="question-context">Possible discussion: Dostoevsky challenges the idea of automatic filial obligation. Moral authority must be earned through responsibility and love, not biology alone.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">5. Which brother feels most sympathetic at this stage, and why?</p>
-          <p class="question-context">Possible discussion: Dmitri often evokes sympathy for his suffering, Ivan for his intellectual honesty, and Alyosha for his compassion. Readers' answers often reveal their own moral priorities.</p>
-        </div>
-
-        <h4 class="section-title" style="margin-top: 30px;">Chapter Anchors</h4>
-        <div class="key-idea">Ch. 1: Why introduce the father before the sons? What tone does this set?</div>
-        <div class="key-idea">Ch. 2: Is Dmitri's fixation on money about greed or justice?</div>
-        <div class="key-idea">Ch. 3: How do Ivan and Alyosha represent different responses to the same wound?</div>
-      </div>
-
-      <!-- BOOK II -->
-      <div class="section" style="margin-top: 30px;">
-        <h3 style="font-size: 1.6em; color: #c9a227; margin-bottom: 20px;">📘 Book II – An Unfortunate Gathering</h3>
-
-        <h4 class="section-title">End-of-Book Discussion Questions</h4>
-
-        <div class="question">
-          <p class="question-text">1. Why does the family meeting fail so completely?</p>
-          <p class="question-context">Possible discussion: Each participant enters seeking dominance or vindication rather than reconciliation. The setting cannot overcome the absence of humility.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">2. What role does humiliation play in escalating conflict?</p>
-          <p class="question-context">Possible discussion: Humiliation becomes a trigger for rage and moral collapse, especially for Dmitri. Pride proves more combustible than anger alone.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">3. Is Zosima's presence calming or destabilizing?</p>
-          <p class="question-context">Possible discussion: For those open to humility, Zosima offers grounding. For the proud, his moral authority intensifies resentment.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">4. Who seeks truth in this gathering—and who seeks power?</p>
-          <p class="question-context">Possible discussion: Alyosha and Zosima seek understanding; Fyodor Pavlovich and Dmitri seek victory and validation.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">5. What does this book suggest about forgiveness?</p>
-          <p class="question-context">Possible discussion: Forgiveness requires humility; without it, formal gestures of reconciliation fail.</p>
-        </div>
-
-        <h4 class="section-title" style="margin-top: 30px;">Chapter Anchors</h4>
-        <div class="key-idea">Ch. 2–3: Why is the setting a monastery, not a home or court?</div>
-        <div class="key-idea">Ch. 5: What does Zosima's bow to Dmitri signify?</div>
-      </div>
-
-      <!-- BOOK III -->
-      <div class="section" style="margin-top: 30px;">
-        <h3 style="font-size: 1.6em; color: #c9a227; margin-bottom: 20px;">📘 Book III – The Sensualists</h3>
-
-        <h4 class="section-title">End-of-Book Discussion Questions</h4>
-
-        <div class="question">
-          <p class="question-text">1. In what ways do father and son become mirrors of each other?</p>
-          <p class="question-context">Possible discussion: Both Fyodor and Dmitri compete for Grushenka, revealing similar patterns of desire, jealousy, and moral recklessness despite their mutual contempt.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">2. Is Dmitri ruled by emotion or by an internal moral code?</p>
-          <p class="question-context">Possible discussion: He oscillates between generosity and violence, suggesting emotion drives action—but an underlying sense of honor and guilt suggests conscience is present, even if overwhelmed.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">3. How does humiliation fuel violence in this book?</p>
-          <p class="question-context">Possible discussion: Shame becomes unbearable, converting into rage. The chapter shows how public degradation can trigger destructive responses.</p>
-        </div>
-
-        <h4 class="section-title" style="margin-top: 30px;">Chapter Anchors</h4>
-        <div class="key-idea">Ch. 3–5: Is Dmitri ruled by emotion or by an internal moral code?</div>
-        <div class="key-idea">Ch. 8: How does humiliation fuel violence?</div>
-      </div>
-
-      <!-- BOOK IV -->
-      <div class="section" style="margin-top: 30px;">
-        <h3 style="font-size: 1.6em; color: #c9a227; margin-bottom: 20px;">📘 Book IV – Lacerations</h3>
-
-        <h4 class="section-title">End-of-Book Discussion Questions</h4>
-
-        <div class="question">
-          <p class="question-text">1. Why does Dostoevsky shift focus to children in this book?</p>
-          <p class="question-context">Possible discussion: Children reveal suffering in its purest form—unearned, undefended. Their pain intensifies the moral questions at the novel's core.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">2. What do the children reveal that adults conceal?</p>
-          <p class="question-context">Possible discussion: Children express pain directly, without rationalization or performance. Their vulnerability exposes what adults hide through pride, intellect, or cynicism.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">3. Is forgiveness possible without justice?</p>
-          <p class="question-context">Possible discussion: The book raises whether reconciliation can occur when wrongs remain unaddressed—whether emotional repair requires acknowledgment or restitution.</p>
-        </div>
-
-        <h4 class="section-title" style="margin-top: 30px;">Chapter Anchors</h4>
-        <div class="key-idea">Ch. 1–3: What do the children reveal that adults conceal?</div>
-        <div class="key-idea">Ch. 7: Is forgiveness possible without justice?</div>
-      </div>
-
-      <!-- BOOK V -->
-      <div class="section" style="margin-top: 30px;">
-        <h3 style="font-size: 1.6em; color: #c9a227; margin-bottom: 20px;">📘 Book V – Pro and Contra</h3>
-
-        <h4 class="section-title">End-of-Book Discussion Questions</h4>
-
-        <div class="question">
-          <p class="question-text">1. Does Ivan's argument against God succeed?</p>
-          <p class="question-context">Possible discussion: Ivan's logic is devastating, grounded in compassion for suffering children. Yet the novel doesn't resolve it—suggesting the question may be unanswerable through reason alone.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">2. Why is the problem of suffering children central to Ivan's argument?</p>
-          <p class="question-context">Possible discussion: Children's suffering is morally unearned, making theodicy—justifying God's goodness despite evil—especially difficult to defend.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">3. In The Grand Inquisitor, is freedom a burden humans actually want?</p>
-          <p class="question-context">Possible discussion: The Inquisitor argues people prefer security, miracle, and authority over moral freedom. The parable asks whether true freedom requires unbearable responsibility.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">4. How does Alyosha respond to Ivan—and is it enough?</p>
-          <p class="question-context">Possible discussion: Alyosha kisses Ivan rather than arguing. The novel suggests love may respond where logic cannot—but readers differ on whether this satisfies the intellectual challenge.</p>
-        </div>
-
-        <h4 class="section-title" style="margin-top: 30px;">Chapter Anchors</h4>
-        <div class="key-idea">Ch. 3: Why is the problem of suffering children central to Ivan's argument?</div>
-        <div class="key-idea">Ch. 5 (The Grand Inquisitor): Is freedom a burden humans actually want?</div>
-      </div>
-
-      <!-- BOOK VI -->
-      <div class="section" style="margin-top: 30px;">
-        <h3 style="font-size: 1.6em; color: #c9a227; margin-bottom: 20px;">📘 Book VI – The Russian Monk</h3>
-
-        <h4 class="section-title">End-of-Book Discussion Questions</h4>
-
-        <div class="question">
-          <p class="question-text">1. Is Zosima's philosophy realistic—or idealized?</p>
-          <p class="question-context">Possible discussion: His teachings emphasize humility, love, and responsibility for all. Some readers find this inspiring; others question whether it's practically achievable.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">2. Why does Dostoevsky slow the narrative here?</p>
-          <p class="question-context">Possible discussion: After Ivan's intellectual rebellion, the novel needs a positive moral vision. The pacing invites reflection rather than action.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">3. Is Zosima idealized—or deeply human?</p>
-          <p class="question-context">Possible discussion: His life includes violence, pride, and struggle—suggesting his wisdom emerges from experience, not innate perfection.</p>
-        </div>
-
-        <h4 class="section-title" style="margin-top: 30px;">Chapter Anchors</h4>
-        <div class="key-idea">Ch. 2: Why does Dostoevsky slow the narrative here?</div>
-        <div class="key-idea">Ch. 3: Is Zosima idealized—or deeply human?</div>
-      </div>
-
-      <!-- BOOK VII -->
-      <div class="section" style="margin-top: 30px;">
-        <h3 style="font-size: 1.6em; color: #c9a227; margin-bottom: 20px;">📘 Book VII – Alyosha</h3>
-
-        <h4 class="section-title">End-of-Book Discussion Questions</h4>
-
-        <div class="question">
-          <p class="question-text">1. Why does Zosima's death shake Alyosha so deeply?</p>
-          <p class="question-context">Possible discussion: Alyosha expected divine validation—a miracle. The body's decay shatters his idealized faith, forcing confrontation with doubt.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">2. What does Alyosha's temptation reveal?</p>
-          <p class="question-context">Possible discussion: His vulnerability to earthly indulgence shows that goodness isn't automatic—it requires renewed choice, even for the faithful.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">3. Does doubt strengthen or weaken faith in this book?</p>
-          <p class="question-context">Possible discussion: Alyosha emerges with a more grounded, less idealized faith—suggesting doubt can deepen belief when confronted honestly.</p>
-        </div>
-
-        <h4 class="section-title" style="margin-top: 30px;">Chapter Anchors</h4>
-        <div class="key-idea">Ch. 1: Why does Zosima's death shake Alyosha so deeply?</div>
-        <div class="key-idea">Ch. 4: What does Alyosha's temptation reveal?</div>
-      </div>
-
-      <!-- BOOK VIII -->
-      <div class="section" style="margin-top: 30px;">
-        <h3 style="font-size: 1.6em; color: #c9a227; margin-bottom: 20px;">📘 Book VIII – Dmitri</h3>
-
-        <h4 class="section-title">End-of-Book Discussion Questions</h4>
-
-        <div class="question">
-          <p class="question-text">1. Is Dmitri driven by fate or choice?</p>
-          <p class="question-context">Possible discussion: His desperation feels inevitable given his circumstances—yet he still makes decisions, suggesting agency exists within constraint.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">2. What moment feels like a moral turning point for Dmitri?</p>
-          <p class="question-context">Possible discussion: Readers differ on whether his crisis represents genuine transformation or temporary emotional intensity.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">3. Can guilt exist before a crime is committed?</p>
-          <p class="question-context">Possible discussion: Dmitri feels crushing moral responsibility before any legal verdict—raising questions about conscience, intention, and accountability.</p>
-        </div>
-
-        <h4 class="section-title" style="margin-top: 30px;">Chapter Anchors</h4>
-        <div class="key-idea">Ch. 1–3: Is Dmitri driven by fate or choice?</div>
-        <div class="key-idea">Ch. 7: What moment feels like a moral turning point?</div>
-      </div>
-
-      <!-- BOOK IX -->
-      <div class="section" style="margin-top: 30px;">
-        <h3 style="font-size: 1.6em; color: #c9a227; margin-bottom: 20px;">📘 Book IX – The Preliminary Investigation</h3>
-
-        <h4 class="section-title">End-of-Book Discussion Questions</h4>
-
-        <div class="question">
-          <p class="question-text">1. How is Dmitri framed linguistically by the investigators?</p>
-          <p class="question-context">Possible discussion: His passionate speech is reinterpreted as evidence of violence. Language shapes perception as much as facts do.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">2. What evidence feels persuasive—and why?</p>
-          <p class="question-context">Possible discussion: The case relies on character judgment and circumstantial narrative more than hard proof—revealing how courts construct truth.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">3. Does the investigation seek truth—or narrative coherence?</p>
-          <p class="question-context">Possible discussion: Officials seem more interested in a plausible story than actual innocence or guilt.</p>
-        </div>
-
-        <h4 class="section-title" style="margin-top: 30px;">Chapter Anchors</h4>
-        <div class="key-idea">Ch. 2: How is Dmitri framed linguistically?</div>
-        <div class="key-idea">Ch. 5: What evidence feels persuasive—and why?</div>
-      </div>
-
-      <!-- BOOK X -->
-      <div class="section" style="margin-top: 30px;">
-        <h3 style="font-size: 1.6em; color: #c9a227; margin-bottom: 20px;">📘 Book X – The Boys</h3>
-
-        <h4 class="section-title">End-of-Book Discussion Questions</h4>
-
-        <div class="question">
-          <p class="question-text">1. Why does Dostoevsky return to children at this point in the novel?</p>
-          <p class="question-context">Possible discussion: After the corruption of the trial, children represent moral possibility—a future shaped by memory, kindness, and community.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">2. Why is kindness framed as heroic in this section?</p>
-          <p class="question-context">Possible discussion: In a world of ideology and violence, simple compassion becomes radical—suggesting moral change begins small.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">3. What future is Dostoevsky imagining through these boys?</p>
-          <p class="question-context">Possible discussion: The boys' loyalty and memory suggest values can survive across generations through relationship and example.</p>
-        </div>
-
-        <h4 class="section-title" style="margin-top: 30px;">Chapter Anchors</h4>
-        <div class="key-idea">Ch. 5: Why is kindness framed as heroic?</div>
-        <div class="key-idea">Ch. 7: What future is Dostoevsky imagining?</div>
-      </div>
-
-      <!-- BOOK XI -->
-      <div class="section" style="margin-top: 30px;">
-        <h3 style="font-size: 1.6em; color: #c9a227; margin-bottom: 20px;">📘 Book XI – Brother Ivan Fyodorovich</h3>
-
-        <h4 class="section-title">End-of-Book Discussion Questions</h4>
-
-        <div class="question">
-          <p class="question-text">1. Is the Devil external or internal to Ivan?</p>
-          <p class="question-context">Possible discussion: The Devil can be read as hallucination—Ivan's fragmented conscience made visible. Either way, ideas become psychologically real.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">2. What breaks Ivan?</p>
-          <p class="question-context">Possible discussion: Guilt, responsibility, and the realization that his ideas may have enabled violence—even without direct action.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">3. Can someone be morally responsible for ideas alone?</p>
-          <p class="question-context">Possible discussion: Ivan didn't commit murder, but his philosophy may have licensed it in another. The novel asks whether intellectual rebellion carries moral weight.</p>
-        </div>
-
-        <h4 class="section-title" style="margin-top: 30px;">Chapter Anchors</h4>
-        <div class="key-idea">Ch. 9: Is the Devil external or internal?</div>
-        <div class="key-idea">Ch. 10: What breaks Ivan?</div>
-      </div>
-
-      <!-- BOOK XII -->
-      <div class="section" style="margin-top: 30px;">
-        <h3 style="font-size: 1.6em; color: #c9a227; margin-bottom: 20px;">📘 Book XII – A Judicial Error</h3>
-
-        <h4 class="section-title">End-of-Book Discussion Questions</h4>
-
-        <div class="question">
-          <p class="question-text">1. Are the closing arguments about truth—or persuasion?</p>
-          <p class="question-context">Possible discussion: The speeches appeal to emotion, class, and narrative—not evidence. The trial becomes theater.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">2. What kind of hope does the Epilogue leave us with?</p>
-          <p class="question-context">Possible discussion: The ending refuses neat closure. Justice and truth diverge, yet relationships and memory persist—suggesting hope lies in human connection, not institutions.</p>
-        </div>
-
-        <div class="question">
-          <p class="question-text">3. Does the verdict feel morally just—even if legally ambiguous?</p>
-          <p class="question-context">Possible discussion: Readers often feel conflicted. The outcome may satisfy emotionally but unsettle intellectually—forcing confrontation with competing definitions of justice.</p>
-        </div>
-
-        <h4 class="section-title" style="margin-top: 30px;">Chapter Anchors</h4>
-        <div class="key-idea">Ch. 13: Are the closing arguments about truth—or persuasion?</div>
-        <div class="key-idea">Epilogue: What kind of hope does the novel leave us with?</div>
-      </div>
-
-      <!-- FINAL QUESTION -->
-      <div class="section" style="margin-top: 40px; background: rgba(139, 69, 19, 0.5); border: 3px solid #c9a227;">
-        <h3 style="font-size: 1.8em; color: #c9a227; margin-bottom: 20px; text-align: center;">Final Question for the Entire Novel</h3>
-        <div class="question">
-          <p class="question-text" style="font-size: 1.3em; text-align: center;">If you had to choose one brother as the novel's moral center—who would it be, and why?</p>
-        </div>
-      </div>
-
-      <!-- FACILITATION TIPS -->
-      <div class="section" style="margin-top: 30px;">
-        <h3 style="font-size: 1.6em; color: #c9a227; margin-bottom: 20px;">💡 Facilitation Tips</h3>
-
-        <div class="key-idea">
-          <strong>Open with one moral question, not a plot question</strong><br>
-          Example: "Is a bad father worse than a bad man?"
-        </div>
-
-        <div class="key-idea">
-          <strong>Use the 1-2-1 pattern</strong><br>
-          • Start with one big moral question<br>
-          • Explore 2-3 specific textual moments<br>
-          • End with one forward-looking question
-        </div>
-
-        <div class="key-idea">
-          <strong>When discussion lags, ask:</strong><br>
-          "Which brother would you want to have coffee with?"
-        </div>
-
-        <div class="key-idea">
-          <strong>Balance philosophical and emotional</strong><br>
-          Alternate between "What does this mean?" and "How did this make you feel?"
-        </div>
-
-        <div class="key-idea">
-          <strong>Use "Possible discussion" prompts as gentle guides</strong><br>
-          These aren't answers to read aloud, but ways to guide conversation if people feel stuck or intimidated.
-        </div>
-      </div>
-
-      <div class="footer">
-        <h3>Continue the Conversation</h3>
-        <p>If this approach resonates, follow <strong>Ask Betsy — Structured Clarity</strong>:</p>
-        <p class="small">Website: [add link] • Newsletter: [add link] • LinkedIn: [add link]</p>
-        <p>For thoughtful clarity work or conversation:</p>
-        <p class="small">Email: [your email]</p>
-        <p class="small">Clarity compounds quietly.</p>
-      </div>
-    </div>
-
-    <!-- SPIRITUAL COMPANION -->
-    <div id="hallow" class="content-section">
-      <h2 class="chapter-title">The Brothers Karamazov – Optional Spiritual Companion (Hallow App Edition)</h2>
-
-      <div class="section">
-        <p style="font-size:1.05em;margin-bottom:14px;">This companion is optional and designed for readers who want a contemplative layer alongside Dostoevsky's novel.</p>
-
-        <ul style="padding-left:20px;margin-bottom:14px;">
-          <li style="margin-bottom:8px;">Not required for participation</li>
-          <li style="margin-bottom:8px;">Use before reading, after reading, or on a separate day</li>
-          <li style="margin-bottom:8px;">Silence, reflection, or journaling all count</li>
-        </ul>
-
-        <div class="disclaimer">
-          <strong>Note:</strong> This companion is optional and not affiliated with or endorsed by Hallow.
-        </div>
-
-        <a href="https://hallow.com/" target="_blank" rel="noopener noreferrer" class="link-btn">Open Hallow (optional)</a>
-      </div>
-
-      <div class="section">
-        <h5 class="section-title">Weekly Rhythm (Optional)</h5>
-        <div class="key-idea" style="text-align:center;font-size:1.15em;">Read → Reflect → Pray → Discuss</div>
-        <p style="margin-top:10px;color:#c19a6b;font-style:italic;text-align:center;">Flexible. Missing a step does not mean falling behind.</p>
-      </div>
-    </div>
+      <div id="prayersGrid" class="grid"></div>
+    </section>
 
   </div>
 
+  <div class="footer" style="border-top:2px solid #b45309;padding:1.5rem;text-align:center;color:#b45309;font-size:0.9rem;margin-top:2rem;">
+    Dinner Table Conversations • Ecumenical Learning Through Honest Dialogue • 2026
+  </div>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal-overlay" onclick="closeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
   <script>
-    function setActiveTab(tabName){
-      document.querySelectorAll('.content-section').forEach(s=>s.classList.remove('active'));
-      const section=document.getElementById(tabName);
-      if(section) section.classList.add('active');
+    "use strict";
 
-      document.querySelectorAll('.tab-btn').forEach(btn=>{
-        const isActive = btn.dataset.tab === tabName;
-        btn.classList.toggle('active', isActive);
-        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
-        btn.tabIndex = isActive ? 0 : -1;
+    /* ---------------------------
+       Helpers / micro-interactions
+    --------------------------- */
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function playClick(){
+      const t = document.getElementById('soundToggle');
+      const on = !!(t && t.checked);
+      if (!on) return;
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return;
+        const ctx = new Ctx();
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = 'sine';
+        o.frequency.value = 520;
+        g.gain.value = 0.05;
+        o.connect(g); g.connect(ctx.destination);
+        o.start();
+        setTimeout(()=>{ o.stop(); if (ctx.close) ctx.close(); }, 55);
+      } catch(e) {}
+    }
+
+    function haptic(){
+      try { if (navigator.vibrate) navigator.vibrate(12); } catch(e) {}
+    }
+
+    function animateOnce(el, cls){
+      if (!el) return;
+      el.classList.remove(cls);
+      void el.offsetWidth;
+      el.classList.add(cls);
+    }
+
+    function emptyState(message) {
+      return `<div style="grid-column:1 / -1; color:#cbd5e1; opacity:0.95; background:#0f172a; border:1px solid #334155; padding:1rem; border-radius:0.75rem;">${message}</div>`;
+    }
+
+    /* ---------------------------
+       Navigation
+    --------------------------- */
+    function switchTab(event, tab) {
+      document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+      const target = document.getElementById(tab);
+      if (target) target.classList.add('active');
+      if (event && event.target) event.target.classList.add('active');
+
+      if (tab === 'conversations') renderConversations();
+      if (tab === 'commandments') renderCommandments();
+      if (tab === 'rituals') renderRituals();
+      if (tab === 'practices') renderPractices();
+      if (tab === 'saints') renderSaints();
+      if (tab === 'culture') renderCulture();
+      if (tab === 'foundations') renderFoundations();
+      if (tab === 'theology') renderTheology();
+      if (tab === 'history') renderHistory();
+      if (tab === 'prayers') renderPrayers();
+      if (tab === 'dinner') updateDinnerStats();
+    }
+    window.switchTab = switchTab;
+
+    /* ---------------------------
+       DATA (trimmed sample saints list kept from your current state)
+       If you want all 131, we can swap saintsPacked to the full file next.
+    --------------------------- */
+
+    const saintsPacked = [
+      [1,"Saint Aelred of Rievaulx","Both","Mystic • Medieval","January 12","Friendship, Spiritual companionship, Loneliness, Community, Monks","Aelred was a Cistercian monk known for his writings on friendship.","Aelred followed Jesus as a mystic.","Integrated spiritual theology with relational depth."],
+      [2,"Saint Alphonsa of the Immaculate Conception","Catholic","Healer • Modern","July 28","Respiratory illness","Alphonsa was an Indian nun who suffered chronic illness.","Alphonsa followed Jesus as a healer.","First female saint of Indian origin canonized."],
+      [3,"Saint Anthony the Great","Both","Monk • Early","January 17","Monks, Hermits","Anthony is called the father of monasticism.","Anthony followed Jesus as a monk.","Father of monasticism."],
+      [4,"Saint Monica","Both","Mystic • Early","August 27","Mothers, Difficult children","Monica prayed for Augustine’s conversion for years.","Monica prayed with perseverance.","Model of persevering prayer."],
+      [5,"Saint Nektarios of Aegina","Orthodox","Healer • Modern","November 9","Cancer, Healing","Nektarios endured hardship and is invoked for healing.","Ask God for healing and strength.","Modern miracle-working saint."],
+      [6,"Saint Agatha of Sicily","Both","Martyr • Early","February 5","Breast cancer, Women’s health, Nurses","Agatha is widely invoked for breast disease and women’s health.","Ask her prayers for healing and courage.","Patron for breast disease in popular devotion."],
+      [7,"Saint Peregrine Laziosi","Catholic","Healer • Medieval","May 4","Cancer, Serious illness","Peregrine is associated in popular devotion with healing from cancer.","Ask for hope and strength.","Often invoked for cancer."],
+      [8,"Saint Carlo Acutis","Catholic","Witness • Modern","October 12","Internet, Technology, Youth","Carlo used technology to share Eucharistic devotion.","Use screens for good.","Often invoked for digital life."],
+      [9,"Saint Josephine Bakhita","Catholic","Witness • Modern","February 8","Human trafficking, Trauma healing","Bakhita survived slavery; honored for dignity and healing.","God can heal deep wounds.","Patron for trafficking survivors."],
+      [10,"Saint Paisios of Mount Athos","Orthodox","Healer • Modern","July 12","Serious illness, Spiritual direction","Paisios is beloved for compassion and counsel.","Love people and pray.","Beloved modern Athonite monk."]
+    ];
+
+    const saintsRaw = saintsPacked.map(row => ({
+      id: row[0], name: row[1], tradition: row[2], role: row[3], feast: row[4],
+      patronage: row[5], story: row[6], kidFriendly: row[7], interestingFact: row[8],
+    }));
+
+    const saints = saintsRaw
+      .sort((a,b) => (a.name||'').localeCompare(b.name||''))
+      .map((s, idx) => ({ ...s, id: idx + 1 }));
+
+    const rituals = [
+      {id:1,name:'The Sign of the Cross',icon:'✝️',
+        catholic:'Made left to right (forehead, chest, left shoulder, right shoulder).',
+        orthodox:'Made right to left with finger symbolism for Trinity + Incarnation.',
+        meaning:'Both confess Trinity and Christ’s redemption.',
+        history:'Direction differs by custom across East/West.'},
+      {id:2,name:'Icons vs. Statues',icon:'🖼️',
+        catholic:'Icons and statues are both used; statues are common in the West.',
+        orthodox:'Icons are central in worship life; statues are rare in liturgical space.',
+        meaning:'Icons are “windows to heaven,” tied to the Incarnation.',
+        history:'Icon controversy clarified icon theology.'}
+    ];
+
+    const conversations = [
+      {id:1,title:'Why Do You Make the Cross Backwards?',topic:'Sign of the Cross',tags:['Gesture','Trinity'],speakers:['Orthodox','Catholic'],
+        context:'At a service, someone notices the different direction of crossing.',
+        exchange:[
+          {speaker:'Catherine',role:'Catholic',icon:'✝️',speech:'“Is that wrong?”'},
+          {speaker:'Father Dimitri',role:'Orthodox',icon:'☦️',speech:'“Different traditions; same Trinity.”'}
+        ]},
+      {id:2,title:'Purgatory: Healing After Death?',topic:'Purgatory',tags:['Afterlife'],speakers:['Orthodox','Catholic'],
+        context:'Why Catholics define purgatory and Orthodox often avoid tight definitions.',
+        exchange:[
+          {speaker:'Maria',role:'Catholic',icon:'✝️',speech:'“God finishes His healing.”'},
+          {speaker:'Yannis',role:'Orthodox',icon:'☦️',speech:'“We pray for the departed, but guard mystery.”'}
+        ]}
+    ];
+
+    const commandments = [
+      {num:'1st',catholic:'“Thou shalt have no other gods before Me.”',origin:'Mount Sinai covenant freedom.',why:'Protects the heart from idols.',deeper:'Anything ultimate becomes an idol.',kidExplanation:'If it bosses your heart, it’s becoming an idol.'}
+    ];
+
+    const practices = [
+      {id:1,title:'Confession: Booth vs. Icon',category:'Practice',content:'Catholics often confess privately and receive a penance. Orthodox confession is often face-to-face (often before an icon); the priest commonly places the stole over the penitent’s head and prays absolution.'}
+    ];
+
+    const foundations = [
+      {id:1,title:'Authority: Pope vs. Councils',icon:'👑',description:'How binding decisions are made.',deepDive:'CATHOLIC: Papal infallibility under specific conditions.\\n\\nORTHODOX: Councils discern together.\\n\\nDINNER TIP: Ask about safeguards.'}
+    ];
+
+    const theologyTopics = [
+      {id:1,title:'Mary: Different Frameworks',question:'Why the framing differs.',catholicView:'Defined dogma in the West.',orthodoxView:'Different sin framework; caution about late definitions.',sharedTruth:'Both honor Mary as Theotokos.'}
+    ];
+
+    const historyMoments = [
+      {id:1,title:'One Church, Many Cultures',year:'33–1054',story:'Unity amid diversity before tensions hardened.'}
+    ];
+
+    const prayers = [
+      {id:1,title:"The Lord's Prayer",text:'Our Father... Amen.'},
+      {id:2,title:"Jesus Prayer",text:'Lord Jesus Christ, Son of God, have mercy on me, a sinner.'}
+    ];
+
+    const dinnerDeck = [
+      { topic:'Authority', vibe:'Gentle', kids:'No',
+        q:'When you hear “Church authority,” what do you hope it protects—and what do you fear it can harm?',
+        ans:'Healthy authority protects the Gospel and unity without becoming control.',
+        bridge:'I’m not trying to win— I want to understand what you’re protecting.',
+        follow:'What safeguards keep leaders humble and faithful?' },
+      { topic:'Lent', vibe:'Gentle', kids:'Yes',
+        q:'What is one Lenten practice that actually makes you kinder?',
+        ans:'If fasting makes you harsher, simplify. The goal is love.',
+        bridge:'Let’s focus on fruit: love, humility, patience.',
+        follow:'What’s one small act of mercy you can do this week?' }
+    ];
+
+    const cultureCards = [
+      { title:'Mass vs Divine Liturgy', q:'Top 7 words you’ll hear.', top7:[
+        'Mass (Catholic, esp. Latin Rite)',
+        'Divine Liturgy (Orthodox)',
+        'Liturgy (Orthodox shorthand)',
+        'Vespers (evening prayer)',
+        'Orthros/Matins (morning prayer)',
+        'Holy Mysteries (Orthodox)',
+        'Sacraments (Catholic)'
+      ], quick:'If you’re visiting a Greek parish, say “Divine Liturgy.”' }
+    ];
+
+    const cultureDinnerDeck = (() => {
+      const vibes = ['Gentle','Lively','Spicy'];
+      return vibes.flatMap(v => cultureCards.map(c => ({
+        topic:'Culture', vibe:v, kids:'No',
+        q:`${c.title} — ${c.q}`,
+        ans:c.quick,
+        bridge:'Curiosity first: “Tell me how you learned that habit.”',
+        follow:'What’s the story behind it in your family?',
+        deep:`<div><strong>Top 7:</strong><ol style="padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;">${c.top7.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ol></div>`
+      })));
+    })();
+
+    const deescalations = [
+      'Let’s pause. I think we’re both trying to honor Christ. Can we slow down and restate gently?'
+    ];
+
+    const unityPrayers = [
+      'Lord Jesus Christ, make us one in truth and love. Heal our pride, deepen our repentance, and teach us to listen. Amen.'
+    ];
+
+    /* ---------------------------
+       Renderers
+    --------------------------- */
+    function renderConversations() {
+      const grid = document.getElementById('conversationsGrid');
+      const search = (document.getElementById('convSearch')?.value || '').toLowerCase();
+      const topic = document.getElementById('convTopic')?.value || 'All';
+
+      const filtered = conversations.filter(c => {
+        const matchTopic = topic === 'All' || c.topic === topic;
+        const hay = (c.title + ' ' + c.topic + ' ' + (c.tags||[]).join(' ') + ' ' + c.context).toLowerCase();
+        return matchTopic && (!search || hay.includes(search));
       });
 
-      saveState();
-      window.scrollTo({top:0,behavior:'smooth'});
-    }
+      const count = document.getElementById('convCount');
+      if (count) count.textContent = `${filtered.length} conversation${filtered.length===1?'':'s'}`;
 
-    function setActiveBook(bookNum){
-      document.querySelectorAll('.book-content').forEach(c=>c.style.display='none');
-      document.querySelectorAll('.book-btn').forEach(b=>b.classList.remove('active'));
-
-      const bookEl=document.getElementById(`book-${bookNum}`);
-      if(bookEl) bookEl.style.display='block';
-
-      const btn=document.querySelector(`.book-btn[data-book="${bookNum}"]`);
-      if(btn) btn.classList.add('active');
-
-      saveState();
-    }
-
-    function setActiveChapter(bookNum, chapterNum){
-      const bookEl=document.getElementById(`book-${bookNum}`);
-      if(!bookEl) return;
-
-      bookEl.querySelectorAll('.chapter-content').forEach(c=>c.style.display='none');
-      bookEl.querySelectorAll('.chapter-btn').forEach(b=>b.classList.remove('active'));
-
-      const chapterEl=document.getElementById(`chapter-${bookNum}-${chapterNum}`);
-      if(chapterEl) chapterEl.style.display='block';
-
-      const btn=bookEl.querySelector(`.chapter-btn[data-chapter="${chapterNum}"]`);
-      if(btn) btn.classList.add('active');
-
-      saveState();
-      if(chapterEl) chapterEl.scrollIntoView({behavior:'smooth', block:'start'});
-    }
-
-    function saveState(){
-      const activeTab=document.querySelector('.tab-btn.active')?.dataset.tab;
-      if(activeTab) localStorage.setItem('kb_activeTab', activeTab);
-
-      const activeBook=document.querySelector('.book-btn.active')?.dataset.book;
-      if(activeBook) localStorage.setItem('kb_activeBook', activeBook);
-
-      if(activeBook){
-        const bookEl=document.getElementById(`book-${activeBook}`);
-        const activeChapterBtn=bookEl?.querySelector('.chapter-btn.active');
-        if(activeChapterBtn){
-          localStorage.setItem(`kb_activeChapter_B${activeBook}`, activeChapterBtn.dataset.chapter);
-        }
-      }
-    }
-
-    function restoreState(){
-      const savedTab=localStorage.getItem('kb_activeTab') || 'guide';
-      const savedBook=localStorage.getItem('kb_activeBook') || '1';
-
-      setActiveTab(savedTab);
-
-      if(savedTab==='chapters'){
-        setActiveBook(savedBook);
-        const savedChapter=localStorage.getItem(`kb_activeChapter_B${savedBook}`);
-        if(savedChapter) setActiveChapter(savedBook, savedChapter);
-      }
-    }
-
-    function wireSearch(){
-      const cInput=document.getElementById('characterSearch');
-      const cGrid=document.getElementById('characterGrid');
-      if(cInput && cGrid){
-        cInput.addEventListener('input', ()=>{
-          const q=cInput.value.trim().toLowerCase();
-          cGrid.querySelectorAll('.character-card').forEach(card=>{
-            const text=card.textContent.toLowerCase();
-            card.style.display = (!q || text.includes(q)) ? '' : 'none';
-          });
-        });
+      if (!filtered.length) {
+        grid.innerHTML = emptyState('No conversations match your search.');
+        return;
       }
 
-      const qInput=document.getElementById('questionSearch');
-      const qWrap=document.getElementById('book-questions');
-      if(qInput && qWrap){
-        qInput.addEventListener('input', ()=>{
-          const q=qInput.value.trim().toLowerCase();
-          qWrap.querySelectorAll('.question, .key-idea').forEach(el=>{
-            const text=el.textContent.toLowerCase();
-            el.style.display = (!q || text.includes(q)) ? '' : 'none';
-          });
-        });
-      }
+      grid.innerHTML = filtered.map(c => `
+        <div class="card" onclick="openModal(event,'conv-${c.id}')">
+          <h3 class="card-h3">${escapeHtml(c.title)}</h3>
+          <div style="margin-top:0.5rem;">
+            <span class="badge badge-topic">${escapeHtml(c.topic)}</span>
+          </div>
+          <p class="card-text">${escapeHtml(c.context)}</p>
+        </div>
+      `).join('');
     }
 
-    function wireNavigation(){
-      document.addEventListener('click',(e)=>{
-        const quick=e.target.closest('.quick-btn');
-        if(quick){
-          setActiveTab(quick.dataset.jump);
-          return;
-        }
+    function renderCommandments() {
+      const container = document.getElementById('commandmentsGrid');
+      container.innerHTML = commandments.map(cmd => `
+        <div class="card" onclick="openModal(event,'cmd-${cmd.num}')">
+          <h3 class="card-h3">${cmd.num} Commandment</h3>
+          <p class="card-text">${escapeHtml(cmd.catholic)}</p>
+        </div>
+      `).join('');
+    }
 
-        const tabBtn=e.target.closest('.tab-btn');
-        if(tabBtn){
-          setActiveTab(tabBtn.dataset.tab);
-          return;
-        }
+    function renderRituals() {
+      const container = document.getElementById('ritualsGrid');
+      container.innerHTML = rituals.map(r => `
+        <div class="card" onclick="openModal(event,'rit-${r.id}')">
+          <h3 class="card-h3">${r.icon} ${escapeHtml(r.name)}</h3>
+          <p class="card-text"><strong>Catholic:</strong> ${escapeHtml(r.catholic)}</p>
+        </div>
+      `).join('');
+    }
 
-        const bookBtn=e.target.closest('.book-btn');
-        if(bookBtn){
-          setActiveBook(bookBtn.dataset.book);
-          return;
-        }
+    function renderPractices() {
+      const grid = document.getElementById('practicesGrid');
+      grid.innerHTML = practices.map(p => `
+        <div class="card" onclick="openModal(event,'prac-${p.id}')">
+          <h3 class="card-h3">${escapeHtml(p.title)}</h3>
+          <p class="card-subtitle">Category: ${escapeHtml(p.category)}</p>
+          <p class="card-text">${escapeHtml(p.content)}</p>
+        </div>
+      `).join('');
+    }
 
-        const chapterBtn=e.target.closest('.chapter-btn');
-        if(chapterBtn){
-          const bookEl=chapterBtn.closest('.book-content');
-          if(!bookEl) return;
-          const bookNum=bookEl.id.replace('book-','');
-          setActiveChapter(bookNum, chapterBtn.dataset.chapter);
-        }
+    function renderSaints() {
+      const grid = document.getElementById('saintsGrid');
+      const search = (document.getElementById('saintSearch')?.value || '').toLowerCase();
+      const trad = document.getElementById('tradFilter')?.value || 'All';
+
+      const filtered = saints.filter(s => {
+        const hay = ((s.name||'')+' '+(s.role||'')+' '+(s.patronage||'')+' '+(s.story||'')).toLowerCase();
+        const matchSearch = !search || hay.includes(search);
+        const matchTrad = trad === 'All' || s.tradition === trad;
+        return matchSearch && matchTrad;
+      });
+
+      const count = document.getElementById('saintsCount');
+      if (count) count.textContent = `${filtered.length} saint${filtered.length===1?'':'s'}`;
+
+      const chipWrap = document.getElementById('saintChips');
+      if (chipWrap && !chipWrap.__built) {
+        const chips = ['Cancer','Breast cancer','Anxiety','Sleep','Grief','Mothers','Students','Work','Protection','Healing'];
+        chipWrap.innerHTML = chips.map(t => `<button class="pill" style="cursor:pointer;" onclick="setSaintSearch('${t.replace(/'/g,"\\'")}')">${t}</button>`).join('');
+        chipWrap.__built = true;
+      }
+
+      if (!filtered.length) {
+        grid.innerHTML = emptyState('No saints match that search.');
+        return;
+      }
+
+      grid.innerHTML = filtered.map(s => {
+        const badgeClass = s.tradition === 'Both' ? 'badge-both' : s.tradition === 'Orthodox' ? 'badge-orthodox' : 'badge-catholic';
+        const helps = (s.patronage||'').split(',').map(x=>x.trim()).filter(Boolean).slice(0,4).join(', ') || '—';
+        return `
+          <div class="card" onclick="openModal(event,'saint-${s.id}')">
+            <h3 class="card-h3">${escapeHtml(s.name)}</h3>
+            <span class="badge ${badgeClass}">${escapeHtml(s.tradition)}</span>
+            <p class="card-subtitle"><strong>Helps with:</strong> ${escapeHtml(helps)}</p>
+            <p class="card-subtitle">Role: ${escapeHtml(s.role||'—')}</p>
+            <p class="card-subtitle">Feast: ${escapeHtml(s.feast||'—')}</p>
+            <p class="card-text">${escapeHtml((s.story||'').slice(0,140))}...</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderCulture() {
+      const grid = document.getElementById('cultureGrid');
+      grid.innerHTML = cultureCards.map(c => `
+        <div class="card" style="cursor:default;">
+          <h3 class="card-h3">${escapeHtml(c.title)}</h3>
+          <p class="card-text"><strong>Question:</strong> ${escapeHtml(c.q)}</p>
+          <details class="shared-box" style="margin-top:0.75rem;">
+            <summary style="cursor:pointer; color:#e2e8f0; font-weight:800;">Reveal Top 7</summary>
+            <ol style="padding-left:1.25rem; margin-top:0.6rem; color:#cbd5e1; line-height:1.7;">
+              ${c.top7.map(x => `<li>${escapeHtml(x)}</li>`).join('')}
+            </ol>
+            ${c.quick ? `<div class="fun-fact" style="margin-top:0.75rem;"><div class="fun-fact-title">Quick answer</div><p style="color:#bfdbfe; margin-top:0.35rem;">${escapeHtml(c.quick)}</p></div>` : ''}
+          </details>
+        </div>
+      `).join('');
+    }
+
+    function renderFoundations() {
+      const grid = document.getElementById('foundationsGrid');
+      grid.innerHTML = foundations.map(f => `
+        <div class="card" onclick="openModal(event,'found-${f.id}')">
+          <h3 class="card-h3">${escapeHtml(f.icon)} ${escapeHtml(f.title)}</h3>
+          <p class="card-text">${escapeHtml(f.description)}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderTheology() {
+      const grid = document.getElementById('theologyGrid');
+      grid.innerHTML = theologyTopics.map(t => `
+        <div class="card" onclick="openModal(event,'theo-${t.id}')">
+          <h3 class="card-h3">${escapeHtml(t.title)}</h3>
+          <p class="card-text">${escapeHtml(t.question)}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderHistory() {
+      const grid = document.getElementById('historyGrid');
+      grid.innerHTML = historyMoments.map(h => `
+        <div class="card" onclick="openModal(event,'hist-${h.id}')">
+          <h3 class="card-h3">${escapeHtml(h.title)}</h3>
+          <p class="card-subtitle">${escapeHtml(h.year)}</p>
+          <p class="card-text">${escapeHtml(h.story)}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderPrayers() {
+      const grid = document.getElementById('prayersGrid');
+      grid.innerHTML = prayers.map(p => `
+        <div class="card" onclick="openModal(event,'prayer-${p.id}')">
+          <h3 class="card-h3">${escapeHtml(p.title)}</h3>
+          <p class="card-text">${escapeHtml(p.text)}</p>
+        </div>
+      `).join('');
+    }
+
+    /* ---------------------------
+       Modal
+    --------------------------- */
+    function openModal(event, id) {
+      if (event) event.stopPropagation();
+      const modal = document.getElementById('modal');
+      const content = document.getElementById('modalContent');
+
+      if (id.startsWith('conv-')) {
+        const convId = parseInt(id.split('-')[1], 10);
+        const c = conversations.find(x => x.id === convId);
+        content.innerHTML = `
+          <h2>${escapeHtml(c.title)}</h2>
+          <div class="context-box"><div class="context-label">Setting</div>
+            <p style="margin-top:0.5rem;color:#cbd5e1;">${escapeHtml(c.context)}</p>
+          </div>
+          ${c.exchange.map(ex => `<div class="speech"><strong>${escapeHtml(ex.speaker)}:</strong> ${escapeHtml(ex.speech)}</div>`).join('')}
+        `;
+      } else if (id.startsWith('cmd-')) {
+        const num = id.split('-')[1];
+        const cmd = commandments.find(x => x.num === num);
+        content.innerHTML = `
+          <h2>The ${escapeHtml(cmd.num)} Commandment</h2>
+          <p style="font-style:italic;color:#cbd5e1;">${escapeHtml(cmd.catholic)}</p>
+          <h3>Why</h3><p>${escapeHtml(cmd.why)}</p>
+          <h3>Deeper</h3><p>${escapeHtml(cmd.deeper)}</p>
+          <div class="kid-friendly"><div class="kid-friendly-title">🧒 For Kids</div><p style="margin-top:0.5rem;">${escapeHtml(cmd.kidExplanation)}</p></div>
+        `;
+      } else if (id.startsWith('rit-')) {
+        const rid = parseInt(id.split('-')[1],10);
+        const r = rituals.find(x => x.id === rid);
+        content.innerHTML = `
+          <h2>${escapeHtml(r.icon)} ${escapeHtml(r.name)}</h2>
+          <h3>Catholic</h3><p>${escapeHtml(r.catholic)}</p>
+          <h3>Orthodox</h3><p>${escapeHtml(r.orthodox)}</p>
+          <h3>Meaning</h3><p>${escapeHtml(r.meaning)}</p>
+        `;
+      } else if (id.startsWith('prac-')) {
+        const pid = parseInt(id.split('-')[1],10);
+        const p = practices.find(x => x.id === pid);
+        content.innerHTML = `<h2>${escapeHtml(p.title)}</h2><p>${escapeHtml(p.content)}</p>`;
+      } else if (id.startsWith('saint-')) {
+        const sid = parseInt(id.split('-')[1],10);
+        const s = saints.find(x => x.id === sid);
+        content.innerHTML = `
+          <h2>${escapeHtml(s.name)}</h2>
+          <p><strong>Tradition:</strong> ${escapeHtml(s.tradition)}</p>
+          <p><strong>Helps with:</strong> ${escapeHtml(s.patronage||'—')}</p>
+          <p><strong>Role:</strong> ${escapeHtml(s.role||'—')}</p>
+          <p><strong>Feast:</strong> ${escapeHtml(s.feast||'—')}</p>
+          <div class="story-box"><div class="story-title">📖 Story</div><p style="margin-top:0.5rem;">${escapeHtml(s.story||'')}</p></div>
+          <div class="kid-friendly"><div class="kid-friendly-title">🧒 For Kids</div><p style="margin-top:0.5rem;">${escapeHtml(s.kidFriendly||'—')}</p></div>
+          <div class="fun-fact"><div class="fun-fact-title">✨ Note</div><p style="margin-top:0.5rem;">${escapeHtml(s.interestingFact||'—')}</p></div>
+        `;
+      } else if (id.startsWith('found-')) {
+        const fid = parseInt(id.split('-')[1],10);
+        const f = foundations.find(x => x.id === fid);
+        content.innerHTML = `<h2>${escapeHtml(f.icon)} ${escapeHtml(f.title)}</h2><p>${escapeHtml(f.deepDive)}</p>`;
+      } else if (id.startsWith('theo-')) {
+        const tid = parseInt(id.split('-')[1],10);
+        const t = theologyTopics.find(x => x.id === tid);
+        content.innerHTML = `
+          <h2>${escapeHtml(t.title)}</h2>
+          <h3>Question</h3><p>${escapeHtml(t.question)}</p>
+          <h3>Catholic</h3><p>${escapeHtml(t.catholicView)}</p>
+          <h3>Orthodox</h3><p>${escapeHtml(t.orthodoxView)}</p>
+          <div class="shared-box"><div class="shared-label">What we share</div><p style="margin-top:0.35rem;">${escapeHtml(t.sharedTruth)}</p></div>
+        `;
+      } else if (id.startsWith('hist-')) {
+        const hid = parseInt(id.split('-')[1],10);
+        const h = historyMoments.find(x => x.id === hid);
+        content.innerHTML = `<h2>${escapeHtml(h.title)}</h2><p><strong>${escapeHtml(h.year)}</strong></p><p>${escapeHtml(h.story)}</p>`;
+      } else if (id.startsWith('prayer-')) {
+        const pid = parseInt(id.split('-')[1],10);
+        const p = prayers.find(x => x.id === pid);
+        content.innerHTML = `<h2>${escapeHtml(p.title)}</h2><div class="story-box"><p style="font-style:italic;margin-top:0.5rem;">${escapeHtml(p.text)}</p></div>`;
+      } else {
+        content.innerHTML = `<h2>Details</h2><p>Open a card to see details.</p>`;
+      }
+
+      modal.classList.add('active');
+    }
+
+    function closeModal(e) {
+      if (!e || e.target.id === 'modal') document.getElementById('modal').classList.remove('active');
+    }
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+    /* ---------------------------
+       Saints tools
+    --------------------------- */
+    function setSaintSearch(term){
+      const input = document.getElementById('saintSearch');
+      if (input) input.value = term;
+      renderSaints();
+    }
+
+    function getFilteredSaints(){
+      const input = document.getElementById('saintSearch');
+      const search = ((input && input.value) ? input.value : '').toLowerCase();
+      const tradEl = document.getElementById('tradFilter');
+      const trad = (tradEl && tradEl.value) ? tradEl.value : 'All';
+      return saints.filter(s => {
+        const hay = ((s.name||'')+' '+(s.role||'')+' '+(s.patronage||'')+' '+(s.story||'')).toLowerCase();
+        const matchSearch = !search || hay.includes(search);
+        const matchTrad = trad === 'All' || s.tradition === trad;
+        return matchSearch && matchTrad;
       });
     }
 
-    function wireTabKeyboard(){
-      document.addEventListener('keydown',(e)=>{
-        const active=document.querySelector('.tab-btn.active');
-        if(!active) return;
+    function randomSaint(){
+      playClick(); haptic();
+      const pool = getFilteredSaints();
+      if (!pool.length) return;
+      const s = pool[Math.floor(Math.random()*pool.length)];
+      openModal(null, `saint-${s.id}`);
+    }
 
-        const tablist=active.closest('[role="tablist"]');
-        if(!tablist) return;
-        if(!tablist.contains(document.activeElement)) return;
-
-        const tabs=Array.from(tablist.querySelectorAll('.tab-btn'));
-        const idx=tabs.indexOf(active);
-
-        if(e.key==='ArrowRight'){
-          e.preventDefault();
-          const next=tabs[(idx+1)%tabs.length];
-          next.focus();
-          setActiveTab(next.dataset.tab);
-        }
-        if(e.key==='ArrowLeft'){
-          e.preventDefault();
-          const prev=tabs[(idx-1+tabs.length)%tabs.length];
-          prev.focus();
-          setActiveTab(prev.dataset.tab);
-        }
+    /* ---------------------------
+       Conversation deal button
+    --------------------------- */
+    function getFilteredConversations(){
+      const searchEl = document.getElementById('convSearch');
+      const search = ((searchEl && searchEl.value) ? searchEl.value : '').toLowerCase();
+      const topicEl = document.getElementById('convTopic');
+      const topic = (topicEl && topicEl.value) ? topicEl.value : 'All';
+      return conversations.filter(c => {
+        const matchTopic = topic === 'All' || c.topic === topic;
+        const hay = (c.title + ' ' + c.topic + ' ' + (c.tags||[]).join(' ') + ' ' + c.context).toLowerCase();
+        const matchSearch = !search || hay.includes(search);
+        return matchTopic && matchSearch;
       });
     }
 
-    window.addEventListener('DOMContentLoaded',()=>{
-      wireNavigation();
-      wireTabKeyboard();
-      wireSearch();
-      restoreState();
+    function dealRandomConversation(){
+      playClick(); haptic();
+      const pool = getFilteredConversations();
+      if (!pool.length) return;
+      const c = pool[Math.floor(Math.random()*pool.length)];
+      openModal(null, `conv-${c.id}`);
+    }
+
+    /* ---------------------------
+       Pray Now button
+    --------------------------- */
+    function prayNow(){
+      playClick(); haptic();
+      if (!prayers || !prayers.length) return;
+      const p = prayers[Math.floor(Math.random()*prayers.length)];
+      openModal(null, `prayer-${p.id}`);
+    }
+
+    /* ---------------------------
+       Dinner deck logic
+    --------------------------- */
+    function getDeepDive(card) {
+      const topic = card.topic || 'Any';
+      const common = {
+        Authority: {
+          why: 'Authority questions often hide a deeper fear: “Will truth be protected without power becoming abuse?”',
+          mis: 'Misunderstanding: thinking the other side is only power-hungry or anti-unity.',
+          hist: 'History anchor: 1st-millennium East/West were in communion with real diversity.',
+          gentle: 'Try: “What safeguards protect humility and truth?”'
+        }
+      };
+      const d = common[topic] || {
+        why: 'Truth with love — clarity without contempt.',
+        mis: 'Misunderstanding: assuming disagreement means the other person is not faithful.',
+        hist: 'History anchor: Christians have disagreed since the early centuries; saints model patience.',
+        gentle: 'Try: “Help me understand what you mean by that word.”'
+      };
+      return `
+        <div><strong>Why this matters:</strong> ${escapeHtml(d.why)}</div>
+        <div style="margin-top:0.4rem;"><strong>Common misunderstanding:</strong> ${escapeHtml(d.mis)}</div>
+        <div style="margin-top:0.4rem;"><strong>History anchor:</strong> ${escapeHtml(d.hist)}</div>
+        <div style="margin-top:0.4rem;"><strong>Try saying it like this:</strong> ${escapeHtml(d.gentle)}</div>
+      `;
+    }
+
+    function getDinnerPool() {
+      const topic = document.getElementById('dTopic')?.value || 'Any';
+      const vibe  = document.getElementById('dVibe')?.value || 'Gentle';
+      const deck = (topic === 'Culture') ? cultureDinnerDeck : dinnerDeck;
+      return deck.filter(card => {
+        const matchTopic = (topic === 'Any') || (topic === 'Culture') || (card.topic === topic);
+        const matchVibe  = card.vibe === vibe;
+        return matchTopic && matchVibe;
+      });
+    }
+
+    function updateDinnerStats() {
+      const pool = getDinnerPool();
+      const el = document.getElementById('dStats');
+      if (!el) return;
+      const topic = document.getElementById('dTopic')?.value || 'Any';
+      const vibe  = document.getElementById('dVibe')?.value || 'Gentle';
+      const kids  = document.getElementById('dKids')?.value || 'No';
+      el.textContent = `Deck available: ${pool.length} card${pool.length===1?'':'s'} • Topic: ${topic} • Vibe: ${vibe} • Kids: ${kids==='Yes'?'Yes':'No'}`;
+    }
+
+    const dinnerHistory = [];
+    let dinnerIndex = -1;
+
+    function renderDinnerCard(card) {
+      const flip = document.getElementById('flipCard');
+      const frontKicker = document.getElementById('frontKicker');
+      const frontQ = document.getElementById('frontQ');
+      const frontMeta = document.getElementById('frontMeta');
+      const backBody = document.getElementById('backBody');
+      const counter = document.getElementById('cardCounter');
+
+      if (!card || !flip || !frontKicker || !frontQ || !frontMeta || !backBody) return;
+
+      flip.dataset.topic = card.topic || '';
+
+      if (counter) {
+        const total = dinnerHistory.length;
+        const pos = dinnerIndex >= 0 ? (dinnerIndex + 1) : 0;
+        counter.textContent = `Card ${pos} / ${total}`;
+      }
+
+      flip.classList.remove('flipped');
+
+      frontKicker.textContent = `${card.topic} • ${card.vibe}`;
+      frontQ.innerHTML = `<strong>Question:</strong> ${escapeHtml(card.q)}`;
+
+      const kidsPill = card.kids === 'Yes'
+        ? '<span class="pill">🧒 Kids-friendly</span>'
+        : '<span class="pill" style="border-color:rgba(248,113,113,0.35);">🔞 Adults-only</span>';
+
+      frontMeta.innerHTML = `
+        <span class="pill">🏷️ ${escapeHtml(card.topic)}</span>
+        <span class="pill">✨ ${escapeHtml(card.vibe)}</span>
+        ${kidsPill}
+      `;
+
+      const deepOn = !!document.getElementById('deepDiveToggle')?.checked;
+      const deepHtml = deepOn ? (card.deep || getDeepDive(card)) : '';
+
+      backBody.innerHTML = `
+        <div style="margin-top:0.25rem;"><strong>Answer / Why it matters:</strong> ${escapeHtml(card.ans || '')}</div>
+        <div class="shared-box" style="margin-top:0.85rem;">
+          <div class="shared-label">Bridge Phrase</div>
+          <div style="margin-top:0.25rem;">${escapeHtml(card.bridge || '')}</div>
+        </div>
+        <div class="fun-fact" style="margin-top:0.85rem;">
+          <div class="fun-fact-title">Follow-up</div>
+          <div style="margin-top:0.25rem;">${escapeHtml(card.follow || '')}</div>
+        </div>
+        ${deepOn ? `<div class="shared-box" style="margin-top:0.85rem;"><div class="shared-label">Deep Dive</div><div style="margin-top:0.25rem;">${deepHtml}</div></div>` : ''}
+        ${(!deepOn) ? `<div class="hintline" style="margin-top:0.75rem;">Tip: turn on <strong>Deep Dive</strong> to see deeper notes and Top 7 lists.</div>` : ''}
+      `;
+    }
+
+    function pushCardToHistory(card){
+      if (dinnerIndex < dinnerHistory.length - 1) dinnerHistory.splice(dinnerIndex + 1);
+      dinnerHistory.push(card);
+      dinnerIndex = dinnerHistory.length - 1;
+    }
+
+    function drawDinnerCard() {
+      playClick(); haptic();
+      const game = document.getElementById('gameCard');
+      animateOnce(game, 'deal-animate');
+
+      const pool = getDinnerPool();
+      if (!pool.length) return;
+
+      const card = pool[Math.floor(Math.random()*pool.length)];
+      pushCardToHistory(card);
+      renderDinnerCard(card);
+    }
+
+    function nextDinnerCard() {
+      playClick();
+      const game = document.getElementById('gameCard');
+      animateOnce(game, 'pulse-animate');
+
+      if (dinnerIndex < dinnerHistory.length - 1) {
+        dinnerIndex += 1;
+        renderDinnerCard(dinnerHistory[dinnerIndex]);
+      } else {
+        drawDinnerCard();
+      }
+    }
+
+    function prevDinnerCard() {
+      playClick();
+      const game = document.getElementById('gameCard');
+      animateOnce(game, 'pulse-animate');
+
+      if (dinnerIndex > 0) {
+        dinnerIndex -= 1;
+        renderDinnerCard(dinnerHistory[dinnerIndex]);
+      }
+    }
+
+    function flipDinnerCard(force) {
+      playClick(); haptic();
+      const game = document.getElementById('gameCard');
+      animateOnce(game, 'pulse-animate');
+
+      const flip = document.getElementById('flipCard');
+      if (!flip) return;
+
+      const want = (force === true) ? true : (force === false) ? false : !flip.classList.contains('flipped');
+      if (want) flip.classList.add('flipped'); else flip.classList.remove('flipped');
+    }
+
+    function rapidFireCulture() {
+      playClick(); haptic();
+      if (!cultureCards.length) return;
+
+      const c = cultureCards[Math.floor(Math.random()*cultureCards.length)];
+      const card = {
+        topic:'Culture',
+        vibe:'Top 7',
+        kids:'No',
+        q:`${c.title} — ${c.q}`,
+        ans:c.quick || 'Quick cue: follow the room; reverence beats perfection.',
+        bridge:'Curiosity first: “Tell me how you learned that habit.”',
+        follow:'What’s the story behind it in your family?',
+        deep:`<div><strong>Top 7:</strong><ol style="padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;">${c.top7.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ol></div>`
+      };
+
+      const game = document.getElementById('gameCard');
+      animateOnce(game, 'deal-animate');
+
+      pushCardToHistory(card);
+      renderDinnerCard(card);
+
+      setTimeout(()=>flipDinnerCard(true), 80); // auto flip
+    }
+
+    function deescalate(){
+      playClick(); haptic();
+      const msg = deescalations[Math.floor(Math.random()*deescalations.length)];
+      const card = {
+        topic:'De-escalate',
+        vibe:'Gentle',
+        kids:'No',
+        q: msg,
+        ans:'Tone is the answer here. Slow down, restate gently, and protect love.',
+        bridge:'“I think we’re both trying to honor Christ. Can we slow down?”',
+        follow:'Ask: “What’s the most important thing you want me to understand about your faith?”'
+      };
+      pushCardToHistory(card);
+      renderDinnerCard(card);
+      setTimeout(()=>flipDinnerCard(true), 80);
+    }
+
+    function endWithPrayer(){
+      playClick(); haptic();
+      const p = unityPrayers[Math.floor(Math.random()*unityPrayers.length)];
+      const card = {
+        topic:'Prayer',
+        vibe:'Gentle',
+        kids:'Yes',
+        q:'End with prayer together?',
+        ans:p,
+        bridge:'“Thank you for sharing honestly.”',
+        follow:'Optional: each person names one thing they appreciated about the other’s faith.'
+      };
+      pushCardToHistory(card);
+      renderDinnerCard(card);
+      setTimeout(()=>flipDinnerCard(true), 80);
+    }
+
+    // Swipe support (left = next, right = back)
+    (function bindDinnerSwipe(){
+      const el = document.getElementById('gameCard');
+      if (!el) return;
+      let sx = 0, sy = 0;
+      el.addEventListener('touchstart', (e)=>{
+        const t = e.touches && e.touches[0];
+        if (!t) return;
+        sx = t.clientX; sy = t.clientY;
+      }, {passive:true});
+      el.addEventListener('touchend', (e)=>{
+        const t = e.changedTouches && e.changedTouches[0];
+        if (!t) return;
+        const dx = t.clientX - sx;
+        const dy = t.clientY - sy;
+        if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
+        if (dx < 0) nextDinnerCard(); else prevDinnerCard();
+      }, {passive:true});
+    })();
+
+    /* ---------------------------
+       Boot
+    --------------------------- */
+    renderConversations();
+    renderCommandments();
+    renderRituals();
+    renderPractices();
+    renderSaints();
+    renderCulture();
+    renderFoundations();
+    renderTheology();
+    renderHistory();
+    renderPrayers();
+    updateDinnerStats();
+
+    // Expose
+    Object.assign(window, {
+      switchTab,
+      renderConversations,
+      renderCommandments,
+      renderRituals,
+      renderPractices,
+      renderSaints,
+      renderCulture,
+      renderFoundations,
+      renderTheology,
+      renderHistory,
+      renderPrayers,
+      openModal,
+      closeModal,
+      setSaintSearch,
+      randomSaint,
+      dealRandomConversation,
+      prayNow,
+      updateDinnerStats,
+      drawDinnerCard,
+      flipDinnerCard,
+      prevDinnerCard,
+      nextDinnerCard,
+      rapidFireCulture,
+      deescalate,
+      endWithPrayer
     });
   </script>
 </body>
