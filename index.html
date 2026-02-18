@@ -198,9 +198,6 @@
       .comparison-container { grid-template-columns: 1fr; }
       .grid { grid-template-columns: 1fr; }
     }
-      .header h1 { font-size: 1.6rem; }
-      .grid { grid-template-columns: 1fr; }
-    }
   </style>
 </head>
 <body>
@@ -1527,8 +1524,12 @@ function renderFoundations() {
       const topic = (dTopicEl && dTopicEl.value) ? dTopicEl.value : 'Any';
       const dVibeEl = document.getElementById('dVibe');
       const vibe = (dVibeEl && dVibeEl.value) ? dVibeEl.value : 'Gentle';
-      return dinnerDeck.filter(card => {
-        const matchTopic = topic === 'Any' || card.topic === topic;
+
+      // Culture can be dealt via the Dinner Tool by using the culture-specific deck
+      const deck = (topic === 'Culture') ? cultureDinnerDeck : dinnerDeck;
+
+      return deck.filter(card => {
+        const matchTopic = (topic === 'Any') || (topic === 'Culture') || (card.topic === topic);
         const matchVibe = card.vibe === vibe;
         return matchTopic && matchVibe;
       });
@@ -1538,10 +1539,14 @@ function renderFoundations() {
       const pool = getDinnerPool();
       const el = document.getElementById('dStats');
       if (!el) return;
-      const topic = document.getElementById('dTopic')?.value || 'Any';
-      const vibe = document.getElementById('dVibe')?.value || 'Gentle';
+
+      const dTopicEl = document.getElementById('dTopic');
+      const topic = (dTopicEl && dTopicEl.value) ? dTopicEl.value : 'Any';
+      const dVibeEl = document.getElementById('dVibe');
+      const vibe = (dVibeEl && dVibeEl.value) ? dVibeEl.value : 'Gentle';
       const dKidsEl = document.getElementById('dKids');
       const kids = (dKidsEl && dKidsEl.value) ? dKidsEl.value : 'No';
+
       el.textContent = `Deck available: ${pool.length} card${pool.length===1?'':'s'} • Topic: ${topic} • Vibe: ${vibe} • Kids: ${kids==='Yes'?'Yes (mixed deck)':'No'}`;
     }
 
@@ -1659,11 +1664,42 @@ function renderFoundations() {
       bridgeBox.style.display = 'block';
       followText.textContent = 'Optional: each person names one thing they appreciated about someone else’s faith.';
       followBox.style.display = 'block';
-      ansText.textContent = 'Ending in prayer recenters the table on Christ.';
+      ansText.textContent = 'Ending in prayer recenters the table on Christ—so love stays bigger than disagreement.';
       ansBox.style.display = 'none';
       if (deepBox) deepBox.style.display = 'none';
       showBtn.style.display = 'inline-flex';
       hideBtn.style.display = 'none';
+    }
+
+    function rapidFireCulture() {
+      const c = cultureCards[Math.floor(Math.random() * cultureCards.length)];
+      const cardEl = document.getElementById('dCard');
+      const bridgeBox = document.getElementById('dBridge');
+      const followBox = document.getElementById('dFollow');
+      const ansBox = document.getElementById('dAnswer');
+      const deepBox = document.getElementById('dDeep');
+      const showBtn = document.getElementById('showAnswerBtn');
+      const hideBtn = document.getElementById('hideAnswerBtn');
+
+      cardEl.innerHTML = `
+        <div><span class="badge badge-topic">Culture</span>
+          <span class="badge" style="background:#334155;color:#e2e8f0;">Top 7</span>
+        </div>
+        <div style="margin-top:0.75rem; font-size:1.05rem;"><strong>${c.title}</strong></div>
+        <div style="margin-top:0.35rem;">${c.q}</div>
+        <ol style="padding-left:1.25rem; margin-top:0.75rem; color:#cbd5e1; line-height:1.7;">
+          ${c.top7.map(x => `<li>${x}</li>`).join('')}
+        </ol>
+        ${c.quick ? `<div class="fun-fact" style="margin-top:0.75rem;"><div class="fun-fact-title">Quick answer</div><p style="color:#bfdbfe; margin-top:0.35rem;">${c.quick}</p></div>` : ''}
+      `;
+
+      // Hide other boxes for Rapid Fire (keeps it snappy)
+      if (bridgeBox) bridgeBox.style.display = 'none';
+      if (followBox) followBox.style.display = 'none';
+      if (ansBox) ansBox.style.display = 'none';
+      if (deepBox) deepBox.style.display = 'none';
+      if (showBtn) showBtn.style.display = 'none';
+      if (hideBtn) hideBtn.style.display = 'none';
     }
 
     function escapeHtml(str) {
@@ -1707,10 +1743,30 @@ function renderFoundations() {
     }
 
     // Expose handlers for inline onclick/onkeyup attributes (robust across environments)
-    Object.assign(window, {$1});
+    Object.assign(window, {
+      switchTab,
+      renderConversations,
+      renderCommandments,
+      renderRituals,
+      renderPractices,
+      renderSaints,
+      renderCulture,
+      renderFoundations,
+      renderTheology,
+      renderHistory,
+      renderPrayers,
+      openModal,
+      closeModal,
+      updateDinnerStats,
+      toggleAnswer,
+      dealDinnerCard,
+      deescalate,
+      endWithPrayer,
+      rapidFireCulture,
+    });
 
     // Ensure Rapid Fire is always globally callable (some mobile webviews can be picky)
-    window.rapidFireCulture = rapidFireCulture;
+    window.rapidFireCulture = rapidFireCulture; // alias for inline onclick safety
 
     // Initial render
     renderConversations();
