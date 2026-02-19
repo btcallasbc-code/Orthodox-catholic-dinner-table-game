@@ -342,7 +342,7 @@
       border-color: rgba(168,85,247,0.45);
     }
     #flipCard[data-topic="Culture"] .kicker{color:#c4b5fd;}
-    $1
+    
   </style>
 </head>
 <body>
@@ -652,6 +652,16 @@
 
   <script>
     "use strict";
+
+    // HTML escaping helper (required by Rituals/Saints/Dinner rendering)
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
 
     // Fallback: if inline onclicks are blocked or a function isn't found, handle nav clicks here.
     document.addEventListener('click', function(e){
