@@ -2161,10 +2161,6 @@ function renderFoundations() {
       renderRituals,
       renderPractices,
       renderSaints,
-      setSaintSearch,
-      randomSaint,
-      dealRandomConversation,
-      prayNow,
       renderCulture,
       renderFoundations,
       renderTheology,
@@ -2172,17 +2168,46 @@ function renderFoundations() {
       renderPrayers,
       openModal,
       closeModal,
-      updateDinnerStats,
-      toggleAnswer,
-      dealDinnerCard,
+      setSaintSearch,
+      randomSaint,
       drawDinnerCard,
       flipDinnerCard,
       prevDinnerCard,
       nextDinnerCard,
-      deescalate,
-      endWithPrayer,
       rapidFireCulture,
+      shuffleDinnerDeck,
+      resetDinnerDeck,
+      deescalate,
+      endWithPrayer
     });
+
+    // Make top tabs clickable even if inline onclicks were stripped or overridden
+    (function bindNavClicks(){
+      const map = {
+        'home':'home',
+        'dinner tool':'dinner',
+        'conversations':'conversations',
+        '10 commandments':'commandments',
+        'rituals & signs':'rituals',
+        'church practices':'practices',
+        'saints':'saints',
+        'culture cues':'culture',
+        'core differences':'foundations',
+        'theology deep dives':'theology',
+        'history':'history',
+        'prayers':'prayers'
+      };
+      const tabs = document.querySelectorAll('.nav-tab');
+      tabs.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const label = (btn.textContent || '').trim().toLowerCase();
+          const tab = map[label];
+          if (!tab) return;
+          switchTab({ target: btn }, tab);
+        }, false);
+      });
+    })();
 
     // Extra safety for inline onclick
     window.drawDinnerCard = drawDinnerCard;
