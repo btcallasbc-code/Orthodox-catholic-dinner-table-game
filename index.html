@@ -2103,6 +2103,25 @@ function renderFoundations() {
       openModal(null, `prayer-${p.id}`);
     }
 
+    // Rituals renderer (defensive)
+    function renderRituals() {
+      const container = document.getElementById('ritualsGrid');
+      if (!container) return;
+      const data = (Array.isArray(rituals) ? rituals : []);
+      if (!data.length) {
+        container.innerHTML = emptyState('No rituals loaded yet.');
+        return;
+      }
+      container.innerHTML = data.map(r => `
+        <div class="ritual-card" onclick="openModal(event,'rit-${r.id}')">
+          <div class="ritual-name">${escapeHtml(r.icon || '⛪')} ${escapeHtml(r.name || 'Ritual')}</div>
+          <div class="ritual-desc"><strong>Catholic:</strong> ${escapeHtml(r.catholic || '—')}</div>
+          <div class="ritual-desc" style="margin-top:0.35rem;"><strong>Orthodox:</strong> ${escapeHtml(r.orthodox || '—')}</div>
+        </div>
+      `).join('');
+    }
+
+
     Object.assign(window, {
       switchTab,
       renderConversations,
