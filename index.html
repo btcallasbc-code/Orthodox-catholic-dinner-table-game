@@ -691,8 +691,334 @@ const saintsPacked = [[1, "Saint Aelred of Rievaulx", "Both", "Mystic", "January
     const theologyTopics = [{"id": 1, "title": "Mary: Different Frameworks", "question": "Why the framing differs.", "catholicView": "Defined dogma in the West.", "orthodoxView": "Different sin framework; caution about late definitions.", "sharedTruth": "Both honor Mary as Theotokos."}, {"id": 2, "title": "The Eucharist: Definition vs. Mystery", "question": "Why explain it differently.", "catholicView": "A term protects the Real Presence.", "orthodoxView": "Affirms Real Presence; avoids over-defining the “how.”", "sharedTruth": "Both confess Real Presence and Eucharist as central."}, {"id": 3, "title": "Purgatory: Defined vs. Mystery", "question": "Why language differs.", "catholicView": "Purification for the saved.", "orthodoxView": "Prayer for departed with mystery; avoids mapped system.", "sharedTruth": "Both pray for the dead and trust God’s mercy."}, {"id": 4, "title": "Authority: Jurisdiction vs. Primacy of Honor", "question": "What did early Church practice?", "catholicView": "Petrine ministry continues through pope with real authority.", "orthodoxView": "Primacy of honor in first millennium; unity is conciliar.", "sharedTruth": "Both value apostolic succession and unity."}];
     const historyMoments = [{"id": 1, "title": "One Church, Many Cultures (33–1054)", "year": "33–1054", "story": "East and West were in communion while developing different languages and customs."}, {"id": 2, "title": "The Great Schism (1054)", "year": "1054", "story": "Mutual excommunications symbolized deeper tensions already underway."}, {"id": 3, "title": "Healing Steps: 1965 Lifting of Excommunications", "year": "1965", "story": "Excommunications lifted, reopening dialogue in charity."}, {"id": 4, "title": "Vatican II and Eastern Christians", "year": "1962–1965", "story": "Vatican II emphasized ecumenical dialogue and affirmed Eastern sacraments/apostolic succession."}];
     const prayers = [{"id": 1, "title": "The Lord's Prayer", "text": "Our Father, who art in heaven, hallowed be Thy name; Thy kingdom come; Thy will be done on earth as it is in heaven. Give us this day our daily bread; and forgive us our trespasses as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. Amen."}, {"id": 2, "title": "Hail Mary", "text": "Hail, Mary, full of grace, the Lord is with thee; blessed art thou amongst women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen."}, {"id": 3, "title": "Prayer for Church Unity", "text": "Lord Jesus Christ, Thou didst pray that all might be one. Heal our pride, teach us to listen, and bring us together in Thy love. Amen."}, {"id": 4, "title": "Nicene Creed (Common Core)", "text": "I believe in one God, the Father almighty, maker of heaven and earth... I believe in the Holy Spirit, the Lord, the giver of life, who proceeds from the Father... Amen."}, {"id": 5, "title": "Jesus Prayer", "text": "Lord Jesus Christ, Son of God, have mercy on me, a sinner."}];
-    const dinnerDeck = [{"topic": "Authority", "vibe": "Gentle", "kids": "No", "q": "When you hear “Church authority,” what do you hope it protects—and what do you fear it can harm?", "ans": "A healthy view of authority protects the Gospel, unity, and pastoral care—without becoming control.", "bridge": "I’m not trying to win— I want to understand what you’re protecting.", "follow": "Where do you see the Holy Spirit guiding the Church most clearly—councils, bishops, pope, saints, the faithful?"}, {"topic": "Authority", "vibe": "Lively", "kids": "No", "q": "What would “unity” look like that doesn’t erase legitimate diversity—how would we know it’s real?", "ans": "Unity isn’t sameness. In the first centuries, East/West shared core faith while keeping different customs.", "bridge": "Can we name one thing we both think unity must include?", "follow": "If the early Church managed diversity, what practical steps did they use that we could imitate?"}, {"topic": "Mary", "vibe": "Gentle", "kids": "Yes", "q": "What do you love most about Mary—and what do you think Mary teaches families today?", "ans": "Mary models trust, courage, and steady love. Both traditions honor Mary as Theotokos (God-bearer).", "bridge": "We both love Mary; let’s start with what she shows us about Jesus.", "follow": "How do you explain “Mother of God” to a child without confusing them?"}, {"topic": "Eucharist", "vibe": "Gentle", "kids": "Yes", "q": "When you receive Communion, what do you quietly ask Jesus for in your heart?", "ans": "A good answer is personal: forgiveness, strength, peace, healing, deeper faith.", "bridge": "Let’s speak from experience before definitions.", "follow": "What is one thing you wish kids understood about Communion?"}, {"topic": "Lent", "vibe": "Lively", "kids": "No", "q": "Do you prefer a “visible” start to Lent (ashes) or a “relational” start (forgiveness)? Why?", "ans": "Ashes emphasize repentance; Forgiveness Sunday emphasizes reconciliation. Both are biblical.", "bridge": "Both are about repentance—different doorways.", "follow": "What is your best story of reconciliation during Lent?"}, {"topic": "Prayer", "vibe": "Lively", "kids": "No", "q": "When you ask saints to pray for you, what do you believe is happening?", "ans": "Think “family asking family.” All grace comes from God; saints intercede in Christ.", "bridge": "I’m trying to understand the inner logic.", "follow": "What metaphor helps most: family, cloud of witnesses, or something else?"}, {"topic": "History", "vibe": "Gentle", "kids": "No", "q": "What is one historical event you wish Christians knew better before arguing online?", "ans": "History is complex—humility beats hot takes. Learn the councils, the gradual split, and healing steps.", "bridge": "Let’s replace internet heat with historical humility.", "follow": "Which mattered more: politics, language, or theology?"}, {"topic": "DailyLife", "vibe": "Gentle", "kids": "Yes", "q": "What is one habit that helps you forgive faster at home?", "ans": "Pause, breathe, pray “Lord have mercy,” apologize quickly, and do one small act of service.", "bridge": "We’re building a Christian household more than winning a debate.", "follow": "What do you do when you are too tired to pray?"}];
-    const cultureCards = [{"title": "Mass vs Divine Liturgy", "q": "Top 7 words you’ll hear (and what they usually mean).", "top7": ["“Mass” (Catholic, esp. Latin Rite) — the Eucharistic service", "“Divine Liturgy” (Orthodox) — the Eucharistic service", "“Liturgy” — shorthand for Divine Liturgy in Orthodoxy", "“Vespers” — evening prayer service", "“Matins/Orthros” — morning prayer service", "“Confession” — sacramental repentance; form differs", "“Holy Mysteries” / “Sacraments” — sacred rites"], "quick": "If you’re visiting a Greek parish, say “Divine Liturgy.”"}, {"title": "Crossing yourself near a church", "q": "Top 7 moments Greeks/Orthodox often make the sign of the Cross.", "top7": ["When passing a church (walking or driving)", "Entering the church (often at the door)", "Venerating an icon", "At Trinitarian phrases (Father/Son/Holy Spirit)", "During key Liturgy moments (e.g., Gospel, Great Entrance)", "When the priest blesses or says “Peace be with all”", "When praying for the departed or at a memorial"], "quick": "It’s usually a reverence reflex, not a rule—follow the room."}, {"title": "Standing, kneeling, and “what do I do?”", "q": "Top 7 visitor cues so you feel comfortable in either church.", "top7": ["Stand when most people stand; sit when most sit", "If unsure, stay still and attentive—reverence beats perfect choreography", "Follow the person in front of you for simple gestures", "Don’t go up for Communion unless you’re sure you should (ask privately later)", "Dress modestly; quiet shoes help", "Phones off; no photos during worship unless invited", "After service, ask: “What should visitors know here?”"], "quick": "Best line: “I’m visiting—what’s the respectful thing to do for Communion?”"}, {"title": "Coffee hour and hospitality", "q": "Top 7 culture patterns you’ll notice after service.", "top7": ["Orthodox: coffee hour can be a major community anchor", "Catholic: donuts/coffee varies by parish; hospitality can be quieter", "Orthodox: introductions and family background questions are common", "Catholic: often more anonymous unless it’s a tight parish", "Orthodox: feast days may include big meals", "Catholic: parish events often revolve around ministries", "In both: warmth + curiosity goes far"], "quick": "Stay 15 minutes after service and talk to one person."}, {"title": "Fasting etiquette (don’t make it weird)", "q": "Top 7 ways to be a good guest when someone is fasting.", "top7": ["Don’t interrogate; ask gently if they invite it", "Avoid food-policing (“Are you allowed to eat that?”)", "Offer simple options without drama", "Orthodox fasting can be more structured; Catholic practice varies", "Remember: fasting should increase love, not pride", "If you host: label dishes; let people choose quietly", "If you’re fasting: be joyful and normal—no guilt vibes"], "quick": "Fasting is medicine, not a medal—hospitality > perfection."}, {"title": "Holy Week “extra services”", "q": "Top 7 Holy Week differences that surprise visitors.", "top7": ["Orthodox Holy Week often includes many services", "Greek tradition: Holy Unction is often offered on Holy Wednesday", "Orthodox: Pascha begins in darkness and erupts into light", "Catholic: Triduum (Thu/Fri/Vigil) is the central arc", "Orthodox: long services are normal; plan time", "Catholic: Easter Vigil is also a powerful dark-to-light moment", "Both: Holy Week is meant to be lived, not only watched"], "quick": "Ask: “What Holy Week service is most meaningful to you, and why?”"}, {"title": "Names for priests and respect language", "q": "Top 7 address norms you’ll hear.", "top7": ["Orthodox: “Father + first name” (Father Dimitri)", "Greek contexts: you may hear “Pappas” informally", "Catholic: “Father + last name” is common", "Orthodox: “Presvytera” for the priest’s wife (Greek)", "Catholic: “Sister” for religious sisters", "Orthodox: “Mother” for nuns/abbesses", "When unsure: follow what the parish uses"], "quick": "Copy the room—respectful effort beats perfect accuracy."}];
+    const dinnerDeck = [
+  {
+    "topic": "Authority",
+    "vibe": "Gentle",
+    "kids": "No",
+    "q": "When you hear “Church authority,” what do you hope it protects—and what do you fear it can harm?",
+    "ans": "Healthy authority protects the Gospel and unity without becoming control. The best authority makes holiness easier, not harder.",
+    "bridge": "I’m not trying to win — I want to understand what you’re protecting.",
+    "follow": "What safeguards keep leaders humble and faithful?"
+  },
+  {
+    "topic": "Mary",
+    "vibe": "Gentle",
+    "kids": "Yes",
+    "q": "What do you love most about Mary — and what does she teach families today?",
+    "ans": "Mary models trust, courage, and steady love. Both traditions honor her as Theotokos (God-bearer).",
+    "bridge": "We both love Mary; let’s start with what she shows us about Jesus.",
+    "follow": "What Marian feast day feels most meaningful to you, and why?"
+  },
+  {
+    "topic": "Eucharist",
+    "vibe": "Gentle",
+    "kids": "Yes",
+    "q": "When you receive Communion, what do you quietly ask Jesus for in your heart?",
+    "ans": "A simple, honest prayer is enough: forgiveness, strength, peace, healing, love. Communion is encounter, not just a concept.",
+    "bridge": "Let’s speak from experience before definitions.",
+    "follow": "What do you wish kids understood about Communion?"
+  },
+  {
+    "topic": "Lent",
+    "vibe": "Gentle",
+    "kids": "Yes",
+    "q": "What is one Lenten practice that actually makes you kinder (not just stricter)?",
+    "ans": "If fasting makes you harsher, simplify. The goal is love, repentance, and mercy.",
+    "bridge": "Let’s focus on fruit: love, humility, patience.",
+    "follow": "What is one small act of mercy you can do this week?"
+  },
+  {
+    "topic": "Prayer",
+    "vibe": "Gentle",
+    "kids": "Yes",
+    "q": "If you could teach a child one mini‑prayer for the whole day, what would it be?",
+    "ans": "Short prayers train the heart: “Lord have mercy,” “Jesus help me love,” “Thank you, God.”",
+    "bridge": "No debate — just share what works in real life.",
+    "follow": "When do you most need that prayer?"
+  },
+  {
+    "topic": "Icons",
+    "vibe": "Gentle",
+    "kids": "Yes",
+    "q": "Do you have a favorite holy image at home? What makes it comforting?",
+    "ans": "Holy images help attention. They point beyond themselves to the person depicted and to God’s presence.",
+    "bridge": "We’re talking about love, not magic.",
+    "follow": "How do you teach kids veneration vs worship?"
+  },
+  {
+    "topic": "History",
+    "vibe": "Gentle",
+    "kids": "No",
+    "q": "What is one historical moment you wish Christians knew before arguing online?",
+    "ans": "History is complex. Humility beats hot takes. Learn the councils, gradual split, and modern healing steps.",
+    "bridge": "Let’s replace internet heat with historical humility.",
+    "follow": "Which mattered more: politics, language, or theology?"
+  },
+  {
+    "topic": "DailyLife",
+    "vibe": "Gentle",
+    "kids": "Yes",
+    "q": "What is one habit that helps you forgive faster at home?",
+    "ans": "Pause, breathe, pray, apologize quickly, and do one small act of service. Forgiveness is a practice.",
+    "bridge": "We’re building a Christian household more than winning a debate.",
+    "follow": "What do you do when you’re too tired to pray?"
+  },
+  {
+    "topic": "Authority",
+    "vibe": "Gentle",
+    "kids": "No",
+    "q": "When leaders fail, what helps you stay faithful without becoming cynical?",
+    "ans": "Separate doctrine from human failure. Practice repentance, truth‑telling, and steady prayer for the Church.",
+    "bridge": "I want a faithful response, not a hot take.",
+    "follow": "What’s one healthy way to respond when scandal hits?"
+  },
+  {
+    "topic": "Prayer",
+    "vibe": "Gentle",
+    "kids": "No",
+    "q": "When you feel distant from God, what helps you come back?",
+    "ans": "Start small: show up, say one honest sentence, ask for mercy, and keep going. Consistency heals.",
+    "bridge": "I’m asking for what’s real, not what sounds impressive.",
+    "follow": "What’s your smallest “return” habit?"
+  },
+  {
+    "topic": "Eucharist",
+    "vibe": "Gentle",
+    "kids": "No",
+    "q": "What does reverence look like for you before and after Communion?",
+    "ans": "Reverence is attention: prayer, silence, gratitude, and leaving space for God to work.",
+    "bridge": "Let’s talk practices that form the heart.",
+    "follow": "What’s one reverent habit you’d recommend to a visitor?"
+  },
+  {
+    "topic": "Lent",
+    "vibe": "Gentle",
+    "kids": "No",
+    "q": "If you could choose one thing to “fast” from that would heal your life, what would it be?",
+    "ans": "Fast from what drains love: gossip, resentment, doom‑scrolling, harsh speech. Replace it with prayer and mercy.",
+    "bridge": "Let’s aim for healing, not performance.",
+    "follow": "What replacement habit would you choose?"
+  },
+  {
+    "topic": "Authority",
+    "vibe": "Lively",
+    "kids": "No",
+    "q": "Do you think unity needs a single visible center, or can it be sustained by councils alone?",
+    "ans": "Both sides seek unity and truth. The question is safeguards: clarity vs shared discernment and reception.",
+    "bridge": "Can we name what good each model is trying to protect?",
+    "follow": "What’s the strongest “steelman” for the other side?"
+  },
+  {
+    "topic": "Mary",
+    "vibe": "Lively",
+    "kids": "No",
+    "q": "Do you think Mary’s greatness is mainly “God did it for her,” or “she cooperated perfectly” — or both?",
+    "ans": "Grace comes first, and Mary freely said yes. Both traditions honor her holiness and her cooperation with grace.",
+    "bridge": "I’m curious about emphasis, not trying to judge.",
+    "follow": "How do you talk about Mary without drifting into exaggeration or reduction?"
+  },
+  {
+    "topic": "Eucharist",
+    "vibe": "Lively",
+    "kids": "No",
+    "q": "Does explaining the Eucharist help faith — or can it make people too confident they “get” it?",
+    "ans": "Definitions can protect truth, but mystery must remain. Guard the “what” and stay humble about the “how.”",
+    "bridge": "We can honor mystery and still seek clarity.",
+    "follow": "What part of the liturgy/mass best teaches reverence?"
+  },
+  {
+    "topic": "Lent",
+    "vibe": "Lively",
+    "kids": "No",
+    "q": "Do you prefer a visible start to Lent (ashes) or a relational start (forgiveness) — why?",
+    "ans": "Both are biblical: repent and be reconciled. They’re different doorways into the same conversion.",
+    "bridge": "Both are about repentance — different doors.",
+    "follow": "What’s your best story of reconciliation during Lent?"
+  },
+  {
+    "topic": "Prayer",
+    "vibe": "Lively",
+    "kids": "No",
+    "q": "When you ask saints to pray for you, what do you believe is happening?",
+    "ans": "Think “family asking family.” All grace comes from God; saints intercede in Christ, not apart from Him.",
+    "bridge": "I’m trying to understand the inner logic.",
+    "follow": "What’s the best metaphor: family, cloud of witnesses, or something else?"
+  },
+  {
+    "topic": "Icons",
+    "vibe": "Lively",
+    "kids": "No",
+    "q": "Do you think beauty can evangelize? How has art or music helped your faith?",
+    "ans": "Beauty can soften resistance and open the heart. Sacred art/music is theology in color and sound.",
+    "bridge": "Beauty is a shared language — let’s share examples.",
+    "follow": "What’s your favorite hymn/chant and why?"
+  },
+  {
+    "topic": "History",
+    "vibe": "Lively",
+    "kids": "No",
+    "q": "If the first millennium was one Church, what would it take to return to that kind of communion?",
+    "ans": "Likely: patient dialogue, repentance, clarity on authority processes, and shared witness — not “one side submits.”",
+    "bridge": "We can dream responsibly without pretending it’s easy.",
+    "follow": "What would need to change on each side realistically?"
+  },
+  {
+    "topic": "DailyLife",
+    "vibe": "Lively",
+    "kids": "No",
+    "q": "How do you talk to family members who are “done with church” but still believe in God?",
+    "ans": "Lead with listening and respect. Share your story without lecturing. Invite gently and serve consistently.",
+    "bridge": "Let’s be compassionate and practical.",
+    "follow": "What has worked: invitations, listening, service, or silence?"
+  },
+  {
+    "topic": "Deep Theology",
+    "vibe": "Lively",
+    "kids": "No",
+    "q": "When people debate the Filioque, what are they trying to protect about God?",
+    "ans": "Often: protecting the Father as source and/or safeguarding the Son’s full divinity and communion within the Trinity.",
+    "bridge": "Let’s name the good each side is guarding before critiquing.",
+    "follow": "Is the bigger issue theology, or authority/process?"
+  },
+  {
+    "topic": "Authority",
+    "vibe": "Lively",
+    "kids": "No",
+    "q": "What’s the difference between authority that serves holiness and authority that becomes control?",
+    "ans": "Serving authority produces repentance, peace, and clarity; controlling authority produces fear, manipulation, and pride.",
+    "bridge": "Let’s draw a bright line between holiness and power-games.",
+    "follow": "What safeguards help keep authority pastoral?"
+  },
+  {
+    "topic": "Prayer",
+    "vibe": "Lively",
+    "kids": "Yes",
+    "q": "What’s one family prayer habit that actually sticks (not just a good idea)?",
+    "ans": "Make it short, consistent, and tied to a daily moment (meals, bedtime, car rides).",
+    "bridge": "Let’s share what’s realistic.",
+    "follow": "What’s your simplest ‘daily anchor’ prayer?"
+  },
+  {
+    "topic": "Eucharist",
+    "vibe": "Lively",
+    "kids": "Yes",
+    "q": "If a child asks “Is Jesus really there?”, what do you say in one sentence?",
+    "ans": "“Yes — Jesus is truly present, and we receive Him with love and reverence.”",
+    "bridge": "Keep it simple and faithful.",
+    "follow": "What’s your follow-up sentence if they ask ‘how’?"
+  },
+  {
+    "topic": "Authority",
+    "vibe": "Spicy",
+    "kids": "No",
+    "q": "If a pope can define doctrine, what prevents that power from being misused — and is that enough?",
+    "ans": "Catholic answer: conditions + tradition + checks; Orthodox concern: unilateral change. The debate is about safeguards.",
+    "bridge": "I’m asking about safeguards, not accusing motives.",
+    "follow": "What would you require as a non‑negotiable safeguard?"
+  },
+  {
+    "topic": "Authority",
+    "vibe": "Spicy",
+    "kids": "No",
+    "q": "If councils are supreme, how does the Church recognize a council as truly ecumenical — who decides?",
+    "ans": "Many point to reception by the whole Church over time, continuity with apostolic faith, and spiritual fruit.",
+    "bridge": "Let’s slow down — this is about discernment, not slogans.",
+    "follow": "Do you think truth is recognized instantly or tested over time?"
+  },
+  {
+    "topic": "Deep Theology",
+    "vibe": "Spicy",
+    "kids": "No",
+    "q": "If changing the Creed is the issue, what authority process would make a change legitimate (if ever)?",
+    "ans": "A common answer: an ecumenical council with broad reception. Others argue the Creed should never change.",
+    "bridge": "I’m asking process, not trying to trap you.",
+    "follow": "What’s the strongest argument for ‘never change’ vs ‘council can clarify’?"
+  },
+  {
+    "topic": "Mary",
+    "vibe": "Spicy",
+    "kids": "No",
+    "q": "Is the Immaculate Conception disagreement really about Mary — or about different definitions of original/ancestral sin?",
+    "ans": "Often it’s the framework. Shared core: Mary is Theotokos and uniquely holy; disagreement is how to define sin and dogma.",
+    "bridge": "Could we separate “Mary devotion” from “sin framework” for a minute?",
+    "follow": "What would a charitable re‑frame of the other side sound like?"
+  },
+  {
+    "topic": "Eucharist",
+    "vibe": "Spicy",
+    "kids": "No",
+    "q": "If both affirm the Real Presence, why is Eucharistic communion still a boundary — what’s underneath?",
+    "ans": "Often discipline, authority, and trust: who defines doctrine and who is in communion. Not just the Presence itself.",
+    "bridge": "I’m probing the ‘underneath,’ not picking a fight.",
+    "follow": "What would mutual reverence look like in mixed-family events?"
+  },
+  {
+    "topic": "Prayer",
+    "vibe": "Spicy",
+    "kids": "No",
+    "q": "Why do some Christians fear asking saints for prayer threatens Jesus’ role — what misunderstanding drives that?",
+    "ans": "Confusing worship with veneration; assuming intercession bypasses Christ. A calm answer: all grace comes from God; saints intercede in Christ.",
+    "bridge": "Let’s name the fear first, then respond gently.",
+    "follow": "What’s the best one‑sentence clarification you’ve heard?"
+  },
+  {
+    "topic": "Icons",
+    "vibe": "Spicy",
+    "kids": "No",
+    "q": "Is the icon debate actually about images — or about whether matter can carry grace because of the Incarnation?",
+    "ans": "At root it’s Incarnation theology: if the Word became flesh, matter can be sanctified and depicted without idolatry.",
+    "bridge": "Can we shift from objects to Incarnation theology?",
+    "follow": "What does the Incarnation imply about the material world?"
+  },
+  {
+    "topic": "Lent",
+    "vibe": "Spicy",
+    "kids": "No",
+    "q": "Is strict fasting helpful for most people — or does it usually become pride? Where’s the line?",
+    "ans": "Fasting is medicine, not a medal. Helpful when paired with prayer and mercy; harmful when it becomes comparison and judgment.",
+    "bridge": "Let’s critique ourselves first, not the other side.",
+    "follow": "How do you know your fasting is producing love?"
+  },
+  {
+    "topic": "History",
+    "vibe": "Spicy",
+    "kids": "No",
+    "q": "If a tradition admits “we handled this badly,” does that weaken it — or strengthen credibility?",
+    "ans": "Usually strengthens credibility. Repentance is Christian strength: truth‑telling builds trust.",
+    "bridge": "Repentance is always strength.",
+    "follow": "What grievance do you think the other side should hear without defensiveness?"
+  },
+  {
+    "topic": "DailyLife",
+    "vibe": "Spicy",
+    "kids": "No",
+    "q": "Do you think most Christian conflict is about theology — or pride and identity?",
+    "ans": "Both: real differences exist, but pride turns them into contempt. Truth without love becomes weapon; love without truth becomes vague.",
+    "bridge": "We can critique ourselves first.",
+    "follow": "What would humility look like in the next 10 minutes?"
+  },
+  {
+    "topic": "Deep Theology",
+    "vibe": "Spicy",
+    "kids": "No",
+    "q": "If ‘primacy and synodality together’ is the future, what concrete model could you live with?",
+    "ans": "A bounded primacy with real accountability in council, with clear limits and mutual recognition of sacraments.",
+    "bridge": "Let’s talk models, not slogans.",
+    "follow": "What boundary would you insist on?"
+  },
+  {
+    "topic": "Prayer",
+    "vibe": "Spicy",
+    "kids": "No",
+    "q": "If you had to name one thing your tradition gets wrong culturally (not doctrinally), what would it be?",
+    "ans": "Honest self-critique builds credibility and unity. Culture is where repentance can start today.",
+    "bridge": "This is self‑critique, not attack.",
+    "follow": "What would you keep, and what would you change?"
+  }
+];
+
+const cultureCards = [{"title": "Mass vs Divine Liturgy", "q": "Top 7 words you’ll hear (and what they usually mean).", "top7": ["“Mass” (Catholic, esp. Latin Rite) — the Eucharistic service", "“Divine Liturgy” (Orthodox) — the Eucharistic service", "“Liturgy” — shorthand for Divine Liturgy in Orthodoxy", "“Vespers” — evening prayer service", "“Matins/Orthros” — morning prayer service", "“Confession” — sacramental repentance; form differs", "“Holy Mysteries” / “Sacraments” — sacred rites"], "quick": "If you’re visiting a Greek parish, say “Divine Liturgy.”"}, {"title": "Crossing yourself near a church", "q": "Top 7 moments Greeks/Orthodox often make the sign of the Cross.", "top7": ["When passing a church (walking or driving)", "Entering the church (often at the door)", "Venerating an icon", "At Trinitarian phrases (Father/Son/Holy Spirit)", "During key Liturgy moments (e.g., Gospel, Great Entrance)", "When the priest blesses or says “Peace be with all”", "When praying for the departed or at a memorial"], "quick": "It’s usually a reverence reflex, not a rule—follow the room."}, {"title": "Standing, kneeling, and “what do I do?”", "q": "Top 7 visitor cues so you feel comfortable in either church.", "top7": ["Stand when most people stand; sit when most sit", "If unsure, stay still and attentive—reverence beats perfect choreography", "Follow the person in front of you for simple gestures", "Don’t go up for Communion unless you’re sure you should (ask privately later)", "Dress modestly; quiet shoes help", "Phones off; no photos during worship unless invited", "After service, ask: “What should visitors know here?”"], "quick": "Best line: “I’m visiting—what’s the respectful thing to do for Communion?”"}, {"title": "Coffee hour and hospitality", "q": "Top 7 culture patterns you’ll notice after service.", "top7": ["Orthodox: coffee hour can be a major community anchor", "Catholic: donuts/coffee varies by parish; hospitality can be quieter", "Orthodox: introductions and family background questions are common", "Catholic: often more anonymous unless it’s a tight parish", "Orthodox: feast days may include big meals", "Catholic: parish events often revolve around ministries", "In both: warmth + curiosity goes far"], "quick": "Stay 15 minutes after service and talk to one person."}, {"title": "Fasting etiquette (don’t make it weird)", "q": "Top 7 ways to be a good guest when someone is fasting.", "top7": ["Don’t interrogate; ask gently if they invite it", "Avoid food-policing (“Are you allowed to eat that?”)", "Offer simple options without drama", "Orthodox fasting can be more structured; Catholic practice varies", "Remember: fasting should increase love, not pride", "If you host: label dishes; let people choose quietly", "If you’re fasting: be joyful and normal—no guilt vibes"], "quick": "Fasting is medicine, not a medal—hospitality > perfection."}, {"title": "Holy Week “extra services”", "q": "Top 7 Holy Week differences that surprise visitors.", "top7": ["Orthodox Holy Week often includes many services", "Greek tradition: Holy Unction is often offered on Holy Wednesday", "Orthodox: Pascha begins in darkness and erupts into light", "Catholic: Triduum (Thu/Fri/Vigil) is the central arc", "Orthodox: long services are normal; plan time", "Catholic: Easter Vigil is also a powerful dark-to-light moment", "Both: Holy Week is meant to be lived, not only watched"], "quick": "Ask: “What Holy Week service is most meaningful to you, and why?”"}, {"title": "Names for priests and respect language", "q": "Top 7 address norms you’ll hear.", "top7": ["Orthodox: “Father + first name” (Father Dimitri)", "Greek contexts: you may hear “Pappas” informally", "Catholic: “Father + last name” is common", "Orthodox: “Presvytera” for the priest’s wife (Greek)", "Catholic: “Sister” for religious sisters", "Orthodox: “Mother” for nuns/abbesses", "When unsure: follow what the parish uses"], "quick": "Copy the room—respectful effort beats perfect accuracy."}];
     const cultureDinnerDeck = [{"topic": "Culture", "vibe": "Gentle", "kids": "No", "q": "Mass vs Divine Liturgy — Top 7 words you’ll hear (and what they usually mean).", "ans": "If you’re visiting a Greek parish, say “Divine Liturgy.”", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>“Mass” (Catholic, esp. Latin Rite) — the Eucharistic service</li><li>“Divine Liturgy” (Orthodox) — the Eucharistic service</li><li>“Liturgy” — shorthand for Divine Liturgy in Orthodoxy</li><li>“Vespers” — evening prayer service</li><li>“Matins/Orthros” — morning prayer service</li><li>“Confession” — sacramental repentance; form differs</li><li>“Holy Mysteries” / “Sacraments” — sacred rites</li></ol></div>"}, {"topic": "Culture", "vibe": "Gentle", "kids": "No", "q": "Crossing yourself near a church — Top 7 moments Greeks/Orthodox often make the sign of the Cross.", "ans": "It’s usually a reverence reflex, not a rule—follow the room.", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>When passing a church (walking or driving)</li><li>Entering the church (often at the door)</li><li>Venerating an icon</li><li>At Trinitarian phrases (Father/Son/Holy Spirit)</li><li>During key Liturgy moments (e.g., Gospel, Great Entrance)</li><li>When the priest blesses or says “Peace be with all”</li><li>When praying for the departed or at a memorial</li></ol></div>"}, {"topic": "Culture", "vibe": "Gentle", "kids": "No", "q": "Standing, kneeling, and “what do I do?” — Top 7 visitor cues so you feel comfortable in either church.", "ans": "Best line: “I’m visiting—what’s the respectful thing to do for Communion?”", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>Stand when most people stand; sit when most sit</li><li>If unsure, stay still and attentive—reverence beats perfect choreography</li><li>Follow the person in front of you for simple gestures</li><li>Don’t go up for Communion unless you’re sure you should (ask privately later)</li><li>Dress modestly; quiet shoes help</li><li>Phones off; no photos during worship unless invited</li><li>After service, ask: “What should visitors know here?”</li></ol></div>"}, {"topic": "Culture", "vibe": "Gentle", "kids": "No", "q": "Coffee hour and hospitality — Top 7 culture patterns you’ll notice after service.", "ans": "Stay 15 minutes after service and talk to one person.", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>Orthodox: coffee hour can be a major community anchor</li><li>Catholic: donuts/coffee varies by parish; hospitality can be quieter</li><li>Orthodox: introductions and family background questions are common</li><li>Catholic: often more anonymous unless it’s a tight parish</li><li>Orthodox: feast days may include big meals</li><li>Catholic: parish events often revolve around ministries</li><li>In both: warmth + curiosity goes far</li></ol></div>"}, {"topic": "Culture", "vibe": "Gentle", "kids": "No", "q": "Fasting etiquette (don’t make it weird) — Top 7 ways to be a good guest when someone is fasting.", "ans": "Fasting is medicine, not a medal—hospitality > perfection.", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>Don’t interrogate; ask gently if they invite it</li><li>Avoid food-policing (“Are you allowed to eat that?”)</li><li>Offer simple options without drama</li><li>Orthodox fasting can be more structured; Catholic practice varies</li><li>Remember: fasting should increase love, not pride</li><li>If you host: label dishes; let people choose quietly</li><li>If you’re fasting: be joyful and normal—no guilt vibes</li></ol></div>"}, {"topic": "Culture", "vibe": "Gentle", "kids": "No", "q": "Holy Week “extra services” — Top 7 Holy Week differences that surprise visitors.", "ans": "Ask: “What Holy Week service is most meaningful to you, and why?”", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>Orthodox Holy Week often includes many services</li><li>Greek tradition: Holy Unction is often offered on Holy Wednesday</li><li>Orthodox: Pascha begins in darkness and erupts into light</li><li>Catholic: Triduum (Thu/Fri/Vigil) is the central arc</li><li>Orthodox: long services are normal; plan time</li><li>Catholic: Easter Vigil is also a powerful dark-to-light moment</li><li>Both: Holy Week is meant to be lived, not only watched</li></ol></div>"}, {"topic": "Culture", "vibe": "Gentle", "kids": "No", "q": "Names for priests and respect language — Top 7 address norms you’ll hear.", "ans": "Copy the room—respectful effort beats perfect accuracy.", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>Orthodox: “Father + first name” (Father Dimitri)</li><li>Greek contexts: you may hear “Pappas” informally</li><li>Catholic: “Father + last name” is common</li><li>Orthodox: “Presvytera” for the priest’s wife (Greek)</li><li>Catholic: “Sister” for religious sisters</li><li>Orthodox: “Mother” for nuns/abbesses</li><li>When unsure: follow what the parish uses</li></ol></div>"}, {"topic": "Culture", "vibe": "Lively", "kids": "No", "q": "Mass vs Divine Liturgy — Top 7 words you’ll hear (and what they usually mean).", "ans": "If you’re visiting a Greek parish, say “Divine Liturgy.”", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>“Mass” (Catholic, esp. Latin Rite) — the Eucharistic service</li><li>“Divine Liturgy” (Orthodox) — the Eucharistic service</li><li>“Liturgy” — shorthand for Divine Liturgy in Orthodoxy</li><li>“Vespers” — evening prayer service</li><li>“Matins/Orthros” — morning prayer service</li><li>“Confession” — sacramental repentance; form differs</li><li>“Holy Mysteries” / “Sacraments” — sacred rites</li></ol></div>"}, {"topic": "Culture", "vibe": "Lively", "kids": "No", "q": "Crossing yourself near a church — Top 7 moments Greeks/Orthodox often make the sign of the Cross.", "ans": "It’s usually a reverence reflex, not a rule—follow the room.", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>When passing a church (walking or driving)</li><li>Entering the church (often at the door)</li><li>Venerating an icon</li><li>At Trinitarian phrases (Father/Son/Holy Spirit)</li><li>During key Liturgy moments (e.g., Gospel, Great Entrance)</li><li>When the priest blesses or says “Peace be with all”</li><li>When praying for the departed or at a memorial</li></ol></div>"}, {"topic": "Culture", "vibe": "Lively", "kids": "No", "q": "Standing, kneeling, and “what do I do?” — Top 7 visitor cues so you feel comfortable in either church.", "ans": "Best line: “I’m visiting—what’s the respectful thing to do for Communion?”", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>Stand when most people stand; sit when most sit</li><li>If unsure, stay still and attentive—reverence beats perfect choreography</li><li>Follow the person in front of you for simple gestures</li><li>Don’t go up for Communion unless you’re sure you should (ask privately later)</li><li>Dress modestly; quiet shoes help</li><li>Phones off; no photos during worship unless invited</li><li>After service, ask: “What should visitors know here?”</li></ol></div>"}, {"topic": "Culture", "vibe": "Lively", "kids": "No", "q": "Coffee hour and hospitality — Top 7 culture patterns you’ll notice after service.", "ans": "Stay 15 minutes after service and talk to one person.", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>Orthodox: coffee hour can be a major community anchor</li><li>Catholic: donuts/coffee varies by parish; hospitality can be quieter</li><li>Orthodox: introductions and family background questions are common</li><li>Catholic: often more anonymous unless it’s a tight parish</li><li>Orthodox: feast days may include big meals</li><li>Catholic: parish events often revolve around ministries</li><li>In both: warmth + curiosity goes far</li></ol></div>"}, {"topic": "Culture", "vibe": "Lively", "kids": "No", "q": "Fasting etiquette (don’t make it weird) — Top 7 ways to be a good guest when someone is fasting.", "ans": "Fasting is medicine, not a medal—hospitality > perfection.", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>Don’t interrogate; ask gently if they invite it</li><li>Avoid food-policing (“Are you allowed to eat that?”)</li><li>Offer simple options without drama</li><li>Orthodox fasting can be more structured; Catholic practice varies</li><li>Remember: fasting should increase love, not pride</li><li>If you host: label dishes; let people choose quietly</li><li>If you’re fasting: be joyful and normal—no guilt vibes</li></ol></div>"}, {"topic": "Culture", "vibe": "Lively", "kids": "No", "q": "Holy Week “extra services” — Top 7 Holy Week differences that surprise visitors.", "ans": "Ask: “What Holy Week service is most meaningful to you, and why?”", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>Orthodox Holy Week often includes many services</li><li>Greek tradition: Holy Unction is often offered on Holy Wednesday</li><li>Orthodox: Pascha begins in darkness and erupts into light</li><li>Catholic: Triduum (Thu/Fri/Vigil) is the central arc</li><li>Orthodox: long services are normal; plan time</li><li>Catholic: Easter Vigil is also a powerful dark-to-light moment</li><li>Both: Holy Week is meant to be lived, not only watched</li></ol></div>"}, {"topic": "Culture", "vibe": "Lively", "kids": "No", "q": "Names for priests and respect language — Top 7 address norms you’ll hear.", "ans": "Copy the room—respectful effort beats perfect accuracy.", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>Orthodox: “Father + first name” (Father Dimitri)</li><li>Greek contexts: you may hear “Pappas” informally</li><li>Catholic: “Father + last name” is common</li><li>Orthodox: “Presvytera” for the priest’s wife (Greek)</li><li>Catholic: “Sister” for religious sisters</li><li>Orthodox: “Mother” for nuns/abbesses</li><li>When unsure: follow what the parish uses</li></ol></div>"}, {"topic": "Culture", "vibe": "Spicy", "kids": "No", "q": "Mass vs Divine Liturgy — Top 7 words you’ll hear (and what they usually mean).", "ans": "If you’re visiting a Greek parish, say “Divine Liturgy.”", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>“Mass” (Catholic, esp. Latin Rite) — the Eucharistic service</li><li>“Divine Liturgy” (Orthodox) — the Eucharistic service</li><li>“Liturgy” — shorthand for Divine Liturgy in Orthodoxy</li><li>“Vespers” — evening prayer service</li><li>“Matins/Orthros” — morning prayer service</li><li>“Confession” — sacramental repentance; form differs</li><li>“Holy Mysteries” / “Sacraments” — sacred rites</li></ol></div>"}, {"topic": "Culture", "vibe": "Spicy", "kids": "No", "q": "Crossing yourself near a church — Top 7 moments Greeks/Orthodox often make the sign of the Cross.", "ans": "It’s usually a reverence reflex, not a rule—follow the room.", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>When passing a church (walking or driving)</li><li>Entering the church (often at the door)</li><li>Venerating an icon</li><li>At Trinitarian phrases (Father/Son/Holy Spirit)</li><li>During key Liturgy moments (e.g., Gospel, Great Entrance)</li><li>When the priest blesses or says “Peace be with all”</li><li>When praying for the departed or at a memorial</li></ol></div>"}, {"topic": "Culture", "vibe": "Spicy", "kids": "No", "q": "Standing, kneeling, and “what do I do?” — Top 7 visitor cues so you feel comfortable in either church.", "ans": "Best line: “I’m visiting—what’s the respectful thing to do for Communion?”", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>Stand when most people stand; sit when most sit</li><li>If unsure, stay still and attentive—reverence beats perfect choreography</li><li>Follow the person in front of you for simple gestures</li><li>Don’t go up for Communion unless you’re sure you should (ask privately later)</li><li>Dress modestly; quiet shoes help</li><li>Phones off; no photos during worship unless invited</li><li>After service, ask: “What should visitors know here?”</li></ol></div>"}, {"topic": "Culture", "vibe": "Spicy", "kids": "No", "q": "Coffee hour and hospitality — Top 7 culture patterns you’ll notice after service.", "ans": "Stay 15 minutes after service and talk to one person.", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>Orthodox: coffee hour can be a major community anchor</li><li>Catholic: donuts/coffee varies by parish; hospitality can be quieter</li><li>Orthodox: introductions and family background questions are common</li><li>Catholic: often more anonymous unless it’s a tight parish</li><li>Orthodox: feast days may include big meals</li><li>Catholic: parish events often revolve around ministries</li><li>In both: warmth + curiosity goes far</li></ol></div>"}, {"topic": "Culture", "vibe": "Spicy", "kids": "No", "q": "Fasting etiquette (don’t make it weird) — Top 7 ways to be a good guest when someone is fasting.", "ans": "Fasting is medicine, not a medal—hospitality > perfection.", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>Don’t interrogate; ask gently if they invite it</li><li>Avoid food-policing (“Are you allowed to eat that?”)</li><li>Offer simple options without drama</li><li>Orthodox fasting can be more structured; Catholic practice varies</li><li>Remember: fasting should increase love, not pride</li><li>If you host: label dishes; let people choose quietly</li><li>If you’re fasting: be joyful and normal—no guilt vibes</li></ol></div>"}, {"topic": "Culture", "vibe": "Spicy", "kids": "No", "q": "Holy Week “extra services” — Top 7 Holy Week differences that surprise visitors.", "ans": "Ask: “What Holy Week service is most meaningful to you, and why?”", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>Orthodox Holy Week often includes many services</li><li>Greek tradition: Holy Unction is often offered on Holy Wednesday</li><li>Orthodox: Pascha begins in darkness and erupts into light</li><li>Catholic: Triduum (Thu/Fri/Vigil) is the central arc</li><li>Orthodox: long services are normal; plan time</li><li>Catholic: Easter Vigil is also a powerful dark-to-light moment</li><li>Both: Holy Week is meant to be lived, not only watched</li></ol></div>"}, {"topic": "Culture", "vibe": "Spicy", "kids": "No", "q": "Names for priests and respect language — Top 7 address norms you’ll hear.", "ans": "Copy the room—respectful effort beats perfect accuracy.", "bridge": "Curiosity first: “Tell me how you learned that habit.”", "follow": "What’s the story behind it in your family?", "deep": "<div><strong>Top 7:</strong><ol style=\"padding-left:1.25rem;margin-top:0.5rem;line-height:1.7;\"><li>Orthodox: “Father + first name” (Father Dimitri)</li><li>Greek contexts: you may hear “Pappas” informally</li><li>Catholic: “Father + last name” is common</li><li>Orthodox: “Presvytera” for the priest’s wife (Greek)</li><li>Catholic: “Sister” for religious sisters</li><li>Orthodox: “Mother” for nuns/abbesses</li><li>When unsure: follow what the parish uses</li></ol></div>"}];
     const deescalations = ["Let’s pause. I think we’re both trying to honor Christ. Can we slow down and restate gently?"];
     const unityPrayers = ["Lord Jesus Christ, make us one in truth and love. Heal our pride, deepen our repentance, and teach us to listen. Amen."];
